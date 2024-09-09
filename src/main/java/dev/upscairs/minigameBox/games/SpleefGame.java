@@ -18,10 +18,6 @@ public class SpleefGame extends MiniGame {
         gameRunning = false;
     }
 
-    public void nextGame() {
-
-    }
-
     public boolean startGameAttempt() {
         if(gameRunning) {
             return false;
@@ -35,12 +31,6 @@ public class SpleefGame extends MiniGame {
     }
 
     private void startGameCountdown() {
-        //Waiting period
-        //Set running
-        //Set status
-        //Move ingame
-        //etc
-
         gameRunning = true;
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
             @Override
@@ -70,18 +60,13 @@ public class SpleefGame extends MiniGame {
     public boolean playerJoinQueue(Player player) {
         if(arena.isQueueOpen()) {
             arena.addPlayerToQueue(player);
+            player.setMetadata("GameName", new FixedMetadataValue(getPlugin(), "#PlayerIsInQueue#"));
             startGameAttempt();
         }
         return false;
     }
 
-    public void playerOut() {
 
-    }
-
-    public void endGame(boolean force) {
-
-    }
 
 
 

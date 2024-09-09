@@ -26,4 +26,12 @@ public class MiniGame {
         return plugin;
     }
 
+    public void playerOut(Player player) {
+
+    }
+
+    public void endGame(boolean force) {
+
+    }
+
 }
