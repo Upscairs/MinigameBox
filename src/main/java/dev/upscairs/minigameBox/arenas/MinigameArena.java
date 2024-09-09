@@ -136,4 +136,16 @@ public class MinigameArena {
     public void setContinuous(boolean continuous) {
         this.continuous = continuous;
     }
+
+    public int getMinPlayers() {
+        return minPlayers;
+    }
+
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    public boolean isContinuous() {
+        return continuous;
+    }
 }

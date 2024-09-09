@@ -66,10 +66,7 @@ public class SpleefArena extends MinigameArena {
         }
     }
 
-
-
-
-
-
-
+    public int getLayerCount() {
+        return layerCount;
+    }
 }

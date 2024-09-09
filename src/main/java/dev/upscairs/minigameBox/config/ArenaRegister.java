@@ -13,7 +13,7 @@ public class ArenaRegister {
     private static FileConfiguration customFile;
 
     public static void setup() {
-        file = new File(Bukkit.getServer().getPluginManager().getPlugin("BackTP").getDataFolder(), "arena-register.yml");
+        file = new File(Bukkit.getServer().getPluginManager().getPlugin("MinigameBox").getDataFolder(), "arena-register.yml");
 
         if (!file.exists()) {
             try {
@@ -41,6 +41,10 @@ public class ArenaRegister {
 
     public static void reload() {
         customFile = YamlConfiguration.loadConfiguration(file);
+    }
+
+    public static void setConfig(FileConfiguration config) {
+        customFile = config;
     }
 
     public static void defaults() {

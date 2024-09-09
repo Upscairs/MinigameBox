@@ -16,6 +16,7 @@ public final class MinigameBox extends JavaPlugin {
         registerCommands();
         registerEvents();
 
+        GameRegister.setPlugin(this);
         GameRegister.loadGames();
 
     }
