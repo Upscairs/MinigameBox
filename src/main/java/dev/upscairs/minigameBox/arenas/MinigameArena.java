@@ -1,4 +1,4 @@
-package dev.upscairs.minigameBox;
+package dev.upscairs.minigameBox.arenas;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,19 +17,20 @@ public class MinigameArena {
     private int fillupWaitingTimeSec;
     private int setupTimeSec;
     private boolean continuous;
+    private boolean queueOpen;
 
     private ArrayList<Player> ingamePlayers = new ArrayList<>();
     private ArrayDeque<Player> queuedPlayers = new ArrayDeque<>();
 
     public MinigameArena(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers) {
-        construct(location1, location2, outsideLocation, minPlayers, maxPlayers, 20, 10, true);
+        construct(location1, location2, outsideLocation, minPlayers, maxPlayers, 20, 10, true, true);
     }
 
-    public MinigameArena(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous) {
-        construct(location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous);
+    public MinigameArena(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
+        construct(location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen);
     }
 
-    private void construct(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous) {
+    private void construct(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
         this.location1 = location1;
         this.location2 = location2;
         this.outsideLocation = outsideLocation;
@@ -38,6 +39,7 @@ public class MinigameArena {
         this.fillupWaitingTimeSec = fillupWaitingTimeSec;
         this.setupTimeSec = setupTimeSec;
         this.continuous = continuous;
+        this.queueOpen = queueOpen;
         generateMaxMinLocs();
     }
 
@@ -65,5 +67,34 @@ public class MinigameArena {
 
     public Location getOutsideLocation() {
         return outsideLocation;
+    }
+
+    public boolean isQueueOpen() {
+        return queueOpen;
+    }
+
+    public void addPlayerToQueue(Player player) {
+        queuedPlayers.add(player);
+    }
+
+    public void setQueuedPlayersIngame() {
+        int playersIngame = ingamePlayers.size();
+        int spaceLeft = playersIngame - maxPlayers;
+        for (int i = 0; i < spaceLeft; i++) {
+            ingamePlayers.add(queuedPlayers.poll());
+        }
+    }
+
+    public boolean isAutoStartable() {
+        if(ingamePlayers.size() < minPlayers) {
+            return false;
+        }
+        if(ingamePlayers.size() > maxPlayers) {
+            return false;
+        }
+        if(!continuous) {
+            return false;
+        }
+        return true;
     }
 }
