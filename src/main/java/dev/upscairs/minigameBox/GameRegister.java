@@ -14,6 +14,7 @@ public class GameRegister {
         //Create arena
         //create game instance with arena instance
         //Put in map
+
     }
 
     public static boolean gameExists(String name) {
@@ -24,6 +25,10 @@ public class GameRegister {
         return games.get(name);
     }
 
-
+    public static void shutdownGames() {
+        for(MiniGame game : games.values()) {
+            game.endGame(false);
+        }
+    }
 
 }

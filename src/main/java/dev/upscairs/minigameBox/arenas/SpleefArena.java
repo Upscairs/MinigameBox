@@ -13,9 +13,9 @@ public class SpleefArena extends MinigameArena {
     private int layerDistance;
     private Material spleefMaterial;
 
-    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int layerCount, Material spleefMaterial) {
+    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen, int layerCount, Material spleefMaterial) {
 
-        super(name, location1, location2, outsideLocation, minPlayers, maxPlayers);
+        super(name, location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen);
 
         this.spleefMaterial = spleefMaterial;
         this.layerCount = layerCount;
@@ -28,7 +28,7 @@ public class SpleefArena extends MinigameArena {
 
         layersY = new ArrayList<>();
 
-        layerDistance = (int) Math.floor(heightDifference/layerCount);
+        layerDistance = (int) Math.floor((double) heightDifference /layerCount);
 
         for(int i = 1; i < layerCount; i++) {
             if(i % layerDistance == 0) {
