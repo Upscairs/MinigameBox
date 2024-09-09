@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class MinigameArena {
 
+    private String name;
+
     private Location location1;
     private Location location2;
     private Location outsideLocation;
@@ -22,15 +24,16 @@ public class MinigameArena {
     private ArrayList<Player> ingamePlayers = new ArrayList<>();
     private ArrayDeque<Player> queuedPlayers = new ArrayDeque<>();
 
-    public MinigameArena(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers) {
-        construct(location1, location2, outsideLocation, minPlayers, maxPlayers, 20, 10, true, true);
+    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers) {
+        construct(name, location1, location2, outsideLocation, minPlayers, maxPlayers, 20, 10, true, true);
     }
 
-    public MinigameArena(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
-        construct(location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen);
+    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
+        construct(name, location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen);
     }
 
-    private void construct(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
+    private void construct(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
+        this.name = name;
         this.location1 = location1;
         this.location2 = location2;
         this.outsideLocation = outsideLocation;
@@ -96,5 +99,21 @@ public class MinigameArena {
             return false;
         }
         return true;
+    }
+
+    public int getFillupWaitingTimeSec() {
+        return fillupWaitingTimeSec;
+    }
+
+    public int getSetupTimeSec() {
+        return setupTimeSec;
+    }
+
+    public ArrayList<Player> getIngamePlayers() {
+        return ingamePlayers;
+    }
+
+    public String getName() {
+        return name;
     }
 }

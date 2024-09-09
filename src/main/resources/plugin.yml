@@ -14,3 +14,6 @@ permissions:
       spleef:
         description: Player is in spleef game. Various commands blocked. Block behaviour adjusted.
         default: false
+    manage:
+      description: Allows to edit and moderate games.
+      default: op

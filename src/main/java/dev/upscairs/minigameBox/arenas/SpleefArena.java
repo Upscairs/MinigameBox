@@ -13,9 +13,9 @@ public class SpleefArena extends MinigameArena {
     private int layerDistance;
     private Material spleefMaterial;
 
-    public SpleefArena(Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int layerCount, Material spleefMaterial) {
+    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int layerCount, Material spleefMaterial) {
 
-        super(location1, location2, outsideLocation, minPlayers, maxPlayers);
+        super(name, location1, location2, outsideLocation, minPlayers, maxPlayers);
 
         this.spleefMaterial = spleefMaterial;
         this.layerCount = layerCount;
@@ -57,6 +57,13 @@ public class SpleefArena extends MinigameArena {
 
     public Material getSpleefMaterial() {
         return spleefMaterial;
+    }
+
+    public void movePlayersIn() {
+        Location dropLocation = new Location(getLocation1().getWorld(), (getLocation1().getX()+getLocation2().getX())/2, getLocation1().getY(), (getLocation1().getZ()+getLocation2().getZ())/2);
+        for(Player p : getIngamePlayers()) {
+            p.teleport(dropLocation);
+        }
     }
 
 

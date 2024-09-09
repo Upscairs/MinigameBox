@@ -21,6 +21,7 @@ public class BlockMineEventHandler implements Listener {
             return;
         }
 
+        //Spleef -> Check if block is arena block -> Break
         if(!p.hasPermission("minigamebox.ingame.spleef")) {
             event.setCancelled(true);
 
