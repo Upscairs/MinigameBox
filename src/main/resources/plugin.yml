@@ -1,0 +1,4 @@
+name: MinigameBox
+version: '1.0'
+main: dev.upscairs.minigameBox.MinigameBox
+api-version: '1.20'
