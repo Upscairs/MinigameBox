@@ -116,4 +116,24 @@ public class MinigameArena {
     public String getName() {
         return name;
     }
+
+    public void moveToOutsideBlock(Player player) {
+        player.teleport(outsideLocation);
+    }
+
+    public void removePlayerFromGame(Player player) {
+        ingamePlayers.remove(player);
+        moveToOutsideBlock(player);
+    }
+
+    public boolean gameEndingState() {
+        if(ingamePlayers.size() <= 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setContinuous(boolean continuous) {
+        this.continuous = continuous;
+    }
 }
