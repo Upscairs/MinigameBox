@@ -1,6 +1,8 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
+import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -12,25 +14,34 @@ public class PendingArenaCreations {
 
     public static void newSetup(Player player, String gameType, String arenaName) {
 
+        MinigameBox plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
+
         if(setups.containsKey(player)) {
-            //Error Message
+            player.sendMessage(plugin.getConfig().getString("messages.managing.error-already-creating"));
             return;
         }
 
         if(!ArenaCreationWizard.getGamemodes().contains(gameType)) {
-            //Error Message
+            player.sendMessage(plugin.getConfig().getString("messages.managing.error-unknown-gametype"));
+            return;
+        }
+
+        if(GameRegister.gameExists(arenaName)) {
+            player.sendMessage(plugin.getConfig().getString("messages.managing.error-duplicate-name"));
             return;
         }
 
         setups.put(player, new ArenaCreationWizard(gameType, arenaName, player));
-        //Success Message
+        player.sendMessage(plugin.getConfig().getString("messages.managing.success-wizard-creation"));
 
     }
 
     public static MinigameArena giveNextVar(Player player, Location location) {
 
+        MinigameBox plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
+
         if(!setups.containsKey(player)) {
-            //Error Message
+            player.sendMessage(plugin.getConfig().getString("messages.managing.error-no-wizard-running"));
             return null;
         }
 

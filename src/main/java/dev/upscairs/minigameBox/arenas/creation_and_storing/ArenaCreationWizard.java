@@ -32,12 +32,12 @@ public class ArenaCreationWizard {
 
         if(location1 == null) {
             location1 = location;
-            //Message
+            creator.sendMessage(plugin.getConfig().getString("messages.managing.success-pos1-placed"));
             return null;
         }
         if(location2 == null) {
             location2 = location;
-            //Message
+            creator.sendMessage(plugin.getConfig().getString("messages.managing.success-pos2-placed"));
             return null;
         }
 
@@ -48,7 +48,7 @@ public class ArenaCreationWizard {
         if(outsideLocation.getX() > location2.getX() && outsideLocation.getX() < location1.getX()) {
             if(outsideLocation.getY() > location2.getY() && outsideLocation.getY() < location1.getY()) {
                 if(outsideLocation.getZ() > location2.getZ() && outsideLocation.getZ() < location1.getZ()) {
-                    //TODO error message
+                    creator.sendMessage(plugin.getConfig().getString("messages.managing.error-outpos-in-bounds"));
                     outsideLocation = null;
                 }
             }
@@ -58,7 +58,7 @@ public class ArenaCreationWizard {
             return null;
         }
 
-        //Message
+        creator.sendMessage(plugin.getConfig().getString("messages.managing.success-outpos-placed-arena-created"));
         MinigameArena arena = null;
 
         if(gameType.equalsIgnoreCase("Spleef")) {

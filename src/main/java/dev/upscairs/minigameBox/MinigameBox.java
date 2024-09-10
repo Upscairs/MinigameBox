@@ -42,7 +42,7 @@ public final class MinigameBox extends JavaPlugin {
         getCommand("minigame").setExecutor(new MinigameCommand());
     }
 
-    public void registerEvents() {
+    public void registerEvents() {                                                                  
         getServer().getPluginManager().registerEvents(new PlayerJoinQueueHandler(), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveMinigameHandler(), this);
         getServer().getPluginManager().registerEvents(new SpleefMonitoring(), this);
