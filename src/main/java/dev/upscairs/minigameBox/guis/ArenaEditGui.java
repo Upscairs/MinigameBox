@@ -7,8 +7,8 @@ import org.bukkit.inventory.InventoryHolder;
 
 public class ArenaEditGui extends InteractableGui {
 
-    public ArenaEditGui(MinigameBox plugin, String[] args) {
-        super(plugin, args);
+    public ArenaEditGui(String[] args) {
+        super(args);
 
         setupInventory();
     }

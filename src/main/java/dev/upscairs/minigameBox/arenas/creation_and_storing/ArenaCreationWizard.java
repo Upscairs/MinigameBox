@@ -1,7 +1,9 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
+import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -9,6 +11,8 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class ArenaCreationWizard {
+
+    private final MinigameBox plugin;
 
     private final String gameType;
     private final String arenaName;
@@ -18,6 +22,7 @@ public class ArenaCreationWizard {
     private Location outsideLocation = null;
 
     public ArenaCreationWizard(String gameType, String arenaName, Player creator) {
+        plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
         this.gameType = gameType;
         this.arenaName = arenaName;
         this.creator = creator;

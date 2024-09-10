@@ -8,13 +8,13 @@ import org.bukkit.inventory.InventoryHolder;
 public abstract class InteractableGui implements InventoryHolder {
 
     private Inventory inventory;
-    private static MinigameBox plugin;
+    private final MinigameBox plugin;
     private String[] args;
 
 
-    public InteractableGui(MinigameBox plugin, String[] args) {
+    public InteractableGui(String[] args) {
 
-        this.plugin = plugin;
+        this.plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
         this.args = args;
 
     }

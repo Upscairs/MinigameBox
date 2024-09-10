@@ -6,6 +6,7 @@ import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.config.ArenaRegister;
 import dev.upscairs.minigameBox.games.MiniGame;
 import dev.upscairs.minigameBox.games.SpleefGame;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,16 +16,10 @@ import java.util.HashMap;
 
 public abstract class GameRegister {
 
-    private static MinigameBox plugin;
-
     //Maps arena Name to Instance
     private static HashMap<String, MiniGame> games = new HashMap<>();
 
     public static void loadGames() {
-
-        if(plugin == null) {
-            throw new IllegalStateException("Register has no plugin given yet. Please set one");
-        }
 
         games.clear();
 
@@ -48,7 +43,7 @@ public abstract class GameRegister {
 
                 MinigameArena arena = new SpleefArena(arenaName, location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen, layerCount, spleefMaterial);
 
-                MiniGame game = new SpleefGame(plugin, arena);
+                MiniGame game = new SpleefGame(arena);
 
                 games.put(arenaName, game);
             });
@@ -97,10 +92,6 @@ public abstract class GameRegister {
             game.endGame(false);
             saveArenaSettings(game.getArena());
         }
-    }
-
-    public static void setPlugin(MinigameBox plugin) {
-        GameRegister.plugin = plugin;
     }
 
 }

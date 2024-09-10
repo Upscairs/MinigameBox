@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class MiniGame {
 
-    private MinigameBox plugin;
+    private final MinigameBox plugin;
     private MinigameArena arena;
     private boolean gameRunning;
     private ArrayList<Player> droppedOutPlayers = new ArrayList<>();
 
-    public MiniGame(MinigameBox plugin, MinigameArena arena) {
-        this.plugin = plugin;
+    public MiniGame(MinigameArena arena) {
+        this.plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
         this.arena = arena;
         gameRunning = false;
     }

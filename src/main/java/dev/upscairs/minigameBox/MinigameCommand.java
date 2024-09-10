@@ -14,12 +14,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class MinigameCommand implements CommandExecutor {
 
-    private MinigameBox plugin;
-
-    public MinigameCommand(MinigameBox plugin) {
-        this.plugin = plugin;
-    }
-
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if(sender instanceof Player p) {
@@ -86,7 +80,7 @@ public class MinigameCommand implements CommandExecutor {
                         //Error message
                     }
                     else {
-                        InteractableGui gui = new ArenaEditGui(plugin, new String[]{p.getUniqueId().toString()});
+                        InteractableGui gui = new ArenaEditGui(new String[]{p.getUniqueId().toString()});
                         p.openInventory(gui.getInventory());
                     }
                     return true;

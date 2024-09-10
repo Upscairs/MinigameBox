@@ -9,15 +9,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MinigameBox extends JavaPlugin {
 
+    public static MinigameBox instance;
+
     @Override
     public void onEnable() {
+
+        instance = this;
 
         setupFiles();
 
         registerCommands();
         registerEvents();
 
-        GameRegister.setPlugin(this);
         GameRegister.loadGames();
 
     }
@@ -36,7 +39,7 @@ public final class MinigameBox extends JavaPlugin {
     }
 
     public void registerCommands() {
-        getCommand("minigame").setExecutor(new MinigameCommand(this));
+        getCommand("minigame").setExecutor(new MinigameCommand());
     }
 
     public void registerEvents() {

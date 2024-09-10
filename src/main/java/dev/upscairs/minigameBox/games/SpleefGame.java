@@ -11,8 +11,8 @@ public class SpleefGame extends MiniGame {
 
     private SpleefArena arena;
     
-    public SpleefGame(MinigameBox plugin, MinigameArena arena) {
-        super(plugin, arena);
+    public SpleefGame(MinigameArena arena) {
+        super(arena);
     }
 
     @Override
