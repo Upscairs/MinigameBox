@@ -1,5 +1,6 @@
 package dev.upscairs.minigameBox;
 
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.config.ArenaRegister;
 import dev.upscairs.minigameBox.events.handling.PlayerJoinQueueHandler;
 import dev.upscairs.minigameBox.events.handling.PlayerLeaveMinigameHandler;

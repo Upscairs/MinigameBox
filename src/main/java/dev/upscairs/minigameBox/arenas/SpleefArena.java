@@ -30,14 +30,16 @@ public class SpleefArena extends MinigameArena {
 
         layerDistance = (int) Math.floor((double) heightDifference /layerCount);
 
+
         for(int i = 1; i < layerCount; i++) {
             if(i % layerDistance == 0) {
-                layersY.add(i);
+                layersY.add(i+(int)location2.getY());
             }
         }
 
     }
 
+    @Override
     public void regenerateArena() {
 
         Location location1 = getLocation1();

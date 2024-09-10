@@ -18,6 +18,7 @@ public class SpleefGame extends MiniGame {
     @Override
     public void startGameFinal() {
         setGameRunning(true);
+        arena.regenerateArena();
         arena.movePlayersIn();
         //Arena needs default protection
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {

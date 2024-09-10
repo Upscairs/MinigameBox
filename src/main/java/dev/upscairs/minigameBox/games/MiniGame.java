@@ -87,16 +87,18 @@ public class MiniGame {
 
     public void endGame(boolean force) {
 
-        if(force) {
-            arena.setContinuous(false);
-        }
-        
         for(Player player : arena.getIngamePlayers()) {
             player.removeMetadata("GameName", plugin);
             arena.removePlayerFromGame(player);
         }
         
         gameRunning = false;
+
+        if(force) {
+            arena.setContinuous(false);
+            return;
+        }
+
         //TODO reward
         startGameAttempt();
 

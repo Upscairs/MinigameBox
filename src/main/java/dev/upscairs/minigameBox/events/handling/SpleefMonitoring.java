@@ -1,6 +1,6 @@
 package dev.upscairs.minigameBox.events.handling;
 
-import dev.upscairs.minigameBox.GameRegister;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.events.custom.PlayerLeaveMinigameEvent;
 import dev.upscairs.minigameBox.games.SpleefGame;

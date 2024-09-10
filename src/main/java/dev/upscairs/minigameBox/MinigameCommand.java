@@ -1,5 +1,8 @@
 package dev.upscairs.minigameBox;
 
+import dev.upscairs.minigameBox.arenas.MinigameArena;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaCreations;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,15 +16,48 @@ public class MinigameCommand implements CommandExecutor {
 
         if(sender instanceof Player p) {
 
-            if(args.length > 2) {
+            if(args.length == 0) {
+                //Open arena overview window
+                return true;
+            }
 
-                if(args[0].equalsIgnoreCase("join")) {
-                    String arenaName = args[1];
-                    Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinEvent(p, arenaName));
+            if(args[0].equalsIgnoreCase("create")) {
+                if(args.length == 3) {
+                    PendingArenaCreations.newSetup(p, args[1], args[2]);
+                }
+                else {
+                    //Message
+                }
+                return true;
+            }
+
+            if(args[0].equalsIgnoreCase("setpos")) {
+
+                MinigameArena arena = PendingArenaCreations.giveNextVar(p, p.getLocation());
+
+                if(arena != null) {
+                    GameRegister.saveArenaSettings(arena);
+                    GameRegister.getGame(arena.getName()).getArena().regenerateArena();
                 }
 
-
+                return true;
             }
+
+            if(args[0].equalsIgnoreCase("cancel")) {
+                PendingArenaCreations.closeSetup(p);
+                //Message
+                return true;
+            }
+
+            if(args[0].equalsIgnoreCase("join")) {
+                if(args.length == 2) {
+                    Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinEvent(p, args[1]));
+                }
+                return true;
+            }
+
+            //Subcommand not found
+
 
         }
 

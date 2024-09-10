@@ -148,4 +148,8 @@ public class MinigameArena {
     public boolean isContinuous() {
         return continuous;
     }
+
+    public void regenerateArena() {
+        return;
+    }
 }

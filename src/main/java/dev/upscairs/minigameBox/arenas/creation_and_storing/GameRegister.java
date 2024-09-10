@@ -1,5 +1,6 @@
-package dev.upscairs.minigameBox;
+package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
+import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.config.ArenaRegister;
