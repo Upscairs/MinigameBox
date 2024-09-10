@@ -28,15 +28,15 @@ public final class MinigameBox extends JavaPlugin {
     }
 
     public void setupFiles() {
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
+        //getConfig().options().copyDefaults(true);
+        //saveDefaultConfig();
 
         ArenaRegister.setup();
         ArenaRegister.defaults();
     }
 
     public void registerCommands() {
-        getCommand("minigame").setExecutor(new MinigameCommand());
+        getCommand("minigame").setExecutor(new MinigameCommand(this));
     }
 
     public void registerEvents() {

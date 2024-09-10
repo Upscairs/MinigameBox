@@ -18,7 +18,7 @@ public class PlayerJoinQueueHandler implements Listener {
         if(GameRegister.gameExists(arenaName)) {
             MiniGame game = GameRegister.getGame(arenaName);
 
-            if(!p.getMetadata("GameName").get(0).asString().isEmpty()) {
+            if(!p.hasMetadata("GameName")) {
                 //Error Message
                 return;
             }

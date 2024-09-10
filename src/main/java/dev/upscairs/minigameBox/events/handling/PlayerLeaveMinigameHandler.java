@@ -13,6 +13,9 @@ public class PlayerLeaveMinigameHandler implements Listener {
 
         Player p = event.getPlayer();
 
+        if(!p.hasMetadata("GameName")) {
+            return;
+        }
         String gameName = p.getMetadata("GameName").get(0).asString();
 
         GameRegister.getGame(gameName).playerOut(event.getPlayer());

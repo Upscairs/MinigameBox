@@ -19,7 +19,7 @@ public class ArenaRegister {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.err.println("Could not create file " + file.getAbsolutePath());
+                throw new RuntimeException(e);
             }
         }
 

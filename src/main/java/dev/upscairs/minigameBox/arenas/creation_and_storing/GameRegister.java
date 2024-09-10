@@ -62,7 +62,7 @@ public abstract class GameRegister {
 
         if(arena instanceof SpleefArena a) {
 
-            String pref = "SPLEEF" + a.getName();
+            String pref = "SPLEEF." + a.getName();
 
             config.set(pref + ".location1", a.getLocation1());
             config.set(pref + ".location2", a.getLocation2());
@@ -73,7 +73,7 @@ public abstract class GameRegister {
             config.set(pref + ".setup-time-sec", a.getSetupTimeSec());
             config.set(pref + ".continuous", a.isContinuous());
             config.set(pref + ".queue-open", a.isQueueOpen());
-            config.set(pref + "layer-count", a.getLayerCount());
+            config.set(pref + ".layer-count", a.getLayerCount());
             config.set(pref + ".spleef-material", a.getSpleefMaterial().name());
 
         }

@@ -40,6 +40,9 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <outputDirectory>${outputDirectory}</outputDirectory>
+        </configuration>
       </plugin>
     </plugins>
     <resources>
@@ -69,4 +72,40 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>first-directory</id>
+      <activation>
+        <file>
+          <exists>/home/nutzer/Dokumente/Test Server/plugins</exists>
+        </file>
+      </activation>
+      <properties>
+        <outputDirectory>/home/nutzer/Dokumente/Test Server/plugins</outputDirectory>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>second-directory</id>
+      <activation>
+        <file>
+          <exists>/home/user/Dokumente/Test Server/plugins</exists>
+        </file>
+      </activation>
+      <properties>
+        <outputDirectory>/home/user/Dokumente/Test Server/plugins</outputDirectory>
+      </properties>
+    </profile>
+
+    <profile>
+      <id>default-directory</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <outputDirectory>/dev/null</outputDirectory>
+      </properties>
+    </profile>
+  </profiles>
 </project>
