@@ -1,9 +1,8 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
-import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
-import org.bukkit.Bukkit;
+import dev.upscairs.minigameBox.config.MessagesConfig;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,8 +10,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class ArenaCreationWizard {
-
-    private final MinigameBox plugin;
 
     private final String gameType;
     private final String arenaName;
@@ -22,7 +19,6 @@ public class ArenaCreationWizard {
     private Location outsideLocation = null;
 
     public ArenaCreationWizard(String gameType, String arenaName, Player creator) {
-        plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
         this.gameType = gameType;
         this.arenaName = arenaName;
         this.creator = creator;
@@ -32,12 +28,12 @@ public class ArenaCreationWizard {
 
         if(location1 == null) {
             location1 = location;
-            creator.sendMessage(plugin.getConfig().getString("messages.managing.success-pos1-placed"));
+            creator.sendMessage(MessagesConfig.get().getString("managing.success-pos1-placed"));
             return null;
         }
         if(location2 == null) {
             location2 = location;
-            creator.sendMessage(plugin.getConfig().getString("messages.managing.success-pos2-placed"));
+            creator.sendMessage(MessagesConfig.get().getString("managing.success-pos2-placed"));
             return null;
         }
 
@@ -48,7 +44,7 @@ public class ArenaCreationWizard {
         if(outsideLocation.getX() > location2.getX() && outsideLocation.getX() < location1.getX()) {
             if(outsideLocation.getY() > location2.getY() && outsideLocation.getY() < location1.getY()) {
                 if(outsideLocation.getZ() > location2.getZ() && outsideLocation.getZ() < location1.getZ()) {
-                    creator.sendMessage(plugin.getConfig().getString("messages.managing.error-outpos-in-bounds"));
+                    creator.sendMessage(MessagesConfig.get().getString("managing.error-outpos-in-bounds"));
                     outsideLocation = null;
                 }
             }
@@ -58,7 +54,7 @@ public class ArenaCreationWizard {
             return null;
         }
 
-        creator.sendMessage(plugin.getConfig().getString("messages.managing.success-outpos-placed-arena-created"));
+        creator.sendMessage(MessagesConfig.get().getString("managing.success-outpos-placed-arena-created"));
         MinigameArena arena = null;
 
         if(gameType.equalsIgnoreCase("Spleef")) {

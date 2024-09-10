@@ -3,7 +3,9 @@ package dev.upscairs.minigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaCreations;
+import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
+import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
 import dev.upscairs.minigameBox.guis.ArenaEditGui;
 import dev.upscairs.minigameBox.guis.InteractableGui;
 import org.bukkit.Bukkit;
@@ -17,8 +19,6 @@ public class MinigameCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        MinigameBox plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
-
         if(sender instanceof Player p) {
 
             if(args.length == 0) {
@@ -29,7 +29,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("create")) {
 
                 if(!p.hasPermission("minigamebox.manage")) {
-                    p.sendMessage(plugin.getConfig().getString("messages.managing.error-no-permission"));
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
@@ -37,7 +37,7 @@ public class MinigameCommand implements CommandExecutor {
                     PendingArenaCreations.newSetup(p, args[1], args[2]);
                 }
                 else {
-                    p.sendMessage(plugin.getConfig().getString("messages.managing.error-create-wrong-syntax"));
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-create-wrong-syntax"));
                 }
                 return true;
             }
@@ -45,7 +45,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("setpos")) {
 
                 if(!p.hasPermission("minigamebox.manage")) {
-                    p.sendMessage(plugin.getConfig().getString("messages.managing.error-no-permission"));
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
@@ -62,25 +62,25 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("setup-cancel")) {
 
                 if(!p.hasPermission("minigamebox.manage")) {
-                    p.sendMessage(plugin.getConfig().getString("messages.managing.error-no-permission"));
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
                 PendingArenaCreations.closeSetup(p);
-                p.sendMessage(plugin.getConfig().getString("messages.managing.success-setup-canceled"));
+                p.sendMessage(MessagesConfig.get().getString("managing.success-setup-canceled"));
                 return true;
             }
 
             if(args[0].equalsIgnoreCase("edit")) {
 
                 if(!p.hasPermission("minigamebox.manage")) {
-                    p.sendMessage(plugin.getConfig().getString("messages.managing.error-no-permission"));
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
                 if(args.length >= 2) {
                     if(!GameRegister.gameExists(args[1])) {
-                        p.sendMessage(plugin.getConfig().getString("messages.managing.error-game-not-found"));
+                        p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                     }
                     else {
                         InteractableGui gui = new ArenaEditGui(new String[]{p.getUniqueId().toString()});
@@ -88,7 +88,7 @@ public class MinigameCommand implements CommandExecutor {
                     }
                     return true;
                 } else {
-                    p.sendMessage(plugin.getConfig().getString("messages.managing.error-edit-wrong-syntax"));
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
                     return true;
                 }
 
@@ -99,6 +99,9 @@ public class MinigameCommand implements CommandExecutor {
                     Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, args[1]));
                 }
                 return true;
+            }
+            if(args[0].equalsIgnoreCase("leave")) {
+                Bukkit.getServer().getPluginManager().callEvent(new PlayerLeaveQueueEvent(p));
             }
 
             //Subcommand not found

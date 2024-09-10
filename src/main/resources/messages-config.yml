@@ -1,5 +1,5 @@
 managing:
-  success-wizard-creation: 'The arena setup has been started. Please select a Postion 1 for the arena bounds. Use /minigame setpos'
+  success-wizard-creation: 'The arena setup has been started. Please select a Postion 1 for the arena bounds. Use "/minigame setpos"'
   success-pos1-placed: 'Position 1 is set. Next, please select a postion 2...'
   success-pos2-placed: 'Position 2 is set. Next, please select a throwback block outside of the arena...'
   success-outpos-placed-arena-created: 'Outside Block set. Creating arena...'
@@ -11,8 +11,8 @@ managing:
   error-no-wizard-running: 'You need to start a setup with "/minigame create <Gamemode> <Name>" first'
   error-no-permission: 'You dont have permission to do that.'
   error-game-not-found: 'Theres no game with that name.'
-  error-create-wrong-syntax: 'Insufficient parameters. Use /minigame create <Gamemode> <Name>'
-  error-edit-wrong-syntax: 'Insufficient parameters. Use /minigame edit <Name>'
+  error-create-wrong-syntax: 'Insufficient parameters. Use "/minigame create <Gamemode> <Name>"'
+  error-edit-wrong-syntax: 'Insufficient parameters. Use "/minigame edit <Name>"'
 game:
   success-queue-joined: 'You are queued. Your postion is: '
   success-queue-left: 'You left the queue.'

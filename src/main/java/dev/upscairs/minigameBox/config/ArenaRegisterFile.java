@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-public class ArenaRegister {
+public class ArenaRegisterFile {
 
     private static File file;
     private static FileConfiguration customFile;
@@ -53,5 +53,6 @@ public class ArenaRegister {
         get().options().copyDefaults(true);
         save();
     }
+
 
 }

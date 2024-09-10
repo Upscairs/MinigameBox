@@ -80,6 +80,14 @@ public class MinigameArena {
         queuedPlayers.add(player);
     }
 
+    public boolean isPlayerInQueue(Player player) {
+        return queuedPlayers.contains(player);
+    }
+
+    public void removePlayerFromQueue(Player player) {
+        queuedPlayers.remove(player);
+    }
+
     public void setQueuedPlayersIngame() {
         int playersIngame = ingamePlayers.size();
         int spaceLeft = playersIngame - maxPlayers;

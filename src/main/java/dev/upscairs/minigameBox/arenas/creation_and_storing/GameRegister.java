@@ -1,16 +1,15 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
-import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
-import dev.upscairs.minigameBox.config.ArenaRegister;
+import dev.upscairs.minigameBox.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.games.MiniGame;
 import dev.upscairs.minigameBox.games.SpleefGame;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
@@ -23,7 +22,7 @@ public abstract class GameRegister {
 
         games.clear();
 
-        FileConfiguration config = ArenaRegister.get();
+        FileConfiguration config = ArenaRegisterFile.get();
         ConfigurationSection spleefArenas = config.getConfigurationSection("SPLEEF");
 
         if(spleefArenas != null) {
@@ -53,7 +52,7 @@ public abstract class GameRegister {
 
     public static void saveArenaSettings(MinigameArena arena) {
 
-        FileConfiguration config = ArenaRegister.get();
+        FileConfiguration config = ArenaRegisterFile.get();
 
         if(arena instanceof SpleefArena a) {
 
@@ -73,8 +72,8 @@ public abstract class GameRegister {
 
         }
 
-        ArenaRegister.setConfig(config);
-        ArenaRegister.save();
+        ArenaRegisterFile.setConfig(config);
+        ArenaRegisterFile.save();
 
         loadGames();
     }
@@ -92,6 +91,15 @@ public abstract class GameRegister {
             game.endGame(false);
             saveArenaSettings(game.getArena());
         }
+    }
+
+    public static boolean dequeuePlayer(Player player) {
+        for(MiniGame game : games.values()) {
+            if(game.playerLeaveQueue(player)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -67,6 +67,14 @@ public class MiniGame {
         return false;
     }
 
+    public boolean playerLeaveQueue(Player player) {
+        if(arena.isPlayerInQueue(player)) {
+            arena.removePlayerFromQueue(player);
+            return true;
+        }
+        return false;
+    }
+
     public MinigameArena getArena() {
         return arena;
     }
