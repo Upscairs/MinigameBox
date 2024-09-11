@@ -13,6 +13,7 @@ public class MinigameArena {
     private Location location1;
     private Location location2;
     private Location outsideLocation;
+    private String[] rawArgs;
 
     private int minPlayers;
     private int maxPlayers;
@@ -24,26 +25,23 @@ public class MinigameArena {
     private ArrayList<Player> ingamePlayers = new ArrayList<>();
     private ArrayDeque<Player> queuedPlayers = new ArrayDeque<>();
 
-    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers) {
-        construct(name, location1, location2, outsideLocation, minPlayers, maxPlayers, 20, 10, true, true);
-    }
+    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
 
-    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
-        construct(name, location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen);
-    }
-
-    private void construct(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen) {
         this.name = name;
         this.location1 = location1;
         this.location2 = location2;
         this.outsideLocation = outsideLocation;
-        this.minPlayers = minPlayers;
-        this.maxPlayers = maxPlayers;
-        this.fillupWaitingTimeSec = fillupWaitingTimeSec;
-        this.setupTimeSec = setupTimeSec;
-        this.continuous = continuous;
-        this.queueOpen = queueOpen;
+        this.minPlayers = Integer.parseInt(args[0]);
+        this.maxPlayers = Integer.parseInt(args[1]);
+        this.fillupWaitingTimeSec = Integer.parseInt(args[2]);
+        this.setupTimeSec = Integer.parseInt(args[3]);
+        this.continuous = Boolean.parseBoolean(args[4]);
+        this.queueOpen = Boolean.parseBoolean(args[5]);
+
+        setRawArgs(args);
+
         generateMaxMinLocs();
+
     }
 
     //Overwrites location1 and location2 so all coords of loc1 are greater than those of loc2
@@ -159,5 +157,13 @@ public class MinigameArena {
 
     public void regenerateArena() {
         return;
+    }
+
+    public String[] getRawArgs() {
+        return rawArgs;
+    }
+
+    public void setRawArgs(String[] rawArgs) {
+        this.rawArgs = rawArgs;
     }
 }

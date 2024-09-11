@@ -3,6 +3,7 @@ package dev.upscairs.minigameBox.arenas.creation_and_storing;
 import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.config.MessagesConfig;
+import dev.upscairs.minigameBox.games.GameTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -20,7 +21,7 @@ public class PendingArenaCreations {
             return;
         }
 
-        if(!ArenaCreationWizard.getGamemodes().contains(gameType)) {
+        if(!GameTypes.nameExists(gameType)) {
             player.sendMessage(MessagesConfig.get().getString("managing.error-unknown-gametype"));
             return;
         }
@@ -30,7 +31,7 @@ public class PendingArenaCreations {
             return;
         }
 
-        setups.put(player, new ArenaCreationWizard(gameType, arenaName, player));
+        setups.put(player, new ArenaCreationWizard(player, GameTypes.getFromName(gameType), arenaName));
         player.sendMessage(MessagesConfig.get().getString("managing.success-wizard-creation"));
 
     }

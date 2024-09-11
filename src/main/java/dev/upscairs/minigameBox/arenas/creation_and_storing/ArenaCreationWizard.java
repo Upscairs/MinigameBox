@@ -3,22 +3,24 @@ package dev.upscairs.minigameBox.arenas.creation_and_storing;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.config.MessagesConfig;
+import dev.upscairs.minigameBox.games.GameTypes;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class ArenaCreationWizard {
 
-    private final String gameType;
+    private final GameTypes gameType;
     private final String arenaName;
     private final Player creator;
     private Location location1 = null;
     private Location location2 = null;
     private Location outsideLocation = null;
 
-    public ArenaCreationWizard(String gameType, String arenaName, Player creator) {
+    public ArenaCreationWizard(Player creator, GameTypes gameType, String arenaName) {
         this.gameType = gameType;
         this.arenaName = arenaName;
         this.creator = creator;
@@ -55,10 +57,13 @@ public class ArenaCreationWizard {
         }
 
         creator.sendMessage(MessagesConfig.get().getString("managing.success-outpos-placed-arena-created"));
+
         MinigameArena arena = null;
 
-        if(gameType.equalsIgnoreCase("Spleef")) {
-            arena = new SpleefArena(arenaName, location1, location2, outsideLocation, 2, 2, 20, 10, true, true, 1, Material.WHITE_WOOL);
+        try {
+            arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(arenaName, location1, location2, outsideLocation, gameType.getDefaultArgs());
+        } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new RuntimeException(e);
         }
 
         return arena;
@@ -77,13 +82,5 @@ public class ArenaCreationWizard {
         location2 = new Location(location2.getWorld(), minX, minY, minZ);
 
     }
-
-    public static ArrayList<String> getGamemodes() {
-        ArrayList<String> gamemodes = new ArrayList<>();
-        gamemodes.add("Spleef");
-        //Here more
-        return gamemodes;
-    }
-
 
 }

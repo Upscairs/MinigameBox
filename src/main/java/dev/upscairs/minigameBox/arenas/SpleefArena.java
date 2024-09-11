@@ -5,6 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SpleefArena extends MinigameArena {
 
@@ -13,12 +14,13 @@ public class SpleefArena extends MinigameArena {
     private int layerDistance;
     private Material spleefMaterial;
 
-    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, int minPlayers, int maxPlayers, int fillupWaitingTimeSec, int setupTimeSec, boolean continuous, boolean queueOpen, int layerCount, Material spleefMaterial) {
+    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
 
-        super(name, location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen);
+        super(name, location1, location2, outsideLocation, Arrays.copyOfRange(args, 0, 5));
+        setRawArgs(args);
 
-        this.spleefMaterial = spleefMaterial;
-        this.layerCount = layerCount;
+        this.layerCount = Integer.parseInt(args[6]);
+        this.spleefMaterial = Material.getMaterial(args[7]);
 
         int heightDifference = (int) (location1.getY() - location2.getY());
 

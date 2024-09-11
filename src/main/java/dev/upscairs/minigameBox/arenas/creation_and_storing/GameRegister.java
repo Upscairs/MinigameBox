@@ -3,6 +3,7 @@ package dev.upscairs.minigameBox.arenas.creation_and_storing;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.config.ArenaRegisterFile;
+import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.games.MiniGame;
 import dev.upscairs.minigameBox.games.SpleefGame;
 import org.bukkit.Location;
@@ -11,6 +12,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 public abstract class GameRegister {
@@ -23,29 +25,37 @@ public abstract class GameRegister {
         games.clear();
 
         FileConfiguration config = ArenaRegisterFile.get();
-        ConfigurationSection spleefArenas = config.getConfigurationSection("SPLEEF");
 
-        if(spleefArenas != null) {
-            spleefArenas.getKeys(false).forEach(arenaName -> {
+        //Iterating through gameTypes (highest section)
+        for(String gameType : config.getKeys(false)) {
 
-                Location location1 = spleefArenas.getLocation(arenaName + ".location1");
-                Location location2 = spleefArenas.getLocation(arenaName + ".location2");
-                Location outsideLocation = spleefArenas.getLocation(arenaName + ".outside-location");
-                int minPlayers = spleefArenas.getInt(arenaName + ".min-players");
-                int maxPlayers = spleefArenas.getInt(arenaName + ".max-players");
-                int fillupWaitingTimeSec = spleefArenas.getInt(arenaName + ".fillup-waiting-time-sec");
-                int setupTimeSec = spleefArenas.getInt(arenaName + ".setup-time-sec");
-                boolean continuous = spleefArenas.getBoolean(arenaName + ".continuous");
-                boolean queueOpen = spleefArenas.getBoolean(arenaName + ".queue-open");
-                int layerCount = spleefArenas.getInt(arenaName + ".layer-count");
-                Material spleefMaterial = Material.getMaterial(spleefArenas.getString(arenaName + ".spleef-material"));
+            if(!GameTypes.nameExists(gameType)) {
+                continue;
+            }
 
-                MinigameArena arena = new SpleefArena(arenaName, location1, location2, outsideLocation, minPlayers, maxPlayers, fillupWaitingTimeSec, setupTimeSec, continuous, queueOpen, layerCount, spleefMaterial);
+            ConfigurationSection arenas = config.getConfigurationSection(gameType);
 
-                MiniGame game = new SpleefGame(arena);
+            //For each arena retrieve info and put retrieved fitting gameClass in map
+            arenas.getKeys(false).forEach(arenaName -> {
 
-                games.put(arenaName, game);
+                Location location1 = arenas.getLocation(arenaName + ".location1");
+                Location location2 = arenas.getLocation(arenaName + ".location2");
+                Location outsideLocation = arenas.getLocation(arenaName + ".outside-location");
+                String[] args = arenas.getStringList(arenaName + ".args").toArray(new String[0]);
+
+                try {
+
+                    MinigameArena arena = GameTypes.getFromName(gameType).getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(arenaName, location1, location2, outsideLocation, args);
+                    MiniGame game = GameTypes.getFromName(gameType).getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
+                    games.put(arenaName, game);
+
+                } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                }
+
             });
+
+
         }
 
     }
@@ -54,23 +64,11 @@ public abstract class GameRegister {
 
         FileConfiguration config = ArenaRegisterFile.get();
 
-        if(arena instanceof SpleefArena a) {
-
-            String pref = "SPLEEF." + a.getName();
-
-            config.set(pref + ".location1", a.getLocation1());
-            config.set(pref + ".location2", a.getLocation2());
-            config.set(pref + ".outside-location", a.getOutsideLocation());
-            config.set(pref + ".min-players", a.getMinPlayers());
-            config.set(pref + ".max-players", a.getMaxPlayers());
-            config.set(pref + ".fillup-waiting-time-sec", a.getFillupWaitingTimeSec());
-            config.set(pref + ".setup-time-sec", a.getSetupTimeSec());
-            config.set(pref + ".continuous", a.isContinuous());
-            config.set(pref + ".queue-open", a.isQueueOpen());
-            config.set(pref + ".layer-count", a.getLayerCount());
-            config.set(pref + ".spleef-material", a.getSpleefMaterial().name());
-
-        }
+        String pref = GameTypes.getFromArenaClass(arena.getClass()).getName() + ".";
+        config.set(pref + ".location1", arena.getLocation1());
+        config.set(pref + ".location2", arena.getLocation2());
+        config.set(pref + ".outside-location", arena.getOutsideLocation());
+        config.set(pref + ".args", arena.getRawArgs());
 
         ArenaRegisterFile.setConfig(config);
         ArenaRegisterFile.save();

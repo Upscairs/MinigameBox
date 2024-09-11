@@ -87,6 +87,7 @@ public class SpleefMonitoring implements Listener {
         if(!(GameRegister.getGame(gameName) instanceof SpleefGame)) {
             return false;
         }
+
         return true;
     }
 
