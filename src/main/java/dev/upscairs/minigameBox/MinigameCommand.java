@@ -6,6 +6,7 @@ import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaCreation
 import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
 import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
+import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.guis.ArenaEditGui;
 import dev.upscairs.minigameBox.guis.InteractableGui;
 import org.bukkit.Bukkit;
@@ -14,6 +15,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class MinigameCommand implements CommandExecutor {
 
@@ -28,11 +31,13 @@ public class MinigameCommand implements CommandExecutor {
 
             if(args[0].equalsIgnoreCase("create")) {
 
+                //Permission check
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
+                //All args given -> new setup attempt
                 if(args.length >= 3) {
                     PendingArenaCreations.newSetup(p, args[1], args[2]);
                 }
@@ -44,13 +49,16 @@ public class MinigameCommand implements CommandExecutor {
 
             if(args[0].equalsIgnoreCase("setpos")) {
 
+                //Permission
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
+                //giving next positions to setup
                 MinigameArena arena = PendingArenaCreations.giveNextVar(p, p.getLocation());
 
+                //If setup done. Save arena and set blocks
                 if(arena != null) {
                     GameRegister.saveArenaSettings(arena);
                     GameRegister.getGame(arena.getName()).getArena().regenerateArena();
@@ -61,11 +69,13 @@ public class MinigameCommand implements CommandExecutor {
 
             if(args[0].equalsIgnoreCase("setup-cancel")) {
 
+                //Permission
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
+                //Calling setuo cancel
                 PendingArenaCreations.closeSetup(p);
                 p.sendMessage(MessagesConfig.get().getString("managing.success-setup-canceled"));
                 return true;
@@ -73,20 +83,34 @@ public class MinigameCommand implements CommandExecutor {
 
             if(args[0].equalsIgnoreCase("edit")) {
 
+                //Permission
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
                     return true;
                 }
 
+                //Checking if enough args
                 if(args.length >= 2) {
+                    //Checking if game exists
                     if(!GameRegister.gameExists(args[1])) {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                        return true;
                     }
-                    else {
-                        InteractableGui gui = new ArenaEditGui(new String[]{p.getUniqueId().toString()});
-                        p.openInventory(gui.getInventory());
+
+
+                    ArenaEditGui gui = null;
+                    GameTypes gameType = GameTypes.getFromGameClass(GameRegister.getGame(args[1]).getClass());
+                    System.out.println(gameType.getEditGuiClass());
+                    try {
+                        gui = gameType.getEditGuiClass().getDeclaredConstructor(String[].class).newInstance(new String[]{p.getUniqueId().toString(), "w"});
+                    } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                        throw new RuntimeException(e);
                     }
+                    //InteractableGui gui = new ArenaEditGui(new String[]{p.getUniqueId().toString()});
+                    p.openInventory(gui.getInventory());
+
                     return true;
+
                 } else {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
                     return true;
@@ -111,6 +135,7 @@ public class MinigameCommand implements CommandExecutor {
              */
 
             if(args[0].equalsIgnoreCase("join")) {
+                //calling JoinQueueEvent, handling there
                 if(args.length == 2) {
                     Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, args[1]));
                 }

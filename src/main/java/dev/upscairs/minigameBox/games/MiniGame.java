@@ -21,11 +21,17 @@ public class MiniGame {
         gameRunning = false;
     }
 
+    //Attempting to start game, fails if game running, not enough players in, or arena can't start itself
     public boolean startGameAttempt() {
         if(gameRunning) {
             return false;
         }
         arena.setQueuedPlayersIngame();
+
+        if(!arena.enoughPlayersToStart()) {
+            return false;
+        }
+
         if(arena.isAutoStartable()) {
             startGameCountdown();
             return true;
@@ -33,8 +39,10 @@ public class MiniGame {
         return false;
     }
 
+    //Starting game in x seconds, but waiting for other players to join, can get called by game master
     public void startGameCountdown() {
         gameRunning = true;
+        arena.setQueuedPlayersIngame();
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
             @Override
             public void run() {
@@ -44,8 +52,10 @@ public class MiniGame {
 
     }
 
+    //Starting game, players get placed in arena and tagged
     public void startGameFinal() {
         gameRunning = true;
+        //TODO place players in arena
         //Arena needs default protection
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
             @Override
@@ -58,6 +68,7 @@ public class MiniGame {
 
     }
 
+    //Checking if player can join queue, placing him, tagging him, attempting gamestart
     public boolean playerJoinQueue(Player player) {
         if(arena.isQueueOpen()) {
             arena.addPlayerToQueue(player);
@@ -67,22 +78,17 @@ public class MiniGame {
         return false;
     }
 
+    //Removing player from queues
     public boolean playerLeaveQueue(Player player) {
         if(arena.isPlayerInQueue(player)) {
             arena.removePlayerFromQueue(player);
+            player.removeMetadata("GameName", getPlugin());
             return true;
         }
         return false;
     }
 
-    public MinigameArena getArena() {
-        return arena;
-    }
-
-    public MinigameBox getPlugin() {
-        return plugin;
-    }
-
+    //Player out, removing from arena, removing tag
     public void playerOut(Player player) {
         droppedOutPlayers.add(player);
         arena.removePlayerFromGame(player);
@@ -91,8 +97,9 @@ public class MiniGame {
             endGame(false);
         }
     }
-    
 
+    //Ending the game, moving players out, removing tags, giving reward
+    //If force, stopping queue, no reward
     public void endGame(boolean force) {
 
         for(Player player : arena.getIngamePlayers()) {
@@ -108,8 +115,17 @@ public class MiniGame {
         }
 
         //TODO reward
+        droppedOutPlayers.clear();
         startGameAttempt();
 
+    }
+
+    public MinigameArena getArena() {
+        return arena;
+    }
+
+    public MinigameBox getPlugin() {
+        return plugin;
     }
     
     public void setGameRunning(boolean gameRunning) {

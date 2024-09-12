@@ -14,6 +14,7 @@ public class PendingArenaCreations {
 
     private static HashMap<Player, ArenaCreationWizard> setups = new HashMap<>();
 
+    //Checks if no other setup is running by player, gametype exists and the name is not used -> then crating setup
     public static void newSetup(Player player, String gameType, String arenaName) {
 
         if(setups.containsKey(player)) {
@@ -36,6 +37,7 @@ public class PendingArenaCreations {
 
     }
 
+    //Giving in location data for arena -> getting null, when incomplete, getting arena, when complete, saving it
     public static MinigameArena giveNextVar(Player player, Location location) {
 
         if(!setups.containsKey(player)) {

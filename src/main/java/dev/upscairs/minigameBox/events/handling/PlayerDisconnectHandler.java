@@ -14,6 +14,7 @@ public class PlayerDisconnectHandler implements Listener {
     public void onPlayerDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
+        //Removing from queues and games
         Bukkit.getPluginManager().callEvent(new PlayerLeaveMinigameEvent(player));
         Bukkit.getPluginManager().callEvent(new PlayerLeaveQueueEvent(player));
 

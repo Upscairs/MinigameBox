@@ -58,6 +58,43 @@ public class MinigameArena {
 
     }
 
+    //Moves front queued players into "game" status
+    public void setQueuedPlayersIngame() {
+        int playersIngame = ingamePlayers.size();
+        int spaceLeft = playersIngame - maxPlayers;
+        for (int i = 0; i < spaceLeft; i++) {
+            ingamePlayers.add(queuedPlayers.poll());
+        }
+    }
+
+    //Returns if game can start by itself
+    public boolean isAutoStartable() {
+        if(ingamePlayers.size() < minPlayers) {
+            return false;
+        }
+        if(ingamePlayers.size() > maxPlayers) {
+            return false;
+        }
+        if(!continuous) {
+            return false;
+        }
+        return true;
+    }
+
+    //Removes from player lsit and tps out
+    public void removePlayerFromGame(Player player) {
+        ingamePlayers.remove(player);
+        moveToOutsideBlock(player);
+    }
+
+    //Checks if game needs to be terminated
+    public boolean gameEndingState() {
+        if(ingamePlayers.size() <= 1) {
+            return true;
+        }
+        return false;
+    }
+
     public Location getLocation1() {
         return location1;
     }
@@ -86,27 +123,6 @@ public class MinigameArena {
         queuedPlayers.remove(player);
     }
 
-    public void setQueuedPlayersIngame() {
-        int playersIngame = ingamePlayers.size();
-        int spaceLeft = playersIngame - maxPlayers;
-        for (int i = 0; i < spaceLeft; i++) {
-            ingamePlayers.add(queuedPlayers.poll());
-        }
-    }
-
-    public boolean isAutoStartable() {
-        if(ingamePlayers.size() < minPlayers) {
-            return false;
-        }
-        if(ingamePlayers.size() > maxPlayers) {
-            return false;
-        }
-        if(!continuous) {
-            return false;
-        }
-        return true;
-    }
-
     public int getFillupWaitingTimeSec() {
         return fillupWaitingTimeSec;
     }
@@ -125,18 +141,6 @@ public class MinigameArena {
 
     public void moveToOutsideBlock(Player player) {
         player.teleport(outsideLocation);
-    }
-
-    public void removePlayerFromGame(Player player) {
-        ingamePlayers.remove(player);
-        moveToOutsideBlock(player);
-    }
-
-    public boolean gameEndingState() {
-        if(ingamePlayers.size() <= 1) {
-            return true;
-        }
-        return false;
     }
 
     public void setContinuous(boolean continuous) {
@@ -166,4 +170,9 @@ public class MinigameArena {
     public void setRawArgs(String[] rawArgs) {
         this.rawArgs = rawArgs;
     }
+
+    public boolean enoughPlayersToStart() {
+        return ingamePlayers.size() >= minPlayers;
+    }
+
 }

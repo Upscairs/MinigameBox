@@ -23,11 +23,13 @@ public class PlayerQueueGameActivityHandler implements Listener {
         if(GameRegister.gameExists(arenaName)) {
             MiniGame game = GameRegister.getGame(arenaName);
 
+            //Player in queue check
             if(p.hasMetadata("GameName")) {
                 p.sendMessage(MessagesConfig.get().getString("game.error-already-in-queue"));
                 return;
             }
 
+            //Attempting join
             if(game.playerJoinQueue(p)) {
                 p.sendMessage(MessagesConfig.get().getString("game.success-queue-joined"));
             }

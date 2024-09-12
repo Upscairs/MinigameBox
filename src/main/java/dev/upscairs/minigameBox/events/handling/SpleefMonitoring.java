@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public class SpleefMonitoring implements Listener {
 
+    //Players out, which are on the lowest layer
     @EventHandler
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
         Player p = event.getPlayer();
@@ -42,6 +43,7 @@ public class SpleefMonitoring implements Listener {
 
     }
 
+    //Only spleef block breakable, but insta breaks
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player p = event.getPlayer();
@@ -69,6 +71,7 @@ public class SpleefMonitoring implements Listener {
         }
     }
 
+    //Supressing block placement
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
         if(isPlayerInSpleef(event.getPlayer())) {

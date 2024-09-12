@@ -26,6 +26,7 @@ public class ArenaCreationWizard {
         this.creator = creator;
     }
 
+    //Filling required data, if full, creating arena
     public MinigameArena nextInput(Location location) {
 
         if(location1 == null) {
@@ -43,6 +44,7 @@ public class ArenaCreationWizard {
 
         outsideLocation = location;
 
+        //Check if outside location is outside of arena
         if(outsideLocation.getX() > location2.getX() && outsideLocation.getX() < location1.getX()) {
             if(outsideLocation.getY() > location2.getY() && outsideLocation.getY() < location1.getY()) {
                 if(outsideLocation.getZ() > location2.getZ() && outsideLocation.getZ() < location1.getZ()) {
@@ -60,6 +62,7 @@ public class ArenaCreationWizard {
 
         MinigameArena arena = null;
 
+        //Fetching arena class from gametype enum and parsing variables
         try {
             arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(arenaName, location1, location2, outsideLocation, gameType.getDefaultArgs());
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
@@ -70,6 +73,7 @@ public class ArenaCreationWizard {
 
     }
 
+    //Rotating both locations so Location1 is greater than Location2 on all axis
     private void generateMaxMinLocs() {
         double maxX = Math.max(location1.getX(), location2.getX());
         double maxY = Math.max(location1.getY(), location2.getY());

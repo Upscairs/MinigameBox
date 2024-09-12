@@ -24,9 +24,12 @@ public class SpleefArena extends MinigameArena {
 
         int heightDifference = (int) (location1.getY() - location2.getY());
 
+        //Checking if enough space for layers (4x layers < space)
         if(heightDifference/4 < layerCount) {
             throw new IllegalArgumentException("Spleef arena is too small");
         }
+
+        //Calculating y pos for layers with equal distance
 
         layersY = new ArrayList<>();
 
@@ -44,6 +47,8 @@ public class SpleefArena extends MinigameArena {
         Location location1 = getLocation1();
         Location location2 = getLocation2();
 
+
+        //Placing spleef block in layers
         for(int y : layersY) {
             for(int x = (int) location2.getX(); x < location1.getX(); x++) {
                 for(int z = (int) location2.getZ(); z < location1.getZ(); z++) {
@@ -60,6 +65,7 @@ public class SpleefArena extends MinigameArena {
         return spleefMaterial;
     }
 
+    //Tping players to top of area in the center
     public void movePlayersIn() {
         Location dropLocation = new Location(getLocation1().getWorld(), (getLocation1().getX()+getLocation2().getX())/2, getLocation1().getY(), (getLocation1().getZ()+getLocation2().getZ())/2);
         for(Player p : getIngamePlayers()) {

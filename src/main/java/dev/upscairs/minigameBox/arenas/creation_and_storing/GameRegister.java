@@ -61,6 +61,7 @@ public abstract class GameRegister {
 
     }
 
+    //Saving given arena to file, calls map reload
     public static void saveArenaSettings(MinigameArena arena) {
 
         FileConfiguration config = ArenaRegisterFile.get();
