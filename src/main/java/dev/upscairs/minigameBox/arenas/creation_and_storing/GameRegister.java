@@ -22,9 +22,10 @@ public abstract class GameRegister {
 
     public static void loadGames() {
 
-        games.clear();
-
+        ArenaRegisterFile.reload();
         FileConfiguration config = ArenaRegisterFile.get();
+
+        games.clear();
 
         //Iterating through gameTypes (highest section)
         for(String gameType : config.getKeys(false)) {
@@ -64,7 +65,7 @@ public abstract class GameRegister {
 
         FileConfiguration config = ArenaRegisterFile.get();
 
-        String pref = GameTypes.getFromArenaClass(arena.getClass()).getName() + ".";
+        String pref = GameTypes.getFromArenaClass(arena.getClass()).getName() + "." + arena.getName() + ".";
         config.set(pref + ".location1", arena.getLocation1());
         config.set(pref + ".location2", arena.getLocation2());
         config.set(pref + ".outside-location", arena.getOutsideLocation());

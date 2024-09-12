@@ -94,6 +94,22 @@ public class MinigameCommand implements CommandExecutor {
 
             }
 
+            /*
+            if(args[0].equalsIgnoreCase("reload")) {
+                if(!p.hasPermission("minigamebox.manage")) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                    return true;
+                }
+
+                GameRegister.loadGames();
+
+                GameRegister.getGame(args[1]).getArena().regenerateArena();
+
+                return true;
+
+            }
+             */
+
             if(args[0].equalsIgnoreCase("join")) {
                 if(args.length == 2) {
                     Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, args[1]));

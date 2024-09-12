@@ -16,7 +16,7 @@ public class SpleefArena extends MinigameArena {
 
     public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
 
-        super(name, location1, location2, outsideLocation, Arrays.copyOfRange(args, 0, 5));
+        super(name, location1, location2, outsideLocation, Arrays.copyOfRange(args, 0, 6));
         setRawArgs(args);
 
         this.layerCount = Integer.parseInt(args[6]);

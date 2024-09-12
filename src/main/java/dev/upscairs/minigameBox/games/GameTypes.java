@@ -5,7 +5,7 @@ import dev.upscairs.minigameBox.arenas.SpleefArena;
 
 public enum GameTypes {
     UNDEFINED("Undefined", MinigameArena.class, MiniGame.class, new String[]{"8", "10", "20", "10", "false", "false"}),
-    SPLEEF("Spleef", SpleefArena.class, SpleefGame.class, new String[]{"2", "2", "0", "10", "true", "false", "1", "WHITE_WOOL"}),;
+    SPLEEF("Spleef", SpleefArena.class, SpleefGame.class, new String[]{"2", "2", "0", "10", "true", "false", "1", "WHITE_WOOL"});
 
     private final String name;
     private final Class<? extends MinigameArena> arenaClass;
