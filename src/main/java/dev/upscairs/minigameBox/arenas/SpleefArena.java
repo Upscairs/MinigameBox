@@ -16,11 +16,11 @@ public class SpleefArena extends MinigameArena {
 
     public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
 
-        super(name, location1, location2, outsideLocation, Arrays.copyOfRange(args, 0, 6));
+        super(name, location1, location2, outsideLocation, Arrays.copyOfRange(args, 0, 9));
         setRawArgs(args);
 
-        this.layerCount = Integer.parseInt(args[6]);
-        this.spleefMaterial = Material.getMaterial(args[7]);
+        this.layerCount = Integer.parseInt(args[9]);
+        this.spleefMaterial = Material.getMaterial(args[10]);
 
         int heightDifference = (int) (location1.getY() - location2.getY());
 

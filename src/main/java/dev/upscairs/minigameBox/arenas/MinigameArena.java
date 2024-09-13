@@ -1,6 +1,7 @@
 package dev.upscairs.minigameBox.arenas;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayDeque;
@@ -21,6 +22,9 @@ public class MinigameArena {
     private int setupTimeSec;
     private boolean continuous;
     private boolean queueOpen;
+    private boolean visible;
+    private Material representingItem;
+    private String description;
 
     private ArrayList<Player> ingamePlayers = new ArrayList<>();
     private ArrayDeque<Player> queuedPlayers = new ArrayDeque<>();
@@ -37,6 +41,9 @@ public class MinigameArena {
         this.setupTimeSec = Integer.parseInt(args[3]);
         this.continuous = Boolean.parseBoolean(args[4]);
         this.queueOpen = Boolean.parseBoolean(args[5]);
+        this.visible = Boolean.parseBoolean(args[6]);
+        this.representingItem = Material.getMaterial(args[7]);
+        this.description = args[8];
 
         setRawArgs(args);
 
@@ -175,4 +182,15 @@ public class MinigameArena {
         return ingamePlayers.size() >= minPlayers;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Material getRepresentingItem() {
+        return representingItem;
+    }
 }

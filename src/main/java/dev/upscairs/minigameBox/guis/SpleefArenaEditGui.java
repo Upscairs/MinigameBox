@@ -1,15 +1,23 @@
 package dev.upscairs.minigameBox.guis;
 
+import dev.upscairs.minigameBox.arenas.SpleefArena;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
 
 public class SpleefArenaEditGui extends ArenaEditGui {
 
     public SpleefArenaEditGui(String[] args) {
         super(args);
+
+        setArena(args[1]);
 
         setupInventory();
     }
@@ -41,11 +49,27 @@ public class SpleefArenaEditGui extends ArenaEditGui {
     private ItemStack generateLayerItem() {
         ItemStack stack = new ItemStack(Material.LADDER, 1);
 
+        ItemMeta meta = stack.getItemMeta();
+
+        meta.displayName(getDefaultHeaderComponent("Layers", "#C91F58"));
+
+        ArrayList<Component> lore = new ArrayList<>();
+        lore.add(Component.text().content(getArena().getLayerCount() + " Layers").build());
+        meta.lore(lore);
+
+        stack.setItemMeta(meta);
+
         return stack;
     }
 
     private ItemStack generateSpleefBlockItem() {
-        ItemStack stack = new ItemStack(Material.WHITE_WOOL, 1);
+        ItemStack stack = new ItemStack(getArena().getSpleefMaterial(), 1);
+
+        ItemMeta meta = stack.getItemMeta();
+
+        meta.displayName(getDefaultHeaderComponent("Spleef Block", "#8D989D"));
+
+        stack.setItemMeta(meta);
 
         return stack;
     }
@@ -58,6 +82,16 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         }
         return null;
+    }
+
+    @Override
+    public SpleefArena getArena() {
+        return (SpleefArena) super.getArena();
+    }
+
+    @Override
+    public void setArena(String name) {
+        setArena((SpleefArena) GameRegister.getGame(name).getArena());
     }
 
 }
