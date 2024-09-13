@@ -91,18 +91,21 @@ public class MinigameCommand implements CommandExecutor {
 
                 //Checking if enough args
                 if(args.length >= 2) {
+
+                    String gameName = args[1];
+
                     //Checking if game exists
-                    if(!GameRegister.gameExists(args[1])) {
+                    if(!GameRegister.gameExists(gameName)) {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                         return true;
                     }
 
 
                     ArenaEditGui gui = null;
-                    GameTypes gameType = GameTypes.getFromGameClass(GameRegister.getGame(args[1]).getClass());
-                    System.out.println(gameType.getEditGuiClass());
+                    GameTypes gameType = GameTypes.getFromGameClass(GameRegister.getGame(gameName).getClass());
+
                     try {
-                        gui = gameType.getEditGuiClass().getDeclaredConstructor(String[].class).newInstance(new String[]{p.getUniqueId().toString(), "w"});
+                        gui = gameType.getEditGuiClass().getDeclaredConstructor(String[].class).newInstance((Object) new String[]{p.getUniqueId().toString(), gameName});
                     } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                         throw new RuntimeException(e);
                     }

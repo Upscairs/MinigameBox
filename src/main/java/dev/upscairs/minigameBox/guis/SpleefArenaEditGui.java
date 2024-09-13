@@ -19,11 +19,23 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         Inventory currentInventory = Bukkit.createInventory((InventoryHolder) this, 54, ("Edit Arena"));
 
+        setInventory(currentInventory);
+
+
+        super.placeItemsInGui();
+
+        placeItemsInGui();
+
+    }
+
+    @Override
+    public void placeItemsInGui() {
+        Inventory currentInventory = getInventory();
+
         currentInventory.setItem(38, generateLayerItem());
         currentInventory.setItem(39, generateSpleefBlockItem());
 
         setInventory(currentInventory);
-
     }
 
     private ItemStack generateLayerItem() {

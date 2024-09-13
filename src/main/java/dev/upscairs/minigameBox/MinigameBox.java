@@ -31,8 +31,9 @@ public final class MinigameBox extends JavaPlugin {
     }
 
     public void setupFiles() {
-        //getConfig().options().copyDefaults(true);
-        //saveDefaultConfig();
+        getConfig().options().copyDefaults(true);
+        getConfig().addDefault("empty", "empty");
+        saveDefaultConfig();
 
         ArenaRegisterFile.setup();
         ArenaRegisterFile.defaults();
