@@ -1,5 +1,6 @@
 package dev.upscairs.minigameBox.arenas;
 
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -35,17 +36,9 @@ public class MinigameArena {
         this.location1 = location1;
         this.location2 = location2;
         this.outsideLocation = outsideLocation;
-        this.minPlayers = Integer.parseInt(args[0]);
-        this.maxPlayers = Integer.parseInt(args[1]);
-        this.fillupWaitingTimeSec = Integer.parseInt(args[2]);
-        this.setupTimeSec = Integer.parseInt(args[3]);
-        this.continuous = Boolean.parseBoolean(args[4]);
-        this.queueOpen = Boolean.parseBoolean(args[5]);
-        this.visible = Boolean.parseBoolean(args[6]);
-        this.representingItem = Material.getMaterial(args[7]);
-        this.description = args[8];
 
         setRawArgs(args);
+        reloadSettings();
 
         generateMaxMinLocs();
 
@@ -150,9 +143,11 @@ public class MinigameArena {
         player.teleport(outsideLocation);
     }
 
+    /*
     public void setContinuous(boolean continuous) {
         this.continuous = continuous;
-    }
+        reloadRawArgs();
+    }*/
 
     public int getMinPlayers() {
         return minPlayers;
@@ -193,4 +188,32 @@ public class MinigameArena {
     public Material getRepresentingItem() {
         return representingItem;
     }
+
+    /*
+    public void setQueueOpen(boolean open) {
+        this.queueOpen = open;
+        reloadRawArgs();
+    }*/
+
+
+    public void editArgs(int index, String newString) {
+        String[] settings = getRawArgs();
+        settings[index] = newString;
+        setRawArgs(settings);
+        reloadSettings();
+        GameRegister.saveArenaSettings(this);
+    }
+
+    public void reloadSettings() {
+        this.minPlayers = Integer.parseInt(rawArgs[0]);
+        this.maxPlayers = Integer.parseInt(rawArgs[1]);
+        this.fillupWaitingTimeSec = Integer.parseInt(rawArgs[2]);
+        this.setupTimeSec = Integer.parseInt(rawArgs[3]);
+        this.continuous = Boolean.parseBoolean(rawArgs[4]);
+        this.queueOpen = Boolean.parseBoolean(rawArgs[5]);
+        this.visible = Boolean.parseBoolean(rawArgs[6]);
+        this.representingItem = Material.getMaterial(rawArgs[7]);
+        this.description = rawArgs[8];
+    }
+
 }

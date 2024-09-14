@@ -4,6 +4,7 @@ import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import dev.upscairs.minigameBox.games.GameTypes;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
@@ -15,6 +16,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -128,6 +130,7 @@ public class ArenaEditGui extends InteractableGui {
         ItemMeta meta = stack.getItemMeta();
 
         meta.displayName(getDefaultHeaderComponent("Queue Open", "#70828B"));
+        meta.setEnchantmentGlintOverride(arena.isQueueOpen());
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.isQueueOpen() ? "Yes" : "No").build());
@@ -144,6 +147,7 @@ public class ArenaEditGui extends InteractableGui {
         ItemMeta meta = stack.getItemMeta();
 
         meta.displayName(getDefaultHeaderComponent("Auto-start next game", "#DE771C"));
+        meta.setEnchantmentGlintOverride(arena.isContinuous());
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.isContinuous() ? "Enabled" : "Disabled").build());
@@ -160,6 +164,7 @@ public class ArenaEditGui extends InteractableGui {
         ItemMeta meta = stack.getItemMeta();
 
         meta.displayName(getDefaultHeaderComponent("Visible in list", "#992CAB"));
+        meta.setEnchantmentGlintOverride(arena.isVisible());
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.isVisible() ? "Yes" : "No").build());
@@ -210,10 +215,29 @@ public class ArenaEditGui extends InteractableGui {
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
         switch (clickedSlot) {
-            case 0:
-
+            case 11: return null; //Number Input
+            case 20: return null; //Number Input
+            case 12: return null; //Number Input
+            case 21: return null; //Number Input
+            case 13: arena.editArgs(5, arena.isQueueOpen() ? "false" : "true"); return getNewGui();
+            case 22: arena.editArgs(4, arena.isContinuous() ? "false" : "true"); return getNewGui();
+            case 14: arena.editArgs(6, arena.isVisible() ? "false" : "true"); return getNewGui();
+            case 23: return null; //Block
+            case 15: return null; //Text
+            default: return super.handleInvClick(clickedSlot);
         }
-        return null;
+    }
+
+    private ArenaEditGui getNewGui() {
+        ArenaEditGui gui = null;
+        GameTypes gameType = GameTypes.getFromArenaClass(arena.getClass());
+        try {
+            gui = gameType.getEditGuiClass().getDeclaredConstructor(String[].class).newInstance((Object) super.getArgs());
+        } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException |
+                InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+        return gui;
     }
 
     public MinigameArena getArena() {

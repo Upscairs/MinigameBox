@@ -78,10 +78,10 @@ public class SpleefArenaEditGui extends ArenaEditGui {
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
         switch (clickedSlot) {
-            case 0:
-
+            case 38: return null; //Number input
+            case 39: return null; //Block Input
+            default: return super.handleInvClick(clickedSlot);
         }
-        return null;
     }
 
     @Override

@@ -110,7 +110,7 @@ public class MiniGame {
         gameRunning = false;
 
         if(force) {
-            arena.setContinuous(false);
+            arena.editArgs(4, "false");
             return;
         }
 

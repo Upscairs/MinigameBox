@@ -44,7 +44,7 @@ public abstract class InteractableGui implements InventoryHolder {
     }
 
     public InteractableGui handleInvClick(int clickedSlot) {
-        return null;
+        return this;
     }
 
 }
