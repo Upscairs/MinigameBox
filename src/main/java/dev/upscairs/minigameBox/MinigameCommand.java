@@ -184,6 +184,22 @@ public class MinigameCommand implements CommandExecutor {
                 }
             }
 
+            if(args[0].equalsIgnoreCase("stop")) {
+                if(!p.hasPermission("minigamebox.manage")) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                }
+
+                if(args.length >= 2) {
+                    for(int i = 2; i < args.length; i++) {
+                        args[1] = args[1] + " " + args[i];
+                    }
+                    GameRegister.getGame(args[1]).endGame(true);
+                }
+                else {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
+                }
+            }
+
             /*
             if(args[0].equalsIgnoreCase("reload")) {
                 if(!p.hasPermission("minigamebox.manage")) {

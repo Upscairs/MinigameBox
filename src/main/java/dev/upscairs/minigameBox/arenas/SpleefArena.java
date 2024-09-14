@@ -43,16 +43,21 @@ public class SpleefArena extends MinigameArena {
         Location location1 = getLocation1();
         Location location2 = getLocation2();
 
-
         //Placing spleef block in layers
-        for(int y : layersY) {
-            for(int x = (int) location2.getX(); x < location1.getX(); x++) {
-                for(int z = (int) location2.getZ(); z < location1.getZ(); z++) {
-                    Location loc = new Location(location1.getWorld(), x, y, z);
-                    loc.getBlock().setType(spleefMaterial);
-                }
-            }
 
+        for(int x = (int) location2.getX(); x < location1.getX(); x++) {
+             for(int y = (int) location2.getY(); y < location1.getY(); y++) {
+                 for (int z = (int) location2.getZ(); z < location1.getZ(); z++) {
+                     Location loc = new Location(location1.getWorld(), x, y, z);
+                     if(layersY.contains(y)) {
+                         loc.getBlock().setType(spleefMaterial);
+                     }
+                     else {
+                         loc.getBlock().setType(Material.AIR);
+                     }
+
+                 }
+             }
         }
 
     }
