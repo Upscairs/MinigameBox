@@ -80,8 +80,16 @@ public class SpleefArenaEditGui extends ArenaEditGui {
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
         switch (clickedSlot) {
-            case 38: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 9); return null;
-            case 39: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 10); return null;
+            case 38: {
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 9);
+
+                return null;
+            }
+            case 39: {
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 10);
+
+                return null;
+            }
             default: return super.handleInvClick(clickedSlot);
         }
     }

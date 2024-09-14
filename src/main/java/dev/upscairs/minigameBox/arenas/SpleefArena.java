@@ -44,7 +44,6 @@ public class SpleefArena extends MinigameArena {
         Location location2 = getLocation2();
 
         //Placing spleef block in layers
-
         for(int x = (int) location2.getX(); x < location1.getX(); x++) {
              for(int y = (int) location2.getY(); y < location1.getY(); y++) {
                  for (int z = (int) location2.getZ(); z < location1.getZ(); z++) {
