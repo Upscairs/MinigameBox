@@ -1,16 +1,14 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
-import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.games.GameTypes;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-public class PendingArenaCreations {
+public abstract class PendingArenaCreations {
 
     private static HashMap<Player, ArenaCreationWizard> setups = new HashMap<>();
 

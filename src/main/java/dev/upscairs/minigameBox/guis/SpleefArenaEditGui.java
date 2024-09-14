@@ -2,6 +2,7 @@ package dev.upscairs.minigameBox.guis;
 
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -11,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class SpleefArenaEditGui extends ArenaEditGui {
 
@@ -78,8 +80,8 @@ public class SpleefArenaEditGui extends ArenaEditGui {
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
         switch (clickedSlot) {
-            case 38: return null; //Number input
-            case 39: return null; //Block Input
+            case 38: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 9); return null;
+            case 39: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 10); return null;
             default: return super.handleInvClick(clickedSlot);
         }
     }

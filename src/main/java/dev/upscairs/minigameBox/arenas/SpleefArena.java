@@ -74,9 +74,22 @@ public class SpleefArena extends MinigameArena {
     }
 
     @Override
-    public void reloadSettings() {
-        this.layerCount = Integer.parseInt(getRawArgs()[9]);
-        this.spleefMaterial = Material.getMaterial(getRawArgs()[10]);
+    public void reloadSettings() throws NumberFormatException, IllegalArgumentException {
+        int number = Integer.parseInt(getRawArgs()[9]);
+        if(number < 1) {
+            throw new IllegalArgumentException("There must be at least one layer.");
+        }
+        int heightDifference = (int) (getLocation1().getY() - getLocation2().getY());
+        if(heightDifference/4 < number) {
+            throw new IllegalArgumentException("Spleef arena is too small");
+        }
+        this.layerCount = number;
+
+        Material material = Material.getMaterial(getRawArgs()[10]);
+        if(material == null) {
+            throw new IllegalArgumentException("Not a valid material.");
+        }
+        this.spleefMaterial = material;
         super.reloadSettings();
     }
 }

@@ -78,6 +78,18 @@ public abstract class GameRegister {
         loadGames();
     }
 
+    public static void deleteArena(String name) {
+        FileConfiguration config = ArenaRegisterFile.get();
+
+        String pref = GameTypes.getFromGameClass(getGame(name).getClass()).getName() + "." + name;
+
+        config.set(pref, null);
+        ArenaRegisterFile.setConfig(config);
+        ArenaRegisterFile.save();
+
+        loadGames();
+    }
+
     public static boolean gameExists(String name) {
         return games.containsKey(name);
     }

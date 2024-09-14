@@ -196,23 +196,63 @@ public class MinigameArena {
     }*/
 
 
-    public void editArgs(int index, String newString) {
+    public void editArgs(int index, String newString) throws IllegalArgumentException {
+
+        String[] oldSettings = getRawArgs();
         String[] settings = getRawArgs();
         settings[index] = newString;
         setRawArgs(settings);
-        reloadSettings();
+
+        try {
+            reloadSettings();
+        } catch (NumberFormatException e) {
+            setRawArgs(oldSettings);
+            throw new IllegalArgumentException("Not requested type.");
+        } catch (IllegalArgumentException e) {
+            setRawArgs(oldSettings);
+            throw new IllegalArgumentException(e.getMessage());
+        }
+
         GameRegister.saveArenaSettings(this);
     }
 
-    public void reloadSettings() {
-        this.minPlayers = Integer.parseInt(rawArgs[0]);
-        this.maxPlayers = Integer.parseInt(rawArgs[1]);
-        this.fillupWaitingTimeSec = Integer.parseInt(rawArgs[2]);
-        this.setupTimeSec = Integer.parseInt(rawArgs[3]);
+    public void reloadSettings() throws NumberFormatException, IllegalArgumentException {
+
+        int number = Integer.parseInt(rawArgs[0]);
+        if(number < 1) {
+            throw new IllegalArgumentException("Number must be greater than 0");
+        }
+        this.minPlayers = number;
+
+
+        number = Integer.parseInt(rawArgs[1]);
+        if(number < minPlayers) {
+            throw new IllegalArgumentException("Number must be greater than min Players");
+        }
+        this.maxPlayers = number;
+
+        number = Integer.parseInt(rawArgs[2]);
+        if(number < 0) {
+            throw new IllegalArgumentException("Number must be at least 0");
+        }
+        this.fillupWaitingTimeSec = number;
+
+        number = Integer.parseInt(rawArgs[3]);
+        if(number < 0) {
+            throw new IllegalArgumentException("Number must be at least 0");
+        }
+        this.setupTimeSec = number;
+
         this.continuous = Boolean.parseBoolean(rawArgs[4]);
         this.queueOpen = Boolean.parseBoolean(rawArgs[5]);
         this.visible = Boolean.parseBoolean(rawArgs[6]);
-        this.representingItem = Material.getMaterial(rawArgs[7]);
+
+        Material material = Material.valueOf(rawArgs[7]);
+        if(material == null || material.isAir() || material.isLegacy()) {
+            throw new IllegalArgumentException("Not a valid material");
+        }
+        this.representingItem = material;
+
         this.description = rawArgs[8];
     }
 

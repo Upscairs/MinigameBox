@@ -4,6 +4,7 @@ import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
 import dev.upscairs.minigameBox.games.GameTypes;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -11,6 +12,7 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +21,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class ArenaEditGui extends InteractableGui {
 
@@ -215,15 +218,15 @@ public class ArenaEditGui extends InteractableGui {
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
         switch (clickedSlot) {
-            case 11: return null; //Number Input
-            case 20: return null; //Number Input
-            case 12: return null; //Number Input
-            case 21: return null; //Number Input
+            case 11: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 0); return null;
+            case 20: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 1); return null;
+            case 12: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 2); return null;
+            case 21: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 3); return null;
             case 13: arena.editArgs(5, arena.isQueueOpen() ? "false" : "true"); return getNewGui();
             case 22: arena.editArgs(4, arena.isContinuous() ? "false" : "true"); return getNewGui();
             case 14: arena.editArgs(6, arena.isVisible() ? "false" : "true"); return getNewGui();
-            case 23: return null; //Block
-            case 15: return null; //Text
+            case 23: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 7); return null;
+            case 15: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 8); return null;
             default: return super.handleInvClick(clickedSlot);
         }
     }

@@ -3,6 +3,7 @@ package dev.upscairs.minigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaCreations;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
 import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
 import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
@@ -39,6 +40,9 @@ public class MinigameCommand implements CommandExecutor {
 
                 //All args given -> new setup attempt
                 if(args.length >= 3) {
+                    for(int i = 3; i < args.length; i++) {
+                        args[2] = args[2] + " " + args[i];
+                    }
                     PendingArenaCreations.newSetup(p, args[1], args[2]);
                 }
                 else {
@@ -92,6 +96,10 @@ public class MinigameCommand implements CommandExecutor {
                 //Checking if enough args
                 if(args.length >= 2) {
 
+                    for(int i = 2; i < args.length; i++) {
+                        args[1] = args[1] + " " + args[i];
+                    }
+
                     String gameName = args[1];
 
                     //Checking if game exists
@@ -119,6 +127,61 @@ public class MinigameCommand implements CommandExecutor {
                     return true;
                 }
 
+            }
+
+            if(args[0].equalsIgnoreCase("edit-input")) {
+                if(!p.hasPermission("minigamebox.manage")) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                }
+
+                if(args.length >= 2) {
+                    for(int i = 2; i < args.length; i++) {
+                        args[1] = args[1] + " " + args[i];
+                    }
+                    PendingArenaEdits.giveArg(p, args[1]);
+                }
+                else {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
+                }
+            }
+
+            if(args[0].equalsIgnoreCase("edit-cancel")) {
+                if(!p.hasPermission("minigamebox.manage")) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                }
+                PendingArenaEdits.removePlayer(p);
+            }
+
+            if(args[0].equalsIgnoreCase("delete")) {
+                if(!p.hasPermission("minigamebox.manage")) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                }
+
+                if(args.length >= 2) {
+                    for(int i = 2; i < args.length; i++) {
+                        args[1] = args[1] + " " + args[i];
+                    }
+                    GameRegister.deleteArena(args[1]);
+                }
+                else {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
+                }
+            }
+
+            if(args[0].equalsIgnoreCase("refresh")) {
+                if(!p.hasPermission("minigamebox.manage")) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                }
+
+                if(args.length >= 2) {
+                    for(int i = 2; i < args.length; i++) {
+                        args[1] = args[1] + " " + args[i];
+                    }
+                    GameRegister.getGame(args[1]).getArena().regenerateArena();
+                }
+                else {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
+                }
             }
 
             /*
