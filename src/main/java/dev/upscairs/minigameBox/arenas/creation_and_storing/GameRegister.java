@@ -20,6 +20,38 @@ public abstract class GameRegister {
     //Maps arena Name to Instance
     private static HashMap<String, MiniGame> games = new HashMap<>();
 
+    public static void reloadGame(String gameName, GameTypes gameType) {
+        ArenaRegisterFile.reload();
+        FileConfiguration config = ArenaRegisterFile.get();
+
+        String path = gameType.getName() + "." + gameName;
+
+        Location location1;
+        Location location2;
+        Location outsideLocation;
+        String[] args;
+
+        try {
+            location1 = config.getLocation(path + ".location1");
+            location2 = config.getLocation(path + ".location2");
+            outsideLocation = config.getLocation(path + ".outside-location");
+            args = config.getStringList(path + ".args").toArray(new String[0]);
+        } catch (Exception e) {
+            games.remove(gameName);
+            return;
+        }
+
+        try {
+            MinigameArena arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(gameName, location1, location2, outsideLocation, args);
+            MiniGame game = gameType.getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
+            games.put(gameName, game);
+
+        } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public static void loadGames() {
 
         ArenaRegisterFile.reload();
@@ -75,7 +107,7 @@ public abstract class GameRegister {
         ArenaRegisterFile.setConfig(config);
         ArenaRegisterFile.save();
 
-        loadGames();
+        reloadGame(arena.getName(), GameTypes.getFromArenaClass(arena.getClass()));
     }
 
     public static void deleteArena(String name) {
@@ -87,7 +119,7 @@ public abstract class GameRegister {
         ArenaRegisterFile.setConfig(config);
         ArenaRegisterFile.save();
 
-        loadGames();
+        reloadGame(name, GameTypes.getFromGameClass(getGame(name).getClass()));
     }
 
     public static boolean gameExists(String name) {

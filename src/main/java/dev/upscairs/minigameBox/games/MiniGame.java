@@ -132,4 +132,8 @@ public class MiniGame {
         this.gameRunning = gameRunning;
     }
 
+    public boolean isGameRunning() {
+        return gameRunning;
+    }
+
 }

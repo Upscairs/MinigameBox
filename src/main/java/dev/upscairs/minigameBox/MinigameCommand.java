@@ -177,6 +177,7 @@ public class MinigameCommand implements CommandExecutor {
                     for(int i = 2; i < args.length; i++) {
                         args[1] = args[1] + " " + args[i];
                     }
+                    GameRegister.reloadGame(args[1], GameTypes.getFromGameClass(GameRegister.getGame(args[1]).getClass()));
                     GameRegister.getGame(args[1]).getArena().regenerateArena();
                 }
                 else {

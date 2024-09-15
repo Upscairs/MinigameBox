@@ -1,8 +1,6 @@
 package dev.upscairs.minigameBox.guis;
 
-import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
 import dev.upscairs.minigameBox.games.GameTypes;
@@ -12,7 +10,6 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
@@ -20,17 +17,18 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 public class ArenaEditGui extends InteractableGui {
 
     private MinigameArena arena;
+    private boolean gameRunning;
 
     public ArenaEditGui(String[] args) {
         super(args);
 
         setArena(args[1]);
+        gameRunning = GameRegister.getGame(args[1]).isGameRunning();
 
         setupInventory();
     }
@@ -61,6 +59,7 @@ public class ArenaEditGui extends InteractableGui {
 
         setInventory(currentInventory);
     }
+
 
     private ItemStack generateMinPlayerItem() {
         ItemStack stack = new ItemStack(Material.HEAVY_WEIGHTED_PRESSURE_PLATE, 1);
@@ -217,6 +216,7 @@ public class ArenaEditGui extends InteractableGui {
 
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
+
         switch (clickedSlot) {
             case 11: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 0); return null;
             case 20: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 1); return null;
@@ -248,13 +248,15 @@ public class ArenaEditGui extends InteractableGui {
     }
 
     public void setArena(String name) {
-        System.out.println(name);
         setArena(GameRegister.getGame(name).getArena());
-        System.out.println(arena);
     }
 
     public void setArena(MinigameArena arena) {
         this.arena = arena;
+    }
+
+    public boolean isGameRunning() {
+        return gameRunning;
     }
 
 }

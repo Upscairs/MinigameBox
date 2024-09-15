@@ -214,6 +214,7 @@ public class MinigameArena {
         }
 
         GameRegister.saveArenaSettings(this);
+
     }
 
     public void reloadSettings() throws NumberFormatException, IllegalArgumentException {
