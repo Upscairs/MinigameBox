@@ -4,6 +4,7 @@ import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
 import dev.upscairs.minigameBox.games.GameTypes;
+import dev.upscairs.minigameBox.games.MiniGame;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.TextColor;
@@ -56,6 +57,7 @@ public class ArenaEditGui extends InteractableGui {
         currentInventory.setItem(14, generateVisibilityItem());
         currentInventory.setItem(23, generateRepresentingItem());
         currentInventory.setItem(15, generateDescriptionItem());
+        currentInventory.setItem(53, generateRunningItem());
 
         setInventory(currentInventory);
     }
@@ -205,6 +207,30 @@ public class ArenaEditGui extends InteractableGui {
         return stack;
     }
 
+    private ItemStack generateRunningItem() {
+        ItemStack stack = null;
+        if(GameRegister.getGame(arena.getName()).isGameRunning()) {
+            stack = new ItemStack(Material.GREEN_WOOL, 1);
+            ItemMeta meta = stack.getItemMeta();
+            meta.displayName(getDefaultHeaderComponent("Game running...", "#00DD00"));
+            ArrayList<Component> lore = new ArrayList<>();
+            lore.add(Component.text().content("Click to force stop!").build());
+            meta.lore(lore);
+            stack.setItemMeta(meta);
+        }
+        else {
+            stack = new ItemStack(Material.RED_WOOL, 1);
+            ItemMeta meta = stack.getItemMeta();
+            meta.displayName(getDefaultHeaderComponent("No game running", "#DD0000"));
+            ArrayList<Component> lore = new ArrayList<>();
+            lore.add(Component.text().content("Click to force start! (ignores player numbers)").build());
+            meta.lore(lore);
+            stack.setItemMeta(meta);
+        }
+
+        return stack;
+    }
+
     public TextComponent getDefaultHeaderComponent(String text, String colorHex) {
         return Component.text()
                 .content(text)
@@ -227,6 +253,16 @@ public class ArenaEditGui extends InteractableGui {
             case 14: arena.editArgs(6, arena.isVisible() ? "false" : "true"); return getNewGui();
             case 23: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 7); return null;
             case 15: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 8); return null;
+            case 53: {
+                MiniGame game = GameRegister.getGame(arena.getName());
+                if(game.isGameRunning()) {
+                    game.endGame(true);
+                }
+                else {
+                    game.startGameFinal(); //TODO fix required
+                }
+                return getNewGui();
+            }
             default: return super.handleInvClick(clickedSlot);
         }
     }

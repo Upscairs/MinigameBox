@@ -61,10 +61,13 @@ public final class MinigameBox extends JavaPlugin {
 /*TODO
    - add reload file command LATER
    - arena start/stop in gui
+   - checks if game exists (for command inputs)
+   - make loading corrupted arenas safer
    - tab completor
    - list of arenas + tp, join etc
    - Reward
    - messages
+   - economy LATER
 
  */
 
