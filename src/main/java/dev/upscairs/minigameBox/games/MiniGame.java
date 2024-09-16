@@ -42,7 +42,7 @@ public class MiniGame {
     //Starting game in x seconds, but waiting for other players to join, can get called by game master
     public void startGameCountdown() {
         gameRunning = true;
-        arena.setQueuedPlayersIngame();
+        arena.regenerateArena();
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
             @Override
             public void run() {
@@ -55,8 +55,7 @@ public class MiniGame {
     //Starting game, players get placed in arena and tagged
     public void startGameFinal() {
         gameRunning = true;
-        //TODO place players in arena
-        //Arena needs default protection
+        arena.setQueuedPlayersIngame();
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
             @Override
             public void run() {

@@ -80,10 +80,6 @@ public class SpleefArenaEditGui extends ArenaEditGui {
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
 
-
-        if(isGameRunning()) {
-            return this;
-        }
         switch (clickedSlot) {
             case 38: {
                 PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 9);

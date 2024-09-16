@@ -201,22 +201,6 @@ public class MinigameCommand implements CommandExecutor {
                 }
             }
 
-            /*
-            if(args[0].equalsIgnoreCase("reload")) {
-                if(!p.hasPermission("minigamebox.manage")) {
-                    p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
-                    return true;
-                }
-
-                GameRegister.loadGames();
-
-                GameRegister.getGame(args[1]).getArena().regenerateArena();
-
-                return true;
-
-            }
-             */
-
             if(args[0].equalsIgnoreCase("join")) {
                 //calling JoinQueueEvent, handling there
                 if(args.length == 2) {

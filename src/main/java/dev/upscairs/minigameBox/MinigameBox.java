@@ -59,12 +59,10 @@ public final class MinigameBox extends JavaPlugin {
 
 
 /*TODO
-   (1) Info to run /minigame refresh
-   (2) protection for edit while game running
-   (3) add reload file command
-   (4) tab completor
-   (5) list of arenas + tp, join etc
-
-
+   - add reload file command LATER
+   - tab completor
+   - list of arenas + tp, join etc
+   - Reward
+   - messages
 
  */

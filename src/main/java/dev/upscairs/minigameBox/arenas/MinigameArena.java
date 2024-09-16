@@ -81,7 +81,7 @@ public class MinigameArena {
         return true;
     }
 
-    //Removes from player lsit and tps out
+    //Removes from player list and tps out
     public void removePlayerFromGame(Player player) {
         ingamePlayers.remove(player);
         moveToOutsideBlock(player);

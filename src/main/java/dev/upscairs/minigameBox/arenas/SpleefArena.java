@@ -90,7 +90,7 @@ public class SpleefArena extends MinigameArena {
         this.layerCount = number;
 
         Material material = Material.getMaterial(getRawArgs()[10]);
-        if(material == null) {
+        if(material == null || material == Material.AIR || material.isLegacy()) {
             throw new IllegalArgumentException("Not a valid material.");
         }
         this.spleefMaterial = material;

@@ -1,6 +1,8 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
 import dev.upscairs.minigameBox.arenas.MinigameArena;
+import dev.upscairs.minigameBox.arenas.SpleefArena;
+import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.utils.Tuple;
 import org.bukkit.entity.Player;
 
@@ -26,16 +28,26 @@ public abstract class PendingArenaEdits {
 
     public static void giveArg(Player player, String newSetting) {
 
+        MinigameArena arena = pendingEdits.get(player).left;
+
         if(!pendingEdits.containsKey(player)) {
             player.sendMessage("No Editing");
             return;
         }
 
         try {
-            pendingEdits.get(player).left.editArgs(pendingEdits.get(player).right, newSetting);
+            arena.editArgs(pendingEdits.get(player).right, newSetting);
         } catch (IllegalArgumentException e) {
             player.sendMessage(e.getMessage());
             return;
+        }
+
+
+        GameTypes gameType = GameTypes.getFromArenaClass(arena.getClass());
+
+        if(!GameRegister.getGame(arena.getName()).isGameRunning()) {
+            GameRegister.reloadGame(arena.getName(), gameType);
+            GameRegister.getGame(arena.getName()).getArena().regenerateArena();
         }
 
         removePlayer(player);
