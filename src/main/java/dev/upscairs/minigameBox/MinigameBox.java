@@ -60,9 +60,21 @@ public final class MinigameBox extends JavaPlugin {
 
 /*TODO
    - add reload file command LATER
+   - arena start/stop in gui
    - tab completor
    - list of arenas + tp, join etc
    - Reward
    - messages
+
+ */
+
+/*
+
++++Creating new arena types+++
+1. Create Classes: Arena, Game, EditGui
+2. Make them extend their superclasses
+3. New entry in Game types Enum: Define with classes and default args
+4. Implement fuctionality in classes: +Settings items in GuiClickHandler, ...
+5. Implement Gameplay, use EventListeners for Controlling
 
  */

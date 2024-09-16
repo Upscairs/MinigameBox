@@ -132,6 +132,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("edit-input")) {
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                    return true;
                 }
 
                 if(args.length >= 2) {
@@ -148,6 +149,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("edit-cancel")) {
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                    return true;
                 }
                 PendingArenaEdits.removePlayer(p);
             }
@@ -155,6 +157,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("delete")) {
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                    return true;
                 }
 
                 if(args.length >= 2) {
@@ -171,6 +174,12 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("refresh")) {
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                    return true;
+                }
+
+                if(!GameRegister.getGame(args[1]).isGameRunning()) {
+                    //TODO p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
+                    return true;
                 }
 
                 if(args.length >= 2) {
@@ -188,6 +197,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("stop")) {
                 if(!p.hasPermission("minigamebox.manage")) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-no-permission"));
+                    return true;
                 }
 
                 if(args.length >= 2) {
