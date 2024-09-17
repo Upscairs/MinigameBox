@@ -257,4 +257,6 @@ public class MinigameArena {
         this.description = rawArgs[8];
     }
 
+    public void movePlayersIn() {
+    }
 }

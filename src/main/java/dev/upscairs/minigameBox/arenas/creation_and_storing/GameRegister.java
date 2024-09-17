@@ -6,6 +6,7 @@ import dev.upscairs.minigameBox.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.games.MiniGame;
 import dev.upscairs.minigameBox.games.SpleefGame;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -83,7 +84,7 @@ public abstract class GameRegister {
                     games.put(arenaName, game);
 
                 } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                    throw new RuntimeException(e);
+                    Bukkit.getLogger().warning("Loading of arena \"" + arenaName + "\" failed. Did you edit the arena register file?");
                 }
 
             });

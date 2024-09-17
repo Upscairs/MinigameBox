@@ -66,6 +66,7 @@ public class SpleefArena extends MinigameArena {
     }
 
     //Tping players to top of area in the center
+    @Override
     public void movePlayersIn() {
         Location dropLocation = new Location(getLocation1().getWorld(), (getLocation1().getX()+getLocation2().getX())/2, getLocation1().getY(), (getLocation1().getZ()+getLocation2().getZ())/2);
         for(Player p : getIngamePlayers()) {

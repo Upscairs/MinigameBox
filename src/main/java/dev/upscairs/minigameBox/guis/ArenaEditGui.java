@@ -255,11 +255,13 @@ public class ArenaEditGui extends InteractableGui {
             case 15: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 8); return null;
             case 53: {
                 MiniGame game = GameRegister.getGame(arena.getName());
+                System.out.println(arena.getName());
+                System.out.println(game.getArena());
                 if(game.isGameRunning()) {
                     game.endGame(true);
                 }
                 else {
-                    game.startGameFinal(); //TODO fix required
+                    game.startGameFinal();
                 }
                 return getNewGui();
             }

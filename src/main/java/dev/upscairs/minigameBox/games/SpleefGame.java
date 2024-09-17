@@ -9,8 +9,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 public class SpleefGame extends MiniGame {
 
-    private SpleefArena arena;
-    
     public SpleefGame(MinigameArena arena) {
         super(arena);
     }
@@ -18,17 +16,17 @@ public class SpleefGame extends MiniGame {
     @Override
     public void startGameFinal() {
         setGameRunning(true);
-        arena.regenerateArena();
-        arena.movePlayersIn();
+        getArena().regenerateArena();
+        getArena().movePlayersIn();
         //Arena needs default protection
         Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
             @Override
             public void run() {
-                for(Player p : arena.getIngamePlayers()) {
-                    p.setMetadata("GameName", new FixedMetadataValue(getPlugin(), arena.getName()));
+                for(Player p : getArena().getIngamePlayers()) {
+                    p.setMetadata("GameName", new FixedMetadataValue(getPlugin(), getArena().getName()));
                 }
             }
-        }, arena.getSetupTimeSec()*20L);
+        }, getArena().getSetupTimeSec()*20L);
 
     }
 

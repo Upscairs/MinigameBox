@@ -119,8 +119,15 @@ public class MiniGame {
 
     }
 
+    public void setArena(MinigameArena arena) {
+        this.arena = arena;
+    }
+
     public MinigameArena getArena() {
         return arena;
+    }
+
+    public void movePlayersIn() {
     }
 
     public MinigameBox getPlugin() {

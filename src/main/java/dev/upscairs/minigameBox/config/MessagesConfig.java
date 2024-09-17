@@ -35,7 +35,7 @@ public class MessagesConfig {
         try {
             customFile.save(file);
         } catch (IOException e) {
-            System.err.println("Could not save file " + file.getAbsolutePath());
+            Bukkit.getLogger().warning("Could not save file " + file.getAbsolutePath());
         }
     }
 
