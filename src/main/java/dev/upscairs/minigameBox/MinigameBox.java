@@ -3,6 +3,7 @@ package dev.upscairs.minigameBox;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.config.MessagesConfig;
+import dev.upscairs.minigameBox.config.SettingsFile;
 import dev.upscairs.minigameBox.events.handling.GuiInteractionHandler;
 import dev.upscairs.minigameBox.events.handling.PlayerDisconnectHandler;
 import dev.upscairs.minigameBox.events.handling.PlayerQueueGameActivityHandler;
@@ -42,6 +43,9 @@ public final class MinigameBox extends JavaPlugin {
 
         MessagesConfig.setup();
         MessagesConfig.defaults();
+
+        SettingsFile.setup();
+        SettingsFile.defaults();
     }
 
     public void registerCommands() {
