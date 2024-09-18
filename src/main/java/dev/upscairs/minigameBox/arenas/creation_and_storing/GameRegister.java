@@ -147,4 +147,8 @@ public abstract class GameRegister {
         return false;
     }
 
+    public static HashMap<String, MiniGame> getGames() {
+        return games;
+    }
+
 }

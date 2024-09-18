@@ -258,5 +258,6 @@ public class MinigameArena {
     }
 
     public void movePlayersIn() {
+        return;
     }
 }

@@ -3,6 +3,7 @@ package dev.upscairs.minigameBox.guis;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
+import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -53,7 +54,7 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(getDefaultHeaderComponent("Layers", "#C91F58"));
+        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Layers", "#C91F58"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(getArena().getLayerCount() + " Layers").build());
@@ -69,7 +70,7 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(getDefaultHeaderComponent("Spleef Block", "#8D989D"));
+        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Spleef Block", "#8D989D"));
 
         stack.setItemMeta(meta);
 

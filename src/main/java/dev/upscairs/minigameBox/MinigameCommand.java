@@ -9,6 +9,7 @@ import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
 import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
 import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.guis.ArenaEditGui;
+import dev.upscairs.minigameBox.guis.ArenaListGui;
 import dev.upscairs.minigameBox.guis.InteractableGui;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 public class MinigameCommand implements CommandExecutor {
 
@@ -220,6 +222,16 @@ public class MinigameCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("leave")) {
                 Bukkit.getServer().getPluginManager().callEvent(new PlayerLeaveQueueEvent(p));
+            }
+
+            if(args[0].equalsIgnoreCase("list")) {
+                ArrayList<MinigameArena> arenas = new ArrayList<>();
+                for(String key : GameRegister.getGames().keySet()) {
+                    if(GameRegister.getGame(key).getArena().isVisible()) {
+                        arenas.add(GameRegister.getGame(key).getArena());
+                    }
+                }
+                p.openInventory(new ArenaListGui(new String[]{p.getUniqueId().toString(), "0"}, arenas).getInventory());
             }
 
             //Subcommand not found
