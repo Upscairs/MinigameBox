@@ -52,6 +52,9 @@ public class PlayerQueueGameActivityHandler implements Listener {
         else {
             player.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
         }
+
+        MinigameBox plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
+        player.removeMetadata("GameName", plugin);
     }
 
     @EventHandler

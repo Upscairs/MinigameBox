@@ -174,7 +174,7 @@ public class MinigameArena {
     }
 
     public boolean enoughPlayersToStart() {
-        return ingamePlayers.size() >= minPlayers;
+        return queuedPlayers.size() >= minPlayers;
     }
 
     public boolean isVisible() {
@@ -259,5 +259,9 @@ public class MinigameArena {
 
     public void movePlayersIn() {
         return;
+    }
+
+    public int getQueueLength() {
+        return queuedPlayers.size();
     }
 }

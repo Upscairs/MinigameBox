@@ -15,19 +15,9 @@ public class SpleefGame extends MiniGame {
 
     @Override
     public void startGameFinal() {
-        setGameRunning(true);
         getArena().regenerateArena();
         getArena().movePlayersIn();
-        //Arena needs default protection
-        Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
-            @Override
-            public void run() {
-                for(Player p : getArena().getIngamePlayers()) {
-                    p.setMetadata("GameName", new FixedMetadataValue(getPlugin(), getArena().getName()));
-                }
-            }
-        }, getArena().getSetupTimeSec()*20L);
-
+        super.startGameFinal();
     }
 
     

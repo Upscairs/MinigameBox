@@ -1,8 +1,10 @@
 package dev.upscairs.minigameBox.guis;
 
 import dev.upscairs.minigameBox.arenas.MinigameArena;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.config.SettingsFile;
 import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
+import dev.upscairs.minigameBox.games.MiniGame;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -49,6 +51,19 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
         meta.displayName(InvGuiUtils.getDefaultHeaderComponent(arena.getName(), "#29B6F6"));
 
         List<String> lore = new ArrayList<>();
+        MiniGame game = GameRegister.getGame(arena.getName());
+
+        if(game.isGameRunning()) {
+            lore.add("Game running..");
+        }
+        else if(!game.isGameRunning() && arena.isAutoStartable()) {
+            lore.add("Waiting for players.");
+        }
+        else {
+            lore.add("No game running.");
+        }
+
+        lore.add("Players in queue: " + arena.getQueueLength());
 
         if(clickedMode.equalsIgnoreCase("tp")) {
             lore.add("Click to teleport!");

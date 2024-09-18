@@ -65,12 +65,13 @@ public final class MinigameBox extends JavaPlugin {
 /*TODO
    - checks if game exists (for command inputs)
    - tab completor
-   - list of arenas + tp, join etc
+   - move players ingame at the end of startup, fix queue
    - Reward
-   - messages
+   - chat messages
+   - braodcast messages
    - economy LATER
    - add reload file command LATER
-
+   - Arena info gui, view queue
  */
 
 /*

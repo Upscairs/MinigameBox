@@ -26,7 +26,6 @@ public class MiniGame {
         if(gameRunning) {
             return false;
         }
-        arena.setQueuedPlayersIngame();
 
         if(!arena.enoughPlayersToStart()) {
             return false;
