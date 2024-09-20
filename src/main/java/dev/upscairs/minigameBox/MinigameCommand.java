@@ -166,6 +166,11 @@ public class MinigameCommand implements CommandExecutor {
                     for(int i = 2; i < args.length; i++) {
                         args[1] = args[1] + " " + args[i];
                     }
+                    //Checking if game exists
+                    if(!GameRegister.gameExists(args[1])) {
+                        p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                        return true;
+                    }
                     GameRegister.deleteArena(args[1]);
                 }
                 else {
@@ -179,14 +184,20 @@ public class MinigameCommand implements CommandExecutor {
                     return true;
                 }
 
-                if(!GameRegister.getGame(args[1]).isGameRunning()) {
-                    //TODO p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
-                    return true;
-                }
-
                 if(args.length >= 2) {
                     for(int i = 2; i < args.length; i++) {
                         args[1] = args[1] + " " + args[i];
+                    }
+
+                    //Checking if game exists
+                    if(!GameRegister.gameExists(args[1])) {
+                        p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                        return true;
+                    }
+
+                    if(!GameRegister.getGame(args[1]).isGameRunning()) {
+                        //TODO p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
+                        return true;
                     }
                     GameRegister.reloadGame(args[1], GameTypes.getFromGameClass(GameRegister.getGame(args[1]).getClass()));
                     GameRegister.getGame(args[1]).getArena().regenerateArena();
@@ -206,6 +217,11 @@ public class MinigameCommand implements CommandExecutor {
                     for(int i = 2; i < args.length; i++) {
                         args[1] = args[1] + " " + args[i];
                     }
+                    //Checking if game exists
+                    if(!GameRegister.gameExists(args[1])) {
+                        p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                        return true;
+                    }
                     GameRegister.getGame(args[1]).endGame(true);
                 }
                 else {
@@ -214,8 +230,16 @@ public class MinigameCommand implements CommandExecutor {
             }
 
             if(args[0].equalsIgnoreCase("join")) {
+                for(int i = 2; i < args.length; i++) {
+                    args[1] = args[1] + " " + args[i];
+                }
+                //Checking if game exists
+                if(!GameRegister.gameExists(args[1])) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                    return true;
+                }
                 //calling JoinQueueEvent, handling there
-                if(args.length == 2) {
+                if(args.length >= 2) {
                     Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, args[1]));
                 }
                 return true;

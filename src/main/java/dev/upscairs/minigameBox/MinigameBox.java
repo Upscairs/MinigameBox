@@ -71,7 +71,7 @@ public final class MinigameBox extends JavaPlugin {
    - braodcast messages
    - economy LATER
    - add reload file command LATER
-   - Arena info gui, view queue
+   - Arena info gui, view queue LATER
  */
 
 /*
