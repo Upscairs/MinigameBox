@@ -50,6 +50,7 @@ public final class MinigameBox extends JavaPlugin {
 
     public void registerCommands() {
         getCommand("minigame").setExecutor(new MinigameCommand());
+        getCommand("minigame").setTabCompleter(new MinigameTabCompleter());
     }
 
     public void registerEvents() {                                                                  
