@@ -21,13 +21,26 @@ public class SpleefMonitoring implements Listener {
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
         Player p = event.getPlayer();
 
-        SpleefGame game = getSpleefGame(p);
+        SpleefGame game = getPlayedSpleefGame(p);
         if(game == null) return;
 
         Location loc = p.getLocation();
 
-        if(loc.getY() < game.getArena().getLocation2().getY()+0.5) {
+        Location arenaLoc1 = game.getArena().getLocation1();
+        Location arenaLoc2 = game.getArena().getLocation2();
+
+        //Lowest layer
+        if(loc.getY() < arenaLoc2.getY()+0.5) {
             game.playerRemove(p);
+        }
+
+        //Out of bounds
+        if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc1.getX()) {
+            if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc1.getY()) {
+                if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc1.getZ()) {
+                    game.playerRemove(p);
+                }
+            }
         }
 
     }
@@ -41,7 +54,7 @@ public class SpleefMonitoring implements Listener {
             return;
         }
 
-        SpleefGame game = getSpleefGame(p);
+        SpleefGame game = getPlayedSpleefGame(p);
         if(game == null) return;
 
         event.setCancelled(true);
@@ -59,18 +72,23 @@ public class SpleefMonitoring implements Listener {
     //Supressing block placement
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if(getSpleefGame(event.getPlayer()) != null) {
+        if(getPlayedSpleefGame(event.getPlayer()) != null) {
             event.setCancelled(true);
         }
     }
 
-    public SpleefGame getSpleefGame(Player player) {
-        if(GameRegister.isPlayerInGame(player) && GameRegister.getPlayersGame(player) instanceof SpleefGame g) {
-            return g;
+    public SpleefGame getPlayedSpleefGame(Player player) {
+
+        if(GameRegister.isPlayerInGame(player)) {
+            if(GameRegister.getPlayersGame(player) instanceof SpleefGame g) {
+                if(g.getArena().isPlayerIngame(player)) {
+                    return g;
+                }
+            }
         }
-        else {
-            return null;
-        }
+
+        return null;
+
     }
 
 }

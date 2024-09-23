@@ -248,7 +248,7 @@ public class MinigameArena {
     }
 
     public void movePlayersIn() {
-        return;
+        //For override
     }
 
     public int getQueueLength() {
