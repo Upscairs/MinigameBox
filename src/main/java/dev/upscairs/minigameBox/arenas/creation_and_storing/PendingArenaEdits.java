@@ -2,6 +2,7 @@ package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
+import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.utils.Tuple;
 import org.bukkit.entity.Player;
@@ -16,13 +17,12 @@ public abstract class PendingArenaEdits {
     public static void newEditInstance(Player player, MinigameArena arena, int argIndex) {
 
         if (pendingEdits.containsKey(player)) {
-            player.sendMessage("Already Editing");
+            player.sendMessage(MessagesConfig.get().getString("managing.error-already-editing"));
             return;
         }
 
         pendingEdits.put(player, new Tuple<>(arena, argIndex));
-        player.sendMessage("Editing mode..");
-
+        player.sendMessage(MessagesConfig.get().getString("managing.success-editing-started"));
 
     }
 
@@ -31,14 +31,14 @@ public abstract class PendingArenaEdits {
         MinigameArena arena = pendingEdits.get(player).left;
 
         if(!pendingEdits.containsKey(player)) {
-            player.sendMessage("No Editing");
+            player.sendMessage(MessagesConfig.get().getString("managing.error-not-editing"));
             return;
         }
 
         try {
             arena.editArgs(pendingEdits.get(player).right, newSetting);
         } catch (IllegalArgumentException e) {
-            player.sendMessage(e.getMessage());
+            player.sendMessage(MessagesConfig.get().getString("managing.error-edit-illegal-value-input") + e.getMessage());
             return;
         }
 
@@ -50,13 +50,14 @@ public abstract class PendingArenaEdits {
             GameRegister.getGame(arena.getName()).getArena().regenerateArena();
         }
 
+        player.sendMessage(MessagesConfig.get().getString("managing.success-edited-value"));
         removePlayer(player);
 
     }
 
     public static void removePlayer(Player player) {
         pendingEdits.remove(player);
-        player.sendMessage("Left editing mode");
+        player.sendMessage(MessagesConfig.get().getString("managing.success-editing-ended"));
     }
 
 }

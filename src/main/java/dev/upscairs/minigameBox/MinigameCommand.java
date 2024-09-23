@@ -38,17 +38,15 @@ public class MinigameCommand implements CommandExecutor {
                 return true;
             }
             else if(args[0].equalsIgnoreCase("join")) {
-                for(int i = 2; i < args.length; i++) {
-                    args[1] = args[1] + " " + args[i];
-                }
+
                 //Checking if game exists
-                if(!GameRegister.gameExists(args[1])) {
+                if(!GameRegister.gameExists(combineArgsFrom(1, args))) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                     return true;
                 }
                 //calling JoinQueueEvent, handling there
                 if(args.length >= 2) {
-                    Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, args[1]));
+                    Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, combineArgsFrom(1, args)));
                 }
                 return true;
             }
@@ -169,7 +167,7 @@ public class MinigameCommand implements CommandExecutor {
                         }
 
                         if(!GameRegister.getGame(gameName).isGameRunning()) {
-                            //TODO p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
+                            p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
                             return true;
                         }
                         GameRegister.reloadGame(gameName, GameTypes.getFromGameClass(GameRegister.getGame(gameName).getClass()));
@@ -218,11 +216,11 @@ public class MinigameCommand implements CommandExecutor {
                     return true;
                 }
             }
-            //TODO Subcommand not found
+            sender.sendMessage(MessagesConfig.get().getString("general.subcommand-not-found"));
 
         }
         else {
-            //TODO send from console
+            sender.sendMessage(MessagesConfig.get().getString("general.error-send-from-console"));
         }
 
         return true;
