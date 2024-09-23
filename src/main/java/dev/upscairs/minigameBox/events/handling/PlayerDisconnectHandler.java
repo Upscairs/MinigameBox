@@ -12,8 +12,8 @@ public class PlayerDisconnectHandler implements Listener {
     public void onPlayerDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        if(player.hasMetadata("GameName") && GameRegister.gameExists("GameName")) {
-            GameRegister.getGames().get("GameName").playerRemove(player);
+        if(GameRegister.isPlayerInGame(player)) {
+            GameRegister.getPlayersGame(player).playerRemove(player);
         }
 
     }

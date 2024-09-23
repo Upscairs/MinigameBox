@@ -2,10 +2,10 @@ package dev.upscairs.minigameBox.games;
 
 import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.config.MessagesConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.metadata.FixedMetadataValue;
 
 import java.util.ArrayList;
 
@@ -56,11 +56,14 @@ public class MiniGame {
     public void startGameFinal() {
         gameRunning = true;
         arena.setQueuedPlayersIngame();
+
+        MiniGame gameInstance = this;
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
                 for(Player p : arena.getIngamePlayers()) {
-                    p.setMetadata("GameName", new FixedMetadataValue(plugin, arena.getName()));
+                    //p.setMetadata("GameName", new FixedMetadataValue(plugin, arena.getName()));
+                    GameRegister.putPlayerInGame(p, gameInstance);
                 }
             }
         }, arena.getSetupTimeSec()*20L);
@@ -70,14 +73,15 @@ public class MiniGame {
     //Checking if player can join queue, placing him, tagging him, attempting gamestart
     public boolean playerJoinQueue(Player player) {
 
-        if(player.hasMetadata("GameName")) {
+        if(GameRegister.isPlayerInGame(player)) {
             player.sendMessage(MessagesConfig.get().getString("game.error-already-in-queue"));
             return false;
         }
 
         if(arena.isQueueOpen()) {
             arena.addPlayerToQueue(player);
-            player.setMetadata("GameName", new FixedMetadataValue(plugin, "#PlayerIsInQueue#"));
+            //player.setMetadata("GameName", new FixedMetadataValue(plugin, "#PlayerIsInQueue#"));
+            GameRegister.putPlayerInGame(player, this);
 
             startGameAttempt();
 
@@ -109,8 +113,8 @@ public class MiniGame {
         else {
             player.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
         }
-        player.removeMetadata("GameName", plugin);
-
+        //player.removeMetadata("GameName", plugin);
+        GameRegister.removePlayerFromGame(player);
 
     }
 
@@ -119,7 +123,8 @@ public class MiniGame {
     public void endGame(boolean force) {
 
         for(Player player : arena.getIngamePlayers()) {
-            player.removeMetadata("GameName", plugin);
+            //player.removeMetadata("GameName", plugin);
+            GameRegister.removePlayerFromGame(player);
             arena.removePlayerFromGame(player);
         }
         

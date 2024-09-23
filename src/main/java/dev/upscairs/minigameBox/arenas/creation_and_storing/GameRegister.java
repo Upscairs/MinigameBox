@@ -1,14 +1,11 @@
 package dev.upscairs.minigameBox.arenas.creation_and_storing;
 
 import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.SpleefArena;
 import dev.upscairs.minigameBox.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.games.MiniGame;
-import dev.upscairs.minigameBox.games.SpleefGame;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -20,6 +17,7 @@ public abstract class GameRegister {
 
     //Maps arena Name to Instance
     private static HashMap<String, MiniGame> games = new HashMap<>();
+    private static HashMap<Player, MiniGame> playersQueuedAndIngame = new HashMap<>();
 
     public static void reloadGame(String gameName, GameTypes gameType) {
         ArenaRegisterFile.reload();
@@ -150,6 +148,22 @@ public abstract class GameRegister {
 
     public static HashMap<String, MiniGame> getGames() {
         return games;
+    }
+
+    public static void putPlayerInGame(Player player, MiniGame game) {
+        playersQueuedAndIngame.put(player, game);
+    }
+
+    public static boolean isPlayerInGame(Player player) {
+        return playersQueuedAndIngame.containsKey(player);
+    }
+
+    public static MiniGame getPlayersGame(Player player) {
+        return playersQueuedAndIngame.get(player);
+    }
+
+    public static void removePlayerFromGame(Player player) {
+        playersQueuedAndIngame.remove(player);
     }
 
 }

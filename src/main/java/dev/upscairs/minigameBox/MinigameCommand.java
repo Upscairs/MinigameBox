@@ -50,12 +50,13 @@ public class MinigameCommand implements CommandExecutor {
             }
             if(args[0].equalsIgnoreCase("leave")) {
 
-                if(!p.hasMetadata("GameName") || (!p.getMetadata("GameName").get(0).asString().equals("#PlayerInQueue#") && !GameRegister.gameExists(p.getMetadata("GameName").get(0).asString()))) {
+                if(!GameRegister.isPlayerInGame(p)) {
                     //TODO Change to not in game
                     p.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
+                    return true;
                 }
 
-                GameRegister.getGame(p.getMetadata("GameName").get(0).asString()).playerRemove(p);
+                GameRegister.getPlayersGame(p).playerRemove(p);
 
                 return true;
             }
@@ -217,7 +218,6 @@ public class MinigameCommand implements CommandExecutor {
                     return true;
                 }
                 else if(args[0].equalsIgnoreCase("debug")) {
-                    p.sendMessage(p.hasMetadata("GameName") + "");
                     return true;
                 }
             }

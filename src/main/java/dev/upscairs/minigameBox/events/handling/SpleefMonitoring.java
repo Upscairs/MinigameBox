@@ -21,17 +21,9 @@ public class SpleefMonitoring implements Listener {
     public void onPlayerMoveEvent(PlayerMoveEvent event) {
         Player p = event.getPlayer();
 
-        if(!p.hasMetadata("GameName")) {
-            return;
-        }
+        SpleefGame game = getSpleefGame(p);
+        if(game == null) return;
 
-        String gameName = p.getMetadata("GameName").get(0).asString();
-
-        if(!isPlayerInSpleef(p)) {
-            return;
-        }
-
-        SpleefGame game = (SpleefGame) GameRegister.getGame(gameName);
         Location loc = p.getLocation();
 
         if(loc.getY() < game.getArena().getLocation2().getY()+0.5) {
@@ -45,25 +37,19 @@ public class SpleefMonitoring implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player p = event.getPlayer();
 
-        if(!p.hasMetadata("GameName")) {
-            return;
-        }
-
-        String gameName = p.getMetadata("GameName").get(0).asString();
-
-        if(!isPlayerInSpleef(p)) {
-            return;
-        }
-
         if(event.getAction() != Action.LEFT_CLICK_BLOCK) {
             return;
         }
+
+        SpleefGame game = getSpleefGame(p);
+        if(game == null) return;
+
 
         event.setCancelled(true);
 
         Block clickedBlock = event.getClickedBlock();
 
-        if(((SpleefArena) GameRegister.getGame(gameName).getArena()).getSpleefMaterial() == clickedBlock.getType()) {
+        if(((SpleefArena) game.getArena()).getSpleefMaterial() == clickedBlock.getType()) {
             clickedBlock.setType(Material.AIR);
         }
     }
@@ -71,24 +57,18 @@ public class SpleefMonitoring implements Listener {
     //Supressing block placement
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event) {
-        if(isPlayerInSpleef(event.getPlayer())) {
+        if(getSpleefGame(event.getPlayer()) != null) {
             event.setCancelled(true);
         }
     }
 
-    public boolean isPlayerInSpleef(Player player) {
-
-        if(!player.hasMetadata("GameName")) {
-            return false;
+    public SpleefGame getSpleefGame(Player player) {
+        if(GameRegister.isPlayerInGame(player) && GameRegister.getPlayersGame(player) instanceof SpleefGame g) {
+            return g;
         }
-
-        String gameName = player.getMetadata("GameName").get(0).asString();
-
-        if(!(GameRegister.getGame(gameName) instanceof SpleefGame)) {
-            return false;
+        else {
+            return null;
         }
-
-        return true;
     }
 
 }
