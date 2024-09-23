@@ -6,7 +6,6 @@ import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.config.SettingsFile;
 import dev.upscairs.minigameBox.events.handling.GuiInteractionHandler;
 import dev.upscairs.minigameBox.events.handling.PlayerDisconnectHandler;
-import dev.upscairs.minigameBox.events.handling.PlayerQueueGameActivityHandler;
 import dev.upscairs.minigameBox.events.handling.SpleefMonitoring;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -53,8 +52,7 @@ public final class MinigameBox extends JavaPlugin {
         getCommand("minigame").setTabCompleter(new MinigameTabCompleter());
     }
 
-    public void registerEvents() {                                                                  
-        getServer().getPluginManager().registerEvents(new PlayerQueueGameActivityHandler(), this);
+    public void registerEvents() {
         getServer().getPluginManager().registerEvents(new SpleefMonitoring(), this);
         getServer().getPluginManager().registerEvents(new PlayerDisconnectHandler(), this);
         getServer().getPluginManager().registerEvents(new GuiInteractionHandler(), this);

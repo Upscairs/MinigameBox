@@ -62,7 +62,6 @@ public class MiniGame {
             @Override
             public void run() {
                 for(Player p : arena.getIngamePlayers()) {
-                    //p.setMetadata("GameName", new FixedMetadataValue(plugin, arena.getName()));
                     GameRegister.putPlayerInGame(p, gameInstance);
                 }
             }
@@ -74,13 +73,12 @@ public class MiniGame {
     public boolean playerJoinQueue(Player player) {
 
         if(GameRegister.isPlayerInGame(player)) {
-            player.sendMessage(MessagesConfig.get().getString("game.error-already-in-queue"));
+            player.sendMessage(MessagesConfig.get().getString("game.error-already-in-game"));
             return false;
         }
 
         if(arena.isQueueOpen()) {
             arena.addPlayerToQueue(player);
-            //player.setMetadata("GameName", new FixedMetadataValue(plugin, "#PlayerIsInQueue#"));
             GameRegister.putPlayerInGame(player, this);
 
             startGameAttempt();
@@ -108,12 +106,11 @@ public class MiniGame {
             if(arena.gameEndingState()) {
                 endGame(false);
             }
-
+            player.sendMessage(MessagesConfig.get().getString("game.info-out-of-game"));
         }
         else {
             player.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
         }
-        //player.removeMetadata("GameName", plugin);
         GameRegister.removePlayerFromGame(player);
 
     }
@@ -123,7 +120,6 @@ public class MiniGame {
     public void endGame(boolean force) {
 
         for(Player player : arena.getIngamePlayers()) {
-            //player.removeMetadata("GameName", plugin);
             GameRegister.removePlayerFromGame(player);
             arena.removePlayerFromGame(player);
         }
@@ -150,6 +146,7 @@ public class MiniGame {
     }
 
     public void movePlayersIn() {
+        //To Override
     }
 
     public MinigameBox getPlugin() {

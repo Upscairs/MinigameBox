@@ -143,12 +143,6 @@ public class MinigameArena {
         player.teleport(outsideLocation);
     }
 
-    /*
-    public void setContinuous(boolean continuous) {
-        this.continuous = continuous;
-        reloadRawArgs();
-    }*/
-
     public int getMinPlayers() {
         return minPlayers;
     }
@@ -188,13 +182,6 @@ public class MinigameArena {
     public Material getRepresentingItem() {
         return representingItem;
     }
-
-    /*
-    public void setQueueOpen(boolean open) {
-        this.queueOpen = open;
-        reloadRawArgs();
-    }*/
-
 
     public void editArgs(int index, String newString) throws IllegalArgumentException {
 

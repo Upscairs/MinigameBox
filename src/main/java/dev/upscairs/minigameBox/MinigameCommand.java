@@ -8,7 +8,6 @@ import dev.upscairs.minigameBox.config.MessagesConfig;
 import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.guis.ArenaEditGui;
 import dev.upscairs.minigameBox.guis.ArenaListGui;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -42,7 +41,6 @@ public class MinigameCommand implements CommandExecutor {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                     return true;
                 }
-                //calling JoinQueueEvent, handling there
                 if(args.length >= 2) {
                     GameRegister.getGame(gameName).playerJoinQueue(p);
                 }
@@ -51,8 +49,7 @@ public class MinigameCommand implements CommandExecutor {
             if(args[0].equalsIgnoreCase("leave")) {
 
                 if(!GameRegister.isPlayerInGame(p)) {
-                    //TODO Change to not in game
-                    p.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
+                    p.sendMessage(MessagesConfig.get().getString("game.error-not-in-game"));
                     return true;
                 }
 
