@@ -1,9 +1,11 @@
-package dev.upscairs.minigameBox.guis;
+package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.config.SettingsFile;
-import dev.upscairs.minigameBox.games.MiniGame;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.config.SettingsFile;
+import dev.upscairs.minigameBox.superclasses.MiniGame;
+import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
+import dev.upscairs.minigameBox.superclasses.guis.ScrollableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -55,7 +57,7 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
         if(game.isGameRunning()) {
             lore.add("Game running..");
         }
-        else if(!game.isGameRunning() && arena.isAutoStartable()) {
+        else if(!game.isGameRunning() && arena.isContinuous()) {
             lore.add("Waiting for players.");
         }
         else {

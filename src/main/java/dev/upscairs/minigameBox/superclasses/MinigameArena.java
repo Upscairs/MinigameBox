@@ -1,6 +1,6 @@
-package dev.upscairs.minigameBox.arenas;
+package dev.upscairs.minigameBox.superclasses;
 
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -61,7 +61,29 @@ public class MinigameArena {
 
     }
 
-    //Moves front queued players into "game" status
+
+    /*
+        Game functionalities
+     */
+
+    public boolean enoughPlayersToStart() {
+        return queuedPlayers.size() >= minPlayers;
+    }
+
+    public void moveToOutsideBlock(Player player) {
+        player.teleport(outsideLocation);
+    }
+
+    public void regenerateArena() {
+        //For override
+    }
+
+    //Physical move
+    public void movePlayersIn() {
+        //For override
+    }
+
+    //Moves front queued players into "game" status, "Status move"
     public void setQueuedPlayersIngame() {
         int playersIngame = ingamePlayers.size();
         int spaceLeft = playersIngame - maxPlayers;
@@ -70,18 +92,25 @@ public class MinigameArena {
         }
     }
 
-    //Returns if game can start by itself
-    public boolean isAutoStartable() {
-        if(ingamePlayers.size() < minPlayers) {
-            return false;
+    //Checks if game needs to be terminated
+    public boolean gameEndingState() {
+        if(ingamePlayers.size() <= 1) {
+            return true;
         }
-        if(ingamePlayers.size() > maxPlayers) {
-            return false;
-        }
-        if(!continuous) {
-            return false;
-        }
-        return true;
+        return false;
+    }
+
+
+    /*
+        Player Queue and Ingame System
+     */
+
+    public boolean isPlayerIngame(Player player) {
+        return ingamePlayers.contains(player);
+    }
+
+    public ArrayList<Player> getIngamePlayers() {
+        return ingamePlayers;
     }
 
     //Removes from player list and tps out
@@ -90,12 +119,48 @@ public class MinigameArena {
         moveToOutsideBlock(player);
     }
 
-    //Checks if game needs to be terminated
-    public boolean gameEndingState() {
-        if(ingamePlayers.size() <= 1) {
-            return true;
-        }
-        return false;
+
+    public void addPlayerToQueue(Player player) {
+        queuedPlayers.add(player);
+    }
+
+    public boolean isPlayerInQueue(Player player) {
+        return queuedPlayers.contains(player);
+    }
+
+    public void removePlayerFromQueue(Player player) {
+        queuedPlayers.remove(player);
+    }
+
+    public int getQueueLength() {
+        return queuedPlayers.size();
+    }
+
+
+    /*
+        Properties Getter/setter
+     */
+
+    public void setInSetupMode(boolean inSetupMode) {
+        this.setupMode = inSetupMode;
+    }
+
+    public boolean isInSetupMode() {
+        return setupMode;
+    }
+
+
+    /*
+        Settings Getter
+     */
+
+    public String[] getRawArgs() {
+        return rawArgs;
+    }
+
+
+    public String getName() {
+        return name;
     }
 
     public Location getLocation1() {
@@ -110,20 +175,12 @@ public class MinigameArena {
         return outsideLocation;
     }
 
-    public boolean isQueueOpen() {
-        return queueOpen;
+    public int getMinPlayers() {
+        return minPlayers;
     }
 
-    public void addPlayerToQueue(Player player) {
-        queuedPlayers.add(player);
-    }
-
-    public boolean isPlayerInQueue(Player player) {
-        return queuedPlayers.contains(player);
-    }
-
-    public void removePlayerFromQueue(Player player) {
-        queuedPlayers.remove(player);
+    public int getMaxPlayers() {
+        return maxPlayers;
     }
 
     public int getFillupWaitingTimeSec() {
@@ -134,56 +191,33 @@ public class MinigameArena {
         return setupTimeSec;
     }
 
-    public ArrayList<Player> getIngamePlayers() {
-        return ingamePlayers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void moveToOutsideBlock(Player player) {
-        player.teleport(outsideLocation);
-    }
-
-    public int getMinPlayers() {
-        return minPlayers;
-    }
-
-    public int getMaxPlayers() {
-        return maxPlayers;
-    }
-
     public boolean isContinuous() {
         return continuous;
     }
 
-    public void regenerateArena() {
-        return;
-    }
-
-    public String[] getRawArgs() {
-        return rawArgs;
-    }
-
-    public void setRawArgs(String[] rawArgs) {
-        this.rawArgs = rawArgs;
-    }
-
-    public boolean enoughPlayersToStart() {
-        return queuedPlayers.size() >= minPlayers;
+    public boolean isQueueOpen() {
+        return queueOpen;
     }
 
     public boolean isVisible() {
         return visible;
     }
 
+    public Material getRepresentingItem() {
+        return representingItem;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public Material getRepresentingItem() {
-        return representingItem;
+
+    /*
+        Settings Setter
+     */
+
+    public void setRawArgs(String[] rawArgs) {
+        this.rawArgs = rawArgs;
     }
 
     public void editArgs(int index, String newString) throws IllegalArgumentException {
@@ -247,25 +281,6 @@ public class MinigameArena {
         this.description = rawArgs[8];
     }
 
-    public void movePlayersIn() {
-        //For override
-    }
 
-    public int getQueueLength() {
-        return queuedPlayers.size();
-    }
 
-    public boolean isPlayerIngame(Player player) {
-
-        return ingamePlayers.contains(player);
-
-    }
-
-    public void setInSetupMode(boolean inSetupMode) {
-        this.setupMode = inSetupMode;
-    }
-
-    public boolean isInSetupMode() {
-        return setupMode;
-    }
 }

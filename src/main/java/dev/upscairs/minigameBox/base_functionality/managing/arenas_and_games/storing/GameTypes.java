@@ -1,11 +1,11 @@
-package dev.upscairs.minigameBox.games;
+package dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.SpleefArena;
-import dev.upscairs.minigameBox.guis.ArenaEditGui;
-import dev.upscairs.minigameBox.guis.SpleefArenaEditGui;
-
-import java.util.ArrayList;
+import dev.upscairs.minigameBox.superclasses.MiniGame;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.minigames.spleef.SpleefArena;
+import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
+import dev.upscairs.minigameBox.minigames.spleef.SpleefArenaEditGui;
+import dev.upscairs.minigameBox.minigames.spleef.SpleefGame;
 
 public enum GameTypes {
     UNDEFINED("Undefined", MinigameArena.class, MiniGame.class, ArenaEditGui.class, new String[]{"8", "10", "20", "10", "false", "false", "true", "STONE", "A default arena."}),

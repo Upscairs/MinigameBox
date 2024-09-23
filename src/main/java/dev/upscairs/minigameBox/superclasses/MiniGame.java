@@ -1,9 +1,8 @@
-package dev.upscairs.minigameBox.games;
+package dev.upscairs.minigameBox.superclasses;
 
 import dev.upscairs.minigameBox.MinigameBox;
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.config.MessagesConfig;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -22,61 +21,7 @@ public class MiniGame {
         gameRunning = false;
     }
 
-    //Attempting to start game, fails if game running, not enough players in, or arena can't start itself
-    public boolean startGameAttempt() {
-        if(gameRunning) {
-            return false;
-        }
-
-        if(!arena.enoughPlayersToStart()) {
-            return false;
-        }
-
-        if(arena.isAutoStartable()) {
-            startGameCountdown();
-            return true;
-        }
-        return false;
-    }
-
-    //Starting game in x seconds, but waiting for other players to join, can get called by game master
-    public void startGameCountdown() {
-        gameRunning = true;
-        arena.regenerateArena();
-        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-            @Override
-            public void run() {
-                startGameFinal();
-            }
-        }, arena.getFillupWaitingTimeSec()*20L);
-
-    }
-
-    //Starting game, players get placed in arena and tagged
-    public void startGameFinal() {
-
-        //Aborting if players left
-        if(!arena.enoughPlayersToStart()) {
-            startGameAttempt();
-            return;
-        }
-
-        gameRunning = true;
-        arena.setQueuedPlayersIngame();
-
-        MiniGame gameInstance = this;
-        arena.setInSetupMode(true);
-        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-            //Setup time in arena
-            @Override
-            public void run() {
-                arena.setInSetupMode(false);
-            }
-        }, arena.getSetupTimeSec()*20L);
-
-    }
-
-    //Checking if player can join queue, placing him, tagging him, attempting gamestart
+    //Checking if player can join queue, placing him, attempting gamestart
     public boolean playerJoinQueue(Player player) {
 
         if(GameRegister.isPlayerInGame(player)) {
@@ -122,6 +67,60 @@ public class MiniGame {
 
     }
 
+    //Attempting to start game, fails if game running, not enough players in, or arena can't start itself
+    public boolean startGameAttempt() {
+        if(gameRunning) {
+            return false;
+        }
+
+        if(!arena.enoughPlayersToStart()) {
+            return false;
+        }
+
+        if(arena.isContinuous()) {
+            startGameCountdown();
+            return true;
+        }
+        return false;
+    }
+
+    //Starting game in x seconds, but waiting for other players to join, can get called by game master
+    public void startGameCountdown() {
+        gameRunning = true;
+        arena.regenerateArena();
+        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            @Override
+            public void run() {
+                startGameFinal();
+            }
+        }, arena.getFillupWaitingTimeSec()*20L);
+
+    }
+
+    //Starting game, players get placed in arena and tagged
+    public void startGameFinal() {
+
+        //Aborting if players left
+        if(!arena.enoughPlayersToStart()) {
+            startGameAttempt();
+            return;
+        }
+
+        gameRunning = true;
+        arena.setQueuedPlayersIngame();
+
+        MiniGame gameInstance = this;
+        arena.setInSetupMode(true);
+        Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            //Setup time in arena
+            @Override
+            public void run() {
+                arena.setInSetupMode(false);
+            }
+        }, arena.getSetupTimeSec()*20L);
+
+    }
+
     //Ending the game, moving players out, removing tags, giving reward
     //If force, stopping queue, no reward
     public void endGame(boolean force) {
@@ -152,10 +151,6 @@ public class MiniGame {
         return arena;
     }
 
-    public void movePlayersIn() {
-        //To Override
-    }
-
     public MinigameBox getPlugin() {
         return plugin;
     }
@@ -168,4 +163,7 @@ public class MiniGame {
         return gameRunning;
     }
 
+    public void movePlayersIn() {
+        //To Override
+    }
 }

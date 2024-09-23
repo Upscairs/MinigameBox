@@ -1,6 +1,7 @@
-package dev.upscairs.minigameBox.games;
+package dev.upscairs.minigameBox.minigames.spleef;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.superclasses.MiniGame;
 
 public class SpleefGame extends MiniGame {
 

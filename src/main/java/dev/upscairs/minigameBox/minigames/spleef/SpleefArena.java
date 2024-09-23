@@ -1,11 +1,11 @@
-package dev.upscairs.minigameBox.arenas;
+package dev.upscairs.minigameBox.minigames.spleef;
 
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SpleefArena extends MinigameArena {
 

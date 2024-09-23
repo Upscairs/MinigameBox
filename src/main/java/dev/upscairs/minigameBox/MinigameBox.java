@@ -1,12 +1,14 @@
 package dev.upscairs.minigameBox;
 
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.config.ArenaRegisterFile;
-import dev.upscairs.minigameBox.config.MessagesConfig;
-import dev.upscairs.minigameBox.config.SettingsFile;
-import dev.upscairs.minigameBox.events.handling.GuiInteractionHandler;
-import dev.upscairs.minigameBox.events.handling.PlayerDisconnectHandler;
-import dev.upscairs.minigameBox.events.handling.SpleefMonitoring;
+import dev.upscairs.minigameBox.base_functionality.coms_and_guis.MinigameCommand;
+import dev.upscairs.minigameBox.base_functionality.coms_and_guis.MinigameTabCompleter;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.config.ArenaRegisterFile;
+import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
+import dev.upscairs.minigameBox.base_functionality.managing.config.SettingsFile;
+import dev.upscairs.minigameBox.base_functionality.event_handlers.GuiInteractionHandler;
+import dev.upscairs.minigameBox.base_functionality.event_handlers.PlayerDisconnectHandler;
+import dev.upscairs.minigameBox.minigames.spleef.SpleefMonitoring;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MinigameBox extends JavaPlugin {
@@ -63,7 +65,6 @@ public final class MinigameBox extends JavaPlugin {
 
 /*TODO
    - Reward
-   - Remove player from spleef if out of bounds
    - braodcast messages
    - economy LATER
    - add reload file command LATER

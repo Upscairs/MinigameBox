@@ -1,4 +1,4 @@
-package dev.upscairs.minigameBox.guis;
+package dev.upscairs.minigameBox.superclasses.guis;
 
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import org.bukkit.Bukkit;

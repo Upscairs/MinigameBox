@@ -1,15 +1,12 @@
-package dev.upscairs.minigameBox.arenas.creation_and_storing;
+package dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.SpleefArena;
-import dev.upscairs.minigameBox.config.MessagesConfig;
-import dev.upscairs.minigameBox.games.GameTypes;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 public class ArenaCreationWizard {
 

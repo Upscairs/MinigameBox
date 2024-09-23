@@ -1,13 +1,12 @@
-package dev.upscairs.minigameBox;
+package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaCreations;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
-import dev.upscairs.minigameBox.config.MessagesConfig;
-import dev.upscairs.minigameBox.games.GameTypes;
-import dev.upscairs.minigameBox.guis.ArenaEditGui;
-import dev.upscairs.minigameBox.guis.ArenaListGui;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaCreations;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
+import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
+import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

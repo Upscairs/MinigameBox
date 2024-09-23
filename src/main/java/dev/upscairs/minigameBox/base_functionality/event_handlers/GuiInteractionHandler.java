@@ -1,6 +1,6 @@
-package dev.upscairs.minigameBox.events.handling;
+package dev.upscairs.minigameBox.base_functionality.event_handlers;
 
-import dev.upscairs.minigameBox.guis.InteractableGui;
+import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;

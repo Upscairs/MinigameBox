@@ -1,9 +1,8 @@
-package dev.upscairs.minigameBox.arenas.creation_and_storing;
+package dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.config.ArenaRegisterFile;
-import dev.upscairs.minigameBox.games.GameTypes;
-import dev.upscairs.minigameBox.games.MiniGame;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.base_functionality.managing.config.ArenaRegisterFile;
+import dev.upscairs.minigameBox.superclasses.MiniGame;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -135,16 +134,6 @@ public abstract class GameRegister {
             saveArenaSettings(game.getArena());
         }
     }
-
-    /*
-    public static boolean dequeuePlayer(Player player) {
-        for(MiniGame game : games.values()) {
-            if(game.playerLeaveQueue(player)) {
-                return true;
-            }
-        }
-        return false;
-    }*/
 
     public static HashMap<String, MiniGame> getGames() {
         return games;

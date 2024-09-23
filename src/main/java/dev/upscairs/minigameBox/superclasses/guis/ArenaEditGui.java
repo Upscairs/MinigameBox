@@ -1,15 +1,12 @@
-package dev.upscairs.minigameBox.guis;
+package dev.upscairs.minigameBox.superclasses.guis;
 
-import dev.upscairs.minigameBox.arenas.MinigameArena;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
-import dev.upscairs.minigameBox.games.GameTypes;
-import dev.upscairs.minigameBox.games.MiniGame;
+import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
+import dev.upscairs.minigameBox.superclasses.MiniGame;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;

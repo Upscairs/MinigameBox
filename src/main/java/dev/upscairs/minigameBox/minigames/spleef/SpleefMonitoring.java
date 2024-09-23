@@ -1,8 +1,6 @@
-package dev.upscairs.minigameBox.events.handling;
+package dev.upscairs.minigameBox.minigames.spleef;
 
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.arenas.SpleefArena;
-import dev.upscairs.minigameBox.games.SpleefGame;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -77,6 +75,7 @@ public class SpleefMonitoring implements Listener {
         }
     }
 
+    //Returns SpleefGame, if player is in one and is activly playing
     public SpleefGame getPlayedSpleefGame(Player player) {
 
         if(GameRegister.isPlayerInGame(player)) {

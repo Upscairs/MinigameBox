@@ -1,4 +1,4 @@
-package dev.upscairs.minigameBox.config;
+package dev.upscairs.minigameBox.base_functionality.managing.config;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

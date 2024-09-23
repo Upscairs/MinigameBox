@@ -1,6 +1,6 @@
-package dev.upscairs.minigameBox.events.handling;
+package dev.upscairs.minigameBox.base_functionality.event_handlers;
 
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,8 +1,9 @@
-package dev.upscairs.minigameBox.guis;
+package dev.upscairs.minigameBox.minigames.spleef;
 
-import dev.upscairs.minigameBox.arenas.SpleefArena;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
+import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
+import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;

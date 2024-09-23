@@ -1,7 +1,7 @@
-package dev.upscairs.minigameBox;
+package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
-import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
-import dev.upscairs.minigameBox.games.GameTypes;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
