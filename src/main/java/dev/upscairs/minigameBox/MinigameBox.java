@@ -64,7 +64,6 @@ public final class MinigameBox extends JavaPlugin {
 
 
 /*TODO
-   - Reward
    - braodcast messages
    - economy LATER
    - add reload file command LATER

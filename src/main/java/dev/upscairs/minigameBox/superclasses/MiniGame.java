@@ -2,11 +2,18 @@ package dev.upscairs.minigameBox.superclasses;
 
 import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
 import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MiniGame {
 
@@ -125,10 +132,15 @@ public class MiniGame {
     //If force, stopping queue, no reward
     public void endGame(boolean force) {
 
+        ArrayList<Player> winners = arena.getIngamePlayers();
+        ArrayList<Player> losers = droppedOutPlayers;
+
         for(Player player : arena.getIngamePlayers()) {
             GameRegister.removePlayerFromGame(player);
             arena.removePlayerFromGame(player);
         }
+
+        droppedOutPlayers.clear();
         
         gameRunning = false;
 
@@ -137,9 +149,38 @@ public class MiniGame {
             return;
         }
 
-        //TODO reward
-        droppedOutPlayers.clear();
+        grantWinnersReward(winners, losers);
+
         startGameAttempt();
+
+    }
+
+    public void grantWinnersReward(List<Player> winners, List<Player> losers) {
+
+        //TODO customizable content
+
+        StringBuilder losersString = new StringBuilder();
+
+        for(Player loser : losers) {
+            losersString.append(loser.getName() + ", ");
+        }
+        losersString.delete(losersString.length()-2, losersString.length()-1);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
+        String formattedTime = LocalDateTime.now().format(formatter);
+
+        for(Player winner : winners) {
+            ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
+            BookMeta bookMeta = (BookMeta) book.getItemMeta();
+
+            bookMeta.setTitle("Winner of " + GameTypes.getFromGameClass(this.getClass()).getName());
+            bookMeta.setAuthor(arena.getName());
+            bookMeta.addPage("Congratulations!\n\nYou, " + winner.getName() + ", won a game of "
+                    + GameTypes.getFromGameClass(this.getClass()).getName() + " against " + losersString.toString() + ".\n\n" +
+                    "Time: " + formattedTime);
+            book.setItemMeta(bookMeta);
+            winner.getInventory().addItem(book);
+        }
 
     }
 
@@ -166,4 +207,6 @@ public class MiniGame {
     public void movePlayersIn() {
         //To Override
     }
+
+
 }
