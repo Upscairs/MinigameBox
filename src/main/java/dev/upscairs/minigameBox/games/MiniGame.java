@@ -54,16 +54,23 @@ public class MiniGame {
 
     //Starting game, players get placed in arena and tagged
     public void startGameFinal() {
+
+        //Aborting if players left
+        if(!arena.enoughPlayersToStart()) {
+            startGameAttempt();
+            return;
+        }
+
         gameRunning = true;
         arena.setQueuedPlayersIngame();
 
         MiniGame gameInstance = this;
+        arena.setInSetupMode(true);
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
+            //Setup time in arena
             @Override
             public void run() {
-                for(Player p : arena.getIngamePlayers()) {
-                    GameRegister.putPlayerInGame(p, gameInstance);
-                }
+                arena.setInSetupMode(false);
             }
         }, arena.getSetupTimeSec()*20L);
 

@@ -44,13 +44,15 @@ public class SpleefMonitoring implements Listener {
         SpleefGame game = getSpleefGame(p);
         if(game == null) return;
 
-
         event.setCancelled(true);
 
         Block clickedBlock = event.getClickedBlock();
 
         if(((SpleefArena) game.getArena()).getSpleefMaterial() == clickedBlock.getType()) {
-            clickedBlock.setType(Material.AIR);
+
+            if(!game.getArena().isInSetupMode()) {
+                clickedBlock.setType(Material.AIR);
+            }
         }
     }
 

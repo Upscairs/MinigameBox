@@ -62,7 +62,6 @@ public final class MinigameBox extends JavaPlugin {
 
 
 /*TODO
-   - Refactor queue
    - move players ingame at the end of startup
    - Reward
    - Remove player from spleef if out of bounds

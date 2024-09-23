@@ -30,6 +30,8 @@ public class MinigameArena {
     private ArrayList<Player> ingamePlayers = new ArrayList<>();
     private ArrayDeque<Player> queuedPlayers = new ArrayDeque<>();
 
+    private boolean setupMode;
+
     public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
 
         this.name = name;
@@ -42,6 +44,7 @@ public class MinigameArena {
 
         generateMaxMinLocs();
 
+        setupMode = false;
     }
 
     //Overwrites location1 and location2 so all coords of loc1 are greater than those of loc2
@@ -256,5 +259,13 @@ public class MinigameArena {
 
         return ingamePlayers.contains(player);
 
+    }
+
+    public void setInSetupMode(boolean inSetupMode) {
+        this.setupMode = inSetupMode;
+    }
+
+    public boolean isInSetupMode() {
+        return setupMode;
     }
 }
