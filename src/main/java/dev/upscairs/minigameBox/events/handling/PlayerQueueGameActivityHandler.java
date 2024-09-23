@@ -3,9 +3,7 @@ package dev.upscairs.minigameBox.events.handling;
 import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.config.MessagesConfig;
-import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
 import dev.upscairs.minigameBox.events.custom.PlayerLeaveMinigameEvent;
-import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
 import dev.upscairs.minigameBox.games.MiniGame;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,6 +12,7 @@ import org.bukkit.event.Listener;
 
 public class PlayerQueueGameActivityHandler implements Listener {
 
+    /*
     @EventHandler
     public void onPlayerJoinQueue(PlayerJoinQueueEvent event) {
 
@@ -23,19 +22,7 @@ public class PlayerQueueGameActivityHandler implements Listener {
         if(GameRegister.gameExists(arenaName)) {
             MiniGame game = GameRegister.getGame(arenaName);
 
-            //Player in queue check
-            if(p.hasMetadata("GameName")) {
-                p.sendMessage(MessagesConfig.get().getString("game.error-already-in-queue"));
-                return;
-            }
 
-            //Attempting join
-            if(game.playerJoinQueue(p)) {
-                p.sendMessage(MessagesConfig.get().getString("game.success-queue-joined"));
-            }
-            else {
-                p.sendMessage(MessagesConfig.get().getString("game.error-queue-closed"));
-            }
         }
 
 
@@ -50,7 +37,7 @@ public class PlayerQueueGameActivityHandler implements Listener {
             player.sendMessage(MessagesConfig.get().getString("game.success-queue-left"));
         }
         else {
-            player.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
+
         }
 
         MinigameBox plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
@@ -69,6 +56,6 @@ public class PlayerQueueGameActivityHandler implements Listener {
 
         GameRegister.getGame(gameName).playerOut(event.getPlayer());
 
-    }
+    }*/
 
 }

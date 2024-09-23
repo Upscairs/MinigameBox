@@ -1,8 +1,6 @@
 package dev.upscairs.minigameBox.events.handling;
 
-import dev.upscairs.minigameBox.events.custom.PlayerLeaveMinigameEvent;
-import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
-import org.bukkit.Bukkit;
+import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,9 +12,9 @@ public class PlayerDisconnectHandler implements Listener {
     public void onPlayerDisconnect(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        //Removing from queues and games
-        Bukkit.getPluginManager().callEvent(new PlayerLeaveMinigameEvent(player));
-        Bukkit.getPluginManager().callEvent(new PlayerLeaveQueueEvent(player));
+        if(player.hasMetadata("GameName") && GameRegister.gameExists("GameName")) {
+            GameRegister.getGames().get("GameName").playerRemove(player);
+        }
 
     }
 }

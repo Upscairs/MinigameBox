@@ -2,9 +2,7 @@ package dev.upscairs.minigameBox.events.handling;
 
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.SpleefArena;
-import dev.upscairs.minigameBox.events.custom.PlayerLeaveMinigameEvent;
 import dev.upscairs.minigameBox.games.SpleefGame;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,7 +11,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -38,7 +35,7 @@ public class SpleefMonitoring implements Listener {
         Location loc = p.getLocation();
 
         if(loc.getY() < game.getArena().getLocation2().getY()+0.5) {
-            Bukkit.getPluginManager().callEvent(new PlayerLeaveMinigameEvent(p));
+            game.playerRemove(p);
         }
 
     }

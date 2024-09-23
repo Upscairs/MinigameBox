@@ -64,11 +64,11 @@ public final class MinigameBox extends JavaPlugin {
 
 
 /*TODO
-   - Command refactoring
    - Refactor queue
+   - Remove metadata
    - move players ingame at the end of startup
    - Reward
-   - chat messages
+   - Remove player from spleef if out of bounds
    - braodcast messages
    - economy LATER
    - add reload file command LATER
@@ -78,7 +78,7 @@ public final class MinigameBox extends JavaPlugin {
 /*
 
 +++Creating new arena types+++
-1. Create Classes: Arena, Game, EditGui
+1. Create Classes: Arena, Game, EditGui (arg[0] is usually players uuid)
 2. Make them extend their superclasses
 3. New entry in Game types Enum: Define with classes and default args
 4. Implement fuctionality in classes: +Settings items in GuiClickHandler, ...

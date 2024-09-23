@@ -5,18 +5,14 @@ import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaCreations;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.PendingArenaEdits;
 import dev.upscairs.minigameBox.config.MessagesConfig;
-import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
-import dev.upscairs.minigameBox.events.custom.PlayerLeaveQueueEvent;
 import dev.upscairs.minigameBox.games.GameTypes;
 import dev.upscairs.minigameBox.guis.ArenaEditGui;
 import dev.upscairs.minigameBox.guis.ArenaListGui;
-import dev.upscairs.minigameBox.guis.InteractableGui;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -39,19 +35,28 @@ public class MinigameCommand implements CommandExecutor {
             }
             else if(args[0].equalsIgnoreCase("join")) {
 
+                String gameName = combineArgsFrom(1, args);
+
                 //Checking if game exists
-                if(!GameRegister.gameExists(combineArgsFrom(1, args))) {
+                if(!GameRegister.gameExists(gameName)) {
                     p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                     return true;
                 }
                 //calling JoinQueueEvent, handling there
                 if(args.length >= 2) {
-                    Bukkit.getServer().getPluginManager().callEvent(new PlayerJoinQueueEvent(p, combineArgsFrom(1, args)));
+                    GameRegister.getGame(gameName).playerJoinQueue(p);
                 }
                 return true;
             }
             if(args[0].equalsIgnoreCase("leave")) {
-                Bukkit.getServer().getPluginManager().callEvent(new PlayerLeaveQueueEvent(p));
+
+                if(!p.hasMetadata("GameName") || (!p.getMetadata("GameName").get(0).asString().equals("#PlayerInQueue#") && !GameRegister.gameExists(p.getMetadata("GameName").get(0).asString()))) {
+                    //TODO Change to not in game
+                    p.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
+                }
+
+                GameRegister.getGame(p.getMetadata("GameName").get(0).asString()).playerRemove(p);
+
                 return true;
             }
 

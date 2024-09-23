@@ -3,7 +3,6 @@ package dev.upscairs.minigameBox.guis;
 import dev.upscairs.minigameBox.arenas.MinigameArena;
 import dev.upscairs.minigameBox.arenas.creation_and_storing.GameRegister;
 import dev.upscairs.minigameBox.config.SettingsFile;
-import dev.upscairs.minigameBox.events.custom.PlayerJoinQueueEvent;
 import dev.upscairs.minigameBox.games.MiniGame;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import org.bukkit.Bukkit;
@@ -92,7 +91,8 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
                 return null;
             }
             else if(clickedMode.equalsIgnoreCase("queue")) {
-                Bukkit.getPluginManager().callEvent(new PlayerJoinQueueEvent(p, correspondingArena.getName()));
+                GameRegister.getGame(correspondingArena.getName()).playerJoinQueue(p);
+
                 return null;
             }
             return this;

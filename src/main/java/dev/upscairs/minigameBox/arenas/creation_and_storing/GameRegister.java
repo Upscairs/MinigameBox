@@ -138,6 +138,7 @@ public abstract class GameRegister {
         }
     }
 
+    /*
     public static boolean dequeuePlayer(Player player) {
         for(MiniGame game : games.values()) {
             if(game.playerLeaveQueue(player)) {
@@ -145,7 +146,7 @@ public abstract class GameRegister {
             }
         }
         return false;
-    }
+    }*/
 
     public static HashMap<String, MiniGame> getGames() {
         return games;

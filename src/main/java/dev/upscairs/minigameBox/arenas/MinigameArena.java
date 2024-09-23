@@ -264,4 +264,10 @@ public class MinigameArena {
     public int getQueueLength() {
         return queuedPlayers.size();
     }
+
+    public boolean isPlayerIngame(Player player) {
+
+        return ingamePlayers.contains(player);
+
+    }
 }
