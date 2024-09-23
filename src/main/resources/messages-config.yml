@@ -30,3 +30,10 @@ game:
 general:
   error-send-from-console: Use this command as a player.
   error-subcommand-not-found: Subcommand not found.
+broadcast:
+  info-start-game-countdown: 'Enough players for next round. Game starts in '
+  info-start-game-final: 'Good luck. Setup time ends in '
+  info-setup-time-over: Setup time is over.
+  info-game-end-winner-announce: 'The game is over. Congratulations to '
+  issue-start-aborted-playercount: The game start got aborted due to players leaving the queue.
+  issue-game-end-force: The game was canceled by a Game Manager.

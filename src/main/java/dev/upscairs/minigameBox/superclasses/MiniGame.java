@@ -4,6 +4,7 @@ import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
 import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
+import dev.upscairs.minigameBox.utils.GameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -42,7 +43,7 @@ public class MiniGame {
 
             startGameAttempt();
 
-            player.sendMessage(MessagesConfig.get().getString("game.success-queue-joined"));
+            player.sendMessage(MessagesConfig.get().getString("game.success-queue-joined") + arena.getQueueLength());
             return true;
         }
         else {
@@ -93,6 +94,7 @@ public class MiniGame {
 
     //Starting game in x seconds, but waiting for other players to join, can get called by game master
     public void startGameCountdown() {
+        GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-start-game-countdown") + arena.getFillupWaitingTimeSec() + "s");
         gameRunning = true;
         arena.regenerateArena();
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
@@ -110,8 +112,10 @@ public class MiniGame {
         //Aborting if players left
         if(!arena.enoughPlayersToStart()) {
             startGameAttempt();
+            GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.issue-start-aborted-playercount"));
             return;
         }
+        GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-start-game-final") + arena.getSetupTimeSec() + "s");
 
         gameRunning = true;
         arena.setQueuedPlayersIngame();
@@ -123,6 +127,7 @@ public class MiniGame {
             @Override
             public void run() {
                 arena.setInSetupMode(false);
+                GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-setup-time-over"));
             }
         }, arena.getSetupTimeSec()*20L);
 
@@ -146,8 +151,17 @@ public class MiniGame {
 
         if(force) {
             arena.editArgs(4, "false");
+            GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.issue-game-end-force"));
             return;
         }
+
+        StringBuilder winnersString = new StringBuilder();
+        for(Player winner : winners) {
+            winnersString.append(winner.getName() + ", ");
+        }
+        winnersString.delete(winnersString.length()-2, winnersString.length()-1);
+
+        GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-game-end-winner-announce") + winnersString);
 
         grantWinnersReward(winners, losers);
 

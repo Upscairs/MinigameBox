@@ -81,6 +81,13 @@ public class MessagesConfig {
         get().addDefault("general.error-send-from-console", "Use this command as a player.");
         get().addDefault("general.error-subcommand-not-found", "Subcommand not found.");
 
+        get().addDefault("broadcast.info-start-game-countdown", "Enough players for next round. Game starts in ");
+        get().addDefault("broadcast.info-start-game-final", "Good luck. Setup time ends in ");
+        get().addDefault("broadcast.info-setup-time-over", "Setup time is over.");
+        get().addDefault("broadcast.info-game-end-winner-announce", "The game is over. Congratulations to ");
+        get().addDefault("broadcast.issue-start-aborted-playercount", "The game start got aborted due to players leaving the queue.");
+        get().addDefault("broadcast.issue-game-end-force", "The game was canceled by a Game Manager.");
+
         get().options().copyDefaults(true);
         save();
     }
