@@ -64,9 +64,9 @@ public final class MinigameBox extends JavaPlugin {
 
 
 /*TODO
-   - checks if game exists (for command inputs)
-   - tab completor
-   - move players ingame at the end of startup, fix queue
+   - Command refactoring
+   - Refactor queue
+   - move players ingame at the end of startup
    - Reward
    - chat messages
    - braodcast messages
