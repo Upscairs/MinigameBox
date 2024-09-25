@@ -62,18 +62,6 @@ public final class MinigameBox extends JavaPlugin {
 
 }
 
-
-/*TODO
-   - Better lore text in Arena List
-   - Quality of Life game quit message before game end broadcast
-   - customizable reward
-   - change messages that extra data can be included %p ~ player etc
-   - economy
-   - add reload file command
-   - Arena info gui, view queue
- */
-
-
 /*
 
 +++Creating new arena types+++

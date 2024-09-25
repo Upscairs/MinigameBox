@@ -61,6 +61,10 @@ public class MinigameArena {
 
     }
 
+    public void deleteArena() {
+        //Override
+    }
+
 
     /*
         Game functionalities

@@ -57,6 +57,7 @@ public class MessagesConfig {
         get().addDefault("managing.success-editing-started", "You are now editing the arena. Input your new value with /minigame edit-input <value>");
         get().addDefault("managing.success-edited-value", "Value got updated. You might need to restart/refresh the arena for changes to be applied.");
         get().addDefault("managing.success-editing-ended", "You left the arena editing mode.");
+        get().addDefault("managing.success-arena-deleted", "The arena got deleted.");
         get().addDefault("managing.error-outpos-in-bounds", "Error. Please place the outside block outside of the arena.");
         get().addDefault("managing.error-already-creating", "You cant create a new arena, because the previous setup is still pending. Finish the setup or use /minigame setup-cancel");
         get().addDefault("managing.error-unknown-gametype", "The gamemode you specified is unknown.");

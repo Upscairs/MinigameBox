@@ -108,16 +108,9 @@ public abstract class GameRegister {
         reloadGame(arena.getName(), GameTypes.getFromArenaClass(arena.getClass()));
     }
 
-    public static void deleteArena(String name) {
-        FileConfiguration config = ArenaRegisterFile.get();
-
-        String pref = GameTypes.getFromGameClass(getGame(name).getClass()).getName() + "." + name;
-
-        config.set(pref, null);
-        ArenaRegisterFile.setConfig(config);
-        ArenaRegisterFile.save();
-
-        reloadGame(name, GameTypes.getFromGameClass(getGame(name).getClass()));
+    public static void removeEntriesForName(String name) {
+        games.remove(name);
+        playersQueuedAndIngame.entrySet().removeIf(entry -> entry.getValue().getArena().getName().equals(name));
     }
 
     public static boolean gameExists(String name) {

@@ -4,12 +4,14 @@ import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.cha
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
+import dev.upscairs.minigameBox.base_functionality.managing.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
 import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
@@ -149,7 +151,23 @@ public class MinigameCommand implements CommandExecutor {
                             p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                             return true;
                         }
-                        GameRegister.deleteArena(combineArgsFrom(1, args));
+
+                        String gameName = combineArgsFrom(1, args);
+
+                        GameRegister.getGame(gameName).getArena().deleteArena();
+
+                        FileConfiguration config = ArenaRegisterFile.get();
+
+                        String pref = GameTypes.getFromGameClass(GameRegister.getGame(gameName).getClass()).getName() + "." + gameName;
+
+                        config.set(pref, null);
+                        ArenaRegisterFile.setConfig(config);
+                        ArenaRegisterFile.save();
+
+                        GameRegister.removeEntriesForName(gameName);
+
+                        p.sendMessage(MessagesConfig.get().getString("managing.success-arena-deleted"));
+
                     }
                     else {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));

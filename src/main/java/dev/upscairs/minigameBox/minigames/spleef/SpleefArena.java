@@ -1,6 +1,8 @@
 package dev.upscairs.minigameBox.minigames.spleef;
 
+import dev.upscairs.minigameBox.MinigameBox;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -44,9 +46,9 @@ public class SpleefArena extends MinigameArena {
         Location location2 = getLocation2();
 
         //Placing spleef block in layers
-        for(int x = (int) location2.getX(); x < location1.getX(); x++) {
+        for(double x = location2.getX(); x < location1.getX(); x++) {
              for(int y = (int) location2.getY(); y < location1.getY(); y++) {
-                 for (int z = (int) location2.getZ(); z < location1.getZ(); z++) {
+                 for (double z = location2.getZ(); z < location1.getZ(); z++) {
                      Location loc = new Location(location1.getWorld(), x, y, z);
                      if(layersY.contains(y)) {
                          loc.getBlock().setType(spleefMaterial);
@@ -57,6 +59,22 @@ public class SpleefArena extends MinigameArena {
 
                  }
              }
+        }
+
+    }
+
+    @Override
+    public void deleteArena() {
+
+        MinigameBox plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
+
+        for(int y : layersY) {
+            for(double x = getLocation2().getX(); x <= getLocation1().getX(); x++) {
+                for(double z = getLocation2().getZ(); z <= getLocation1().getZ(); z++) {
+                    Location loc = new Location(getLocation1().getWorld(), x, y, z);
+                    loc.getBlock().setType(Material.AIR);
+                }
+            }
         }
 
     }
