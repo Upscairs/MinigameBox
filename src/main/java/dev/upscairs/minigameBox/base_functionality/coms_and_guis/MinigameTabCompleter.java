@@ -59,10 +59,13 @@ public class MinigameTabCompleter implements TabCompleter {
         keywords.add("setpos");
         keywords.add("setup-cancel");
         keywords.add("edit");
+        keywords.add("edit-input");
         keywords.add("edit-cancel");
         keywords.add("delete");
         keywords.add("refresh");
         keywords.add("stop");
+        keywords.add("start");
+        keywords.add("debug");
 
         return keywords;
     }

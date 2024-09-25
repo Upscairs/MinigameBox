@@ -284,7 +284,7 @@ public class MinigameArena {
         this.queueOpen = Boolean.parseBoolean(rawArgs[5]);
         this.visible = Boolean.parseBoolean(rawArgs[6]);
 
-        Material material = Material.valueOf(rawArgs[7]);
+        Material material = Material.valueOf(rawArgs[7].toUpperCase());
         if(material == null || material.isAir() || material.isLegacy()) {
             throw new IllegalArgumentException("Not a valid material");
         }

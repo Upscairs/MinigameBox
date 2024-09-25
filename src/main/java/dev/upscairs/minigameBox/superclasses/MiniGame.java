@@ -61,12 +61,12 @@ public class MiniGame {
 
         }
         else if(arena.isPlayerIngame(player)) {
+            player.sendMessage(MessagesConfig.get().getString("game.info-out-of-game"));
             droppedOutPlayers.add(player);
             arena.removePlayerFromGame(player);
             if(arena.gameEndingState()) {
                 endGame(false);
             }
-            player.sendMessage(MessagesConfig.get().getString("game.info-out-of-game"));
         }
         else {
             player.sendMessage(MessagesConfig.get().getString("game.error-not-in-game"));
