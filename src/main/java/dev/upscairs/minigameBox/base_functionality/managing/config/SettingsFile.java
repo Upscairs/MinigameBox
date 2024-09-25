@@ -49,7 +49,7 @@ public class SettingsFile {
 
     public static void defaults() {
         get().addDefault("listClickAction", "tp");
-        get().addDefault("arena-broadcast", "true");
+        get().addDefault("arena-broadcast", true);
         get().addDefault("broadcast-range", 75);
 
         get().options().copyDefaults(true);
