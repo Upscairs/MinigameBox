@@ -85,11 +85,23 @@ public class MinigameArena {
 
     //Moves front queued players into "game" status, "Status move"
     public void setQueuedPlayersIngame() {
+        /*
         int playersIngame = ingamePlayers.size();
         int spaceLeft = playersIngame - maxPlayers;
         for (int i = 0; i < spaceLeft; i++) {
+            Player player = queuedPlayers.getFirst();
+            System.out.println(player.getName());
             ingamePlayers.add(queuedPlayers.poll());
+        }*/
+
+        System.out.println(queuedPlayers.size());
+
+        while (ingamePlayers.size() < maxPlayers && !queuedPlayers.isEmpty()) {
+            Player player = queuedPlayers.poll();
+            System.out.println(player.getName());
+            ingamePlayers.add(player);
         }
+
     }
 
     //Checks if game needs to be terminated

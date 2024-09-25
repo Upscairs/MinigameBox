@@ -249,7 +249,7 @@ public class ArenaEditGui extends InteractableGui {
                     game.endGame(true);
                 }
                 else {
-                    game.startGameFinal();
+                    game.startGameFinal(true);
                 }
                 return getNewGui();
             }

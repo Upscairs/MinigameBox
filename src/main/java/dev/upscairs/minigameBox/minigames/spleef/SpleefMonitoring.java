@@ -33,9 +33,9 @@ public class SpleefMonitoring implements Listener {
         }
 
         //Out of bounds
-        if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc1.getX()) {
-            if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc1.getY()) {
-                if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc1.getZ()) {
+        if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
+            if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
+                if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
                     game.playerRemove(p);
                 }
             }

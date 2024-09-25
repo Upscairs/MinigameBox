@@ -69,7 +69,7 @@ public class MiniGame {
             player.sendMessage(MessagesConfig.get().getString("game.info-out-of-game"));
         }
         else {
-            player.sendMessage(MessagesConfig.get().getString("game.error-not-in-queue"));
+            player.sendMessage(MessagesConfig.get().getString("game.error-not-in-game"));
         }
         GameRegister.removePlayerFromGame(player);
 
@@ -100,25 +100,28 @@ public class MiniGame {
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
-                startGameFinal();
+                startGameFinal(false);
             }
         }, arena.getFillupWaitingTimeSec()*20L);
 
     }
 
     //Starting game, players get placed in arena and tagged
-    public void startGameFinal() {
+    public void startGameFinal(boolean force) {
 
         //Aborting if players left
-        if(!arena.enoughPlayersToStart()) {
+        if(!arena.enoughPlayersToStart() && !force) {
             startGameAttempt();
             GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.issue-start-aborted-playercount"));
             return;
         }
+
         GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-start-game-final") + arena.getSetupTimeSec() + "s");
 
         gameRunning = true;
         arena.setQueuedPlayersIngame();
+
+        arena.movePlayersIn();
 
         MiniGame gameInstance = this;
         arena.setInSetupMode(true);
@@ -159,9 +162,11 @@ public class MiniGame {
         for(Player winner : winners) {
             winnersString.append(winner.getName() + ", ");
         }
-        winnersString.delete(winnersString.length()-2, winnersString.length()-1);
+        if(winnersString.length() > 2) {
+            winnersString.delete(winnersString.length() - 2, winnersString.length() - 1);
+        }
 
-        GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-game-end-winner-announce") + winnersString);
+        GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-game-end-winner-announce") + winnersString.toString());
 
         grantWinnersReward(winners, losers);
 
@@ -178,7 +183,9 @@ public class MiniGame {
         for(Player loser : losers) {
             losersString.append(loser.getName() + ", ");
         }
-        losersString.delete(losersString.length()-2, losersString.length()-1);
+        if(losersString.length() > 2) {
+            losersString.delete(losersString.length() - 2, losersString.length() - 1);
+        }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         String formattedTime = LocalDateTime.now().format(formatter);

@@ -10,10 +10,10 @@ public class SpleefGame extends MiniGame {
     }
 
     @Override
-    public void startGameFinal() {
+    public void startGameFinal(boolean force) {
         getArena().regenerateArena();
         getArena().movePlayersIn();
-        super.startGameFinal();
+        super.startGameFinal(force);
     }
 
     

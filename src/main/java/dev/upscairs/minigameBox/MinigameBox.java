@@ -64,10 +64,20 @@ public final class MinigameBox extends JavaPlugin {
 
 
 /*TODO
-   - braodcast messages
-   - economy LATER
-   - add reload file command LATER
-   - Arena info gui, view queue LATER
+   - customizable reward
+   - change messages that extra data can be included %p ~ player etc
+   - economy
+   - add reload file command
+   - Arena info gui, view queue
+ */
+
+/*
+
+Errors detected:
+- Arena doesnt start by command or automatically
+- Leaving / rejoining queue ends you in same position
+
+
  */
 
 /*
