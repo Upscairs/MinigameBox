@@ -86,6 +86,7 @@ public class MinigameCommand implements CommandExecutor {
                     //If setup done. Save arena and set blocks
                     if(arena != null) {
                         GameRegister.saveArenaSettings(arena);
+                        GameRegister.reloadGame(arena.getName(), GameTypes.getFromArenaClass(arena.getClass()));
                         GameRegister.getGame(arena.getName()).getArena().regenerateArena();
                     }
 
@@ -186,12 +187,13 @@ public class MinigameCommand implements CommandExecutor {
                             return true;
                         }
 
-                        if(!GameRegister.getGame(gameName).isGameRunning()) {
+                        if(GameRegister.getGame(gameName).isGameRunning()) {
                             p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
                             return true;
                         }
                         GameRegister.reloadGame(gameName, GameTypes.getFromGameClass(GameRegister.getGame(gameName).getClass()));
                         GameRegister.getGame(gameName).getArena().regenerateArena();
+                        p.sendMessage(MessagesConfig.get().getString("managing.success-arena-reloaded"));
                     }
                     else {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
@@ -206,7 +208,7 @@ public class MinigameCommand implements CommandExecutor {
                             p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
                             return true;
                         }
-                        GameRegister.getGame(combineArgsFrom(1, args)).startGameCountdown();
+                        GameRegister.getGame(combineArgsFrom(1, args)).startGameFinal(true);
                     }
                     else {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));

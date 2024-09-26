@@ -105,7 +105,7 @@ public abstract class GameRegister {
         ArenaRegisterFile.setConfig(config);
         ArenaRegisterFile.save();
 
-        reloadGame(arena.getName(), GameTypes.getFromArenaClass(arena.getClass()));
+        //reloadGame(arena.getName(), GameTypes.getFromArenaClass(arena.getClass()));
     }
 
     public static void removeEntriesForName(String name) {

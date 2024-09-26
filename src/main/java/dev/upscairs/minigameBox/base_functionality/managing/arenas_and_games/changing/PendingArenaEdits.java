@@ -46,7 +46,7 @@ public abstract class PendingArenaEdits {
         GameTypes gameType = GameTypes.getFromArenaClass(arena.getClass());
 
         if(!GameRegister.getGame(arena.getName()).isGameRunning()) {
-            GameRegister.reloadGame(arena.getName(), gameType);
+            //GameRegister.reloadGame(arena.getName(), gameType); //Not needed same values
             GameRegister.getGame(arena.getName()).getArena().regenerateArena();
         }
 

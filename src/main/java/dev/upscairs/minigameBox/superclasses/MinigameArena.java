@@ -244,7 +244,7 @@ public class MinigameArena {
         setRawArgs(settings);
 
         try {
-            reloadSettings();
+            testSettings();
         } catch (NumberFormatException e) {
             setRawArgs(oldSettings);
             throw new IllegalArgumentException("Not requested type.");
@@ -253,11 +253,22 @@ public class MinigameArena {
             throw new IllegalArgumentException(e.getMessage());
         }
 
+        MiniGame game = GameRegister.getGame(name);
+
+        if(game.isGameRunning()) {
+            game.flagForReload();
+        }
+        else {
+            reloadSettings();
+        }
+
         GameRegister.saveArenaSettings(this);
 
     }
 
     public void reloadSettings() throws NumberFormatException, IllegalArgumentException {
+
+        testSettings();
 
         int number = Integer.parseInt(rawArgs[0]);
         if(number < 1) {
@@ -267,21 +278,12 @@ public class MinigameArena {
 
 
         number = Integer.parseInt(rawArgs[1]);
-        if(number < minPlayers) {
-            throw new IllegalArgumentException("Number must be greater than min Players");
-        }
         this.maxPlayers = number;
 
         number = Integer.parseInt(rawArgs[2]);
-        if(number < 0) {
-            throw new IllegalArgumentException("Number must be at least 0");
-        }
         this.fillupWaitingTimeSec = number;
 
         number = Integer.parseInt(rawArgs[3]);
-        if(number < 0) {
-            throw new IllegalArgumentException("Number must be at least 0");
-        }
         this.setupTimeSec = number;
 
         this.continuous = Boolean.parseBoolean(rawArgs[4]);
@@ -289,12 +291,34 @@ public class MinigameArena {
         this.visible = Boolean.parseBoolean(rawArgs[6]);
 
         Material material = Material.valueOf(rawArgs[7].toUpperCase());
-        if(material == null || material.isAir() || material.isLegacy()) {
-            throw new IllegalArgumentException("Not a valid material");
-        }
         this.representingItem = material;
 
         this.description = rawArgs[8];
+    }
+
+    public void testSettings() throws NumberFormatException, IllegalArgumentException {
+
+        if(Integer.parseInt(rawArgs[0]) < 1) {
+            throw new IllegalArgumentException("Number must be greater than 0");
+        }
+
+        if(Integer.parseInt(rawArgs[1]) < minPlayers) {
+            throw new IllegalArgumentException("Number must be greater than min Players");
+        }
+
+        if(Integer.parseInt(rawArgs[2]) < 0) {
+            throw new IllegalArgumentException("Number must be at least 0");
+        }
+
+        if(Integer.parseInt(rawArgs[3]) < 0) {
+            throw new IllegalArgumentException("Number must be at least 0");
+        }
+
+        Material material = Material.valueOf(rawArgs[7].toUpperCase());
+        if(material == null || material.isAir() || material.isLegacy()) {
+            throw new IllegalArgumentException("Not a valid material");
+        }
+
     }
 
 

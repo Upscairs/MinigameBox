@@ -23,10 +23,13 @@ public class MiniGame {
     private boolean gameRunning;
     private ArrayList<Player> droppedOutPlayers = new ArrayList<>();
 
+    private boolean reloadFlag;
+
     public MiniGame(MinigameArena arena) {
         this.plugin = (MinigameBox) Bukkit.getPluginManager().getPlugin("MinigameBox");
         this.arena = arena;
         gameRunning = false;
+        reloadFlag = false;
     }
 
     //Checking if player can join queue, placing him, attempting gamestart
@@ -113,6 +116,7 @@ public class MiniGame {
         if(!arena.enoughPlayersToStart() && !force) {
             startGameAttempt();
             GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.issue-start-aborted-playercount"));
+            gameRunning = false;
             return;
         }
 
@@ -151,6 +155,10 @@ public class MiniGame {
         droppedOutPlayers.clear();
         
         gameRunning = false;
+
+        if(reloadFlag) {
+            arena.reloadSettings();
+        }
 
         if(force) {
             arena.editArgs(4, "false");
@@ -227,6 +235,10 @@ public class MiniGame {
 
     public void movePlayersIn() {
         //To Override
+    }
+
+    public void flagForReload() {
+        reloadFlag = true;
     }
 
 
