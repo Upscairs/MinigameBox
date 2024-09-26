@@ -53,9 +53,11 @@ public abstract class GameRegister {
             games.put(gameName, game);
 
             //Remapping queued players of old game, to the new queue
-            for(Player p : oldGame.getArena().getQueuedPlayers()) {
-                playersQueuedAndIngame.remove(p);
-                game.playerJoinQueue(p);
+            if(oldGame != null) {
+                for(Player p : oldGame.getArena().getQueuedPlayers()) {
+                    playersQueuedAndIngame.remove(p);
+                    game.playerJoinQueue(p);
+                }
             }
 
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
