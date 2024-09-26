@@ -28,12 +28,12 @@ public abstract class PendingArenaEdits {
 
     public static void giveArg(Player player, String newSetting) {
 
-        MinigameArena arena = pendingEdits.get(player).left;
-
         if(!pendingEdits.containsKey(player)) {
             player.sendMessage(MessagesConfig.get().getString("managing.error-not-editing"));
             return;
         }
+
+        MinigameArena arena = pendingEdits.get(player).left;
 
         try {
             arena.editArgs(pendingEdits.get(player).right, newSetting);
@@ -56,8 +56,15 @@ public abstract class PendingArenaEdits {
     }
 
     public static void removePlayer(Player player) {
-        pendingEdits.remove(player);
-        player.sendMessage(MessagesConfig.get().getString("managing.success-editing-ended"));
+
+        if(pendingEdits.containsKey(player)) {
+            pendingEdits.remove(player);
+            player.sendMessage(MessagesConfig.get().getString("managing.success-editing-ended"));
+        }
+        else {
+            player.sendMessage(MessagesConfig.get().getString("managing.error-not-editing"));
+        }
+
     }
 
 }
