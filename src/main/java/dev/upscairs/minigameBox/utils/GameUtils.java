@@ -8,10 +8,7 @@ public abstract class GameUtils {
 
     public static void broadcastMessage(Location center, String message) {
 
-        System.out.println("Broadcast");
-
         if(!SettingsFile.get().getBoolean("arena-broadcast")) {
-            System.out.println("No broadcast");
             return;
         }
 

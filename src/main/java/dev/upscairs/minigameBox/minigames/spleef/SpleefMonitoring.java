@@ -1,6 +1,7 @@
 package dev.upscairs.minigameBox.minigames.spleef;
 
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -11,37 +12,10 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpleefMonitoring implements Listener {
-
-    //Players out, which are on the lowest layer
-    @EventHandler
-    public void onPlayerMoveEvent(PlayerMoveEvent event) {
-        Player p = event.getPlayer();
-
-        SpleefGame game = getPlayedSpleefGame(p);
-        if(game == null) return;
-
-        Location loc = p.getLocation();
-
-        Location arenaLoc1 = game.getArena().getLocation1();
-        Location arenaLoc2 = game.getArena().getLocation2();
-
-        //Lowest layer
-        if(loc.getY() < arenaLoc2.getY()+0.5) {
-            game.playerRemove(p);
-        }
-
-        //Out of bounds
-        if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
-            if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
-                if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
-                    game.playerRemove(p);
-                }
-            }
-        }
-
-    }
 
     //Only spleef block breakable, but insta breaks
     @EventHandler
@@ -75,8 +49,39 @@ public class SpleefMonitoring implements Listener {
         }
     }
 
+    public static void boundsCheckTask() {
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                for(Player p : GameRegister.getIngamePlayers()) {
+                    SpleefGame game = getPlayedSpleefGame(p);
+                    if(game == null) return;
+
+                    Location loc = p.getLocation();
+
+                    Location arenaLoc1 = game.getArena().getLocation1();
+                    Location arenaLoc2 = game.getArena().getLocation2();
+
+                    //Players out, which are on the lowest layer
+                    if(loc.getY() < arenaLoc2.getY()+0.5) {
+                        game.playerRemove(p);
+                    }
+
+                    //Out of bounds
+                    if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
+                        if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
+                            if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
+                                game.playerRemove(p);
+                            }
+                        }
+                    }
+                }
+            }
+        }.runTaskTimer(Bukkit.getPluginManager().getPlugin("MinigameBox"), 0L, 10L);
+    }
+
     //Returns SpleefGame, if player is in one and is activly playing
-    public SpleefGame getPlayedSpleefGame(Player player) {
+    public static SpleefGame getPlayedSpleefGame(Player player) {
 
         if(GameRegister.isPlayerInGame(player)) {
             if(GameRegister.getPlayersGame(player) instanceof SpleefGame g) {

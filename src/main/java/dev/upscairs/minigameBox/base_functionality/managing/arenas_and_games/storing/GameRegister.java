@@ -10,7 +10,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public abstract class GameRegister {
 
@@ -104,8 +107,6 @@ public abstract class GameRegister {
 
         ArenaRegisterFile.setConfig(config);
         ArenaRegisterFile.save();
-
-        //reloadGame(arena.getName(), GameTypes.getFromArenaClass(arena.getClass()));
     }
 
     public static void removeEntriesForName(String name) {
@@ -146,6 +147,10 @@ public abstract class GameRegister {
 
     public static void removePlayerFromGame(Player player) {
         playersQueuedAndIngame.remove(player);
+    }
+
+    public static Set<Player> getIngamePlayers() {
+        return playersQueuedAndIngame.keySet();
     }
 
 }

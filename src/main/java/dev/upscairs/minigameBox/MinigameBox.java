@@ -58,6 +58,8 @@ public final class MinigameBox extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SpleefMonitoring(), this);
         getServer().getPluginManager().registerEvents(new PlayerDisconnectHandler(), this);
         getServer().getPluginManager().registerEvents(new GuiInteractionHandler(), this);
+
+        SpleefMonitoring.boundsCheckTask();
     }
 
 }
