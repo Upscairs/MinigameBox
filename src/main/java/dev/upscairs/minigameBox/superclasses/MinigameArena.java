@@ -141,6 +141,10 @@ public class MinigameArena {
         return queuedPlayers.size();
     }
 
+    public ArrayDeque<Player> getQueuedPlayers() {
+        return queuedPlayers;
+    }
+
 
     /*
         Properties Getter/setter
@@ -232,6 +236,7 @@ public class MinigameArena {
         settings[index] = newString;
         setRawArgs(settings);
 
+        //Testing settings, if faulty -> rollback
         try {
             testSettings();
         } catch (NumberFormatException e) {
@@ -244,6 +249,7 @@ public class MinigameArena {
 
         MiniGame game = GameRegister.getGame(name);
 
+        //Reload if no game running, if yes, flag for doing that later
         if(game.isGameRunning()) {
             game.flagForReload();
         }

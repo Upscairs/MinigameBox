@@ -24,8 +24,10 @@ public class GuiInteractionHandler implements Listener {
             //Open sub-gui if possible
             if (event.getClickedInventory().getHolder() instanceof InteractableGui) {
 
+                //If returned the same gui, it gets updated
                 InteractableGui gui = ((InteractableGui) event.getClickedInventory().getHolder()).handleInvClick(event.getSlot());
 
+                //Null closes inventory
                 if(gui == null) {
                     event.getWhoClicked().closeInventory();
                 }

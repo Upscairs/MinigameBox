@@ -41,9 +41,12 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
 
     public void placeArenas() {
         Inventory inv = super.getInventory();
+
+        //Fetches arenas from list for requested page, as long as page is or arena list has items
         for(int i = getPage()*45; i < (getPage()+1)*45 && i < arenas.size(); i++) {
             inv.setItem((i%45), generateArenaItem(arenas.get(i)));
         }
+        setInventory(inv);
     }
 
     private ItemStack generateArenaItem(MinigameArena arena) {
@@ -54,6 +57,7 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
         List<String> lore = new ArrayList<>();
         MiniGame game = GameRegister.getGame(arena.getName());
 
+        //TODO customize, coloring
         if(game.isGameRunning()) {
             lore.add("Game running..");
         }
@@ -79,15 +83,19 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
         return stack;
     }
 
+    //Handle click on arena item
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
         if(clickedSlot < 45) {
+
+            //No arena in slot
             if(clickedSlot+getPage()*45 >= arenas.size() ) {
                 return this;
             }
-            MinigameArena correspondingArena = arenas.get(clickedSlot+getPage()*45);
 
+            MinigameArena correspondingArena = arenas.get(clickedSlot+getPage()*45);
             Player p = Bukkit.getPlayer(UUID.fromString(getArg(0)));
+
             if(clickedMode.equalsIgnoreCase("tp")) {
                 p.teleport(correspondingArena.getOutsideLocation());
                 return null;

@@ -157,14 +157,15 @@ public class MinigameCommand implements CommandExecutor {
 
                         GameRegister.getGame(gameName).getArena().deleteArena();
 
+                        //Remove from file
                         FileConfiguration config = ArenaRegisterFile.get();
-
                         String pref = GameTypes.getFromGameClass(GameRegister.getGame(gameName).getClass()).getName() + "." + gameName;
 
                         config.set(pref, null);
                         ArenaRegisterFile.setConfig(config);
                         ArenaRegisterFile.save();
 
+                        //Removing arena game and unqueue players
                         GameRegister.removeEntriesForName(gameName);
 
                         p.sendMessage(MessagesConfig.get().getString("managing.success-arena-deleted"));
@@ -175,6 +176,7 @@ public class MinigameCommand implements CommandExecutor {
                     }
                     return true;
                 }
+                //Reloads from file and regenerates arena
                 else if(args[0].equalsIgnoreCase("refresh")) {
 
                     if(args.length >= 2) {
@@ -187,10 +189,12 @@ public class MinigameCommand implements CommandExecutor {
                             return true;
                         }
 
+                        //Check if game running in arena
                         if(GameRegister.getGame(gameName).isGameRunning()) {
                             p.sendMessage(MessagesConfig.get().getString("managing.error-game-running"));
                             return true;
                         }
+
                         GameRegister.reloadGame(gameName, GameTypes.getFromGameClass(GameRegister.getGame(gameName).getClass()));
                         GameRegister.getGame(gameName).getArena().regenerateArena();
                         p.sendMessage(MessagesConfig.get().getString("managing.success-arena-reloaded"));
@@ -237,6 +241,7 @@ public class MinigameCommand implements CommandExecutor {
                     return true;
                 }
             }
+            //This logic has the consequence, that players without permission don't get a "no permission", but a "command not found" message
             sender.sendMessage(MessagesConfig.get().getString("general.subcommand-not-found"));
 
         }
@@ -248,6 +253,7 @@ public class MinigameCommand implements CommandExecutor {
 
     }
 
+    //Combines all args after index with it into one string
     private String combineArgsFrom(int index, String[] args) {
 
         StringBuilder out = new StringBuilder();

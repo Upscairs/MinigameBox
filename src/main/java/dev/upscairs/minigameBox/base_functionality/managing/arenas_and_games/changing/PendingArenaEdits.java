@@ -11,11 +11,13 @@ import java.util.HashMap;
 
 public abstract class PendingArenaEdits {
 
+    //Maps player to arena they are editing and the index of the arg that is going to be changed
     private static final HashMap<Player, Tuple<MinigameArena, Integer>> pendingEdits = new HashMap<>();
 
 
     public static void newEditInstance(Player player, MinigameArena arena, int argIndex) {
 
+        //Check if player is already editing something
         if (pendingEdits.containsKey(player)) {
             player.sendMessage(MessagesConfig.get().getString("managing.error-already-editing"));
             return;
@@ -26,8 +28,10 @@ public abstract class PendingArenaEdits {
 
     }
 
+    //Handles the input by a player for editing an arena
     public static void giveArg(Player player, String newSetting) {
 
+        //Check if player is editing something
         if(!pendingEdits.containsKey(player)) {
             player.sendMessage(MessagesConfig.get().getString("managing.error-not-editing"));
             return;
@@ -35,6 +39,7 @@ public abstract class PendingArenaEdits {
 
         MinigameArena arena = pendingEdits.get(player).left;
 
+        //Trying to change args to given input, gets returned error if input unparsable
         try {
             arena.editArgs(pendingEdits.get(player).right, newSetting);
         } catch (IllegalArgumentException e) {
@@ -42,11 +47,11 @@ public abstract class PendingArenaEdits {
             return;
         }
 
-
         GameTypes gameType = GameTypes.getFromArenaClass(arena.getClass());
 
+        //Regenerate instantly if game not running, if game is running arena gets regenerated on next startup.
+        //It's not necessary, but a visual convenience :)
         if(!GameRegister.getGame(arena.getName()).isGameRunning()) {
-            //GameRegister.reloadGame(arena.getName(), gameType); //Not needed same values
             GameRegister.getGame(arena.getName()).getArena().regenerateArena();
         }
 
@@ -55,6 +60,7 @@ public abstract class PendingArenaEdits {
 
     }
 
+    //No longer mark player as "editing arena"
     public static void removePlayer(Player player) {
 
         if(pendingEdits.containsKey(player)) {

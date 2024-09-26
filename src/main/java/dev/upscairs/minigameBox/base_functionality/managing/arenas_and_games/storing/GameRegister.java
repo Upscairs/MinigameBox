@@ -21,6 +21,7 @@ public abstract class GameRegister {
     private static HashMap<String, MiniGame> games = new HashMap<>();
     private static HashMap<Player, MiniGame> playersQueuedAndIngame = new HashMap<>();
 
+    //Reload a single game from the register file
     public static void reloadGame(String gameName, GameTypes gameType) {
         ArenaRegisterFile.reload();
         FileConfiguration config = ArenaRegisterFile.get();
@@ -32,6 +33,7 @@ public abstract class GameRegister {
         Location outsideLocation;
         String[] args;
 
+        //Ignoring arena if values are unparsable
         try {
             location1 = config.getLocation(path + ".location1");
             location2 = config.getLocation(path + ".location2");
@@ -42,10 +44,19 @@ public abstract class GameRegister {
             return;
         }
 
+        MiniGame oldGame = games.get(gameName);
+
+        //Writing games map entry
         try {
             MinigameArena arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(gameName, location1, location2, outsideLocation, args);
             MiniGame game = gameType.getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
             games.put(gameName, game);
+
+            //Remapping queued players of old game, to the new queue
+            for(Player p : oldGame.getArena().getQueuedPlayers()) {
+                playersQueuedAndIngame.remove(p);
+                game.playerJoinQueue(p);
+            }
 
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             throw new RuntimeException(e);
@@ -88,7 +99,6 @@ public abstract class GameRegister {
                 }
 
             });
-
 
         }
 

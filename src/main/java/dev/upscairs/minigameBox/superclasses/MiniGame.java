@@ -112,6 +112,11 @@ public class MiniGame {
     //Starting game, players get placed in arena and tagged
     public void startGameFinal(boolean force) {
 
+        //Mainly for command use - don't start, if game running
+        if(!arena.getIngamePlayers().isEmpty()) {
+            return;
+        }
+
         //Aborting if players left
         if(!arena.enoughPlayersToStart() && !force) {
             startGameAttempt();
