@@ -136,7 +136,6 @@ public abstract class GameRegister {
 
     public static void shutdownGames() {
         for(MiniGame game : games.values()) {
-            game.endGame(false);
             saveArenaSettings(game.getArena());
         }
     }
