@@ -13,8 +13,7 @@ import org.bukkit.inventory.meta.BookMeta;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class MiniGame {
 
@@ -95,7 +94,7 @@ public class MiniGame {
         return false;
     }
 
-    //Starting game in x seconds, but waiting for other players to join, can get called by game master
+    //Starting game in x seconds, but waiting for other players to join
     public void startGameCountdown() {
         GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-start-game-countdown") + arena.getFillupWaitingTimeSec() + "s");
         gameRunning = true;
@@ -109,7 +108,7 @@ public class MiniGame {
 
     }
 
-    //Starting game, players get placed in arena and tagged
+    //Starting game, players get placed in arena
     public void startGameFinal(boolean force) {
 
         //Mainly for command use - don't start, if game running
@@ -149,16 +148,13 @@ public class MiniGame {
     //If force, stopping queue, no reward
     public void endGame(boolean force) {
 
-        ArrayList<Player> winners = arena.getIngamePlayers();
-        ArrayList<Player> losers = droppedOutPlayers;
+        HashSet<Player> winners = new HashSet<>();
+        arena.getIngamePlayers().forEach(player -> winners.add(player));
+        HashSet<Player> losers = new HashSet<>();
+        droppedOutPlayers.forEach(player -> losers.add(player));
 
-        for(Player player : arena.getIngamePlayers()) {
-            GameRegister.removePlayerFromGame(player);
-            arena.removePlayerFromGame(player);
-        }
+        arena.flushIngamePlayers();
 
-        droppedOutPlayers.clear();
-        
         gameRunning = false;
 
         if(reloadFlag) {
@@ -172,8 +168,9 @@ public class MiniGame {
         }
 
         StringBuilder winnersString = new StringBuilder();
-        for(Player winner : winners) {
+        for(Player winner : winners.stream().toList()) {
             winnersString.append(winner.getName() + ", ");
+            GameRegister.removePlayerFromGame(winner);
         }
         if(winnersString.length() > 2) {
             winnersString.delete(winnersString.length() - 2, winnersString.length() - 1);
@@ -183,11 +180,12 @@ public class MiniGame {
 
         grantWinnersReward(winners, losers);
 
+        droppedOutPlayers.clear();
         startGameAttempt();
 
     }
 
-    public void grantWinnersReward(List<Player> winners, List<Player> losers) {
+    public void grantWinnersReward(Set<Player> winners, Set<Player> losers) {
 
         //TODO customizable content
 
@@ -197,7 +195,7 @@ public class MiniGame {
             losersString.append(loser.getName() + ", ");
         }
         if(losersString.length() > 2) {
-            losersString.delete(losersString.length() - 2, losersString.length() - 1);
+            losersString.delete(losersString.length() - 2, losersString.length());
         }
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");

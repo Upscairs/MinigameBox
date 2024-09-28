@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 public class MinigameArena {
 
@@ -27,7 +29,7 @@ public class MinigameArena {
     private Material representingItem;
     private String description;
 
-    private ArrayList<Player> ingamePlayers = new ArrayList<>();
+    private HashSet<Player> ingamePlayers = new HashSet<>();
     private ArrayDeque<Player> queuedPlayers = new ArrayDeque<>();
 
     private boolean setupMode;
@@ -91,7 +93,7 @@ public class MinigameArena {
     public void setQueuedPlayersIngame() {
 
         while (ingamePlayers.size() < maxPlayers && !queuedPlayers.isEmpty()) {
-            Player player = queuedPlayers.poll();
+            Player player = queuedPlayers.pollFirst();
             ingamePlayers.add(player);
         }
 
@@ -114,16 +116,24 @@ public class MinigameArena {
         return ingamePlayers.contains(player);
     }
 
-    public ArrayList<Player> getIngamePlayers() {
+    public HashSet<Player> getIngamePlayers() {
         return ingamePlayers;
     }
 
-    //Removes from player list and tps out
+    public void flushIngamePlayers() {
+        Iterator<Player> iterator = ingamePlayers.iterator();
+        while (iterator.hasNext()) {
+            Player player = iterator.next();
+            moveToOutsideBlock(player);
+            iterator.remove();
+        }
+    }
+
+    //Removes from player list and tps out, DO NOT CALL FROM ITERATON
     public void removePlayerFromGame(Player player) {
         ingamePlayers.remove(player);
         moveToOutsideBlock(player);
     }
-
 
     public void addPlayerToQueue(Player player) {
         queuedPlayers.add(player);

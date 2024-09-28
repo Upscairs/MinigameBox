@@ -53,31 +53,36 @@ public class SpleefMonitoring implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                for(Player p : GameRegister.getIngamePlayers()) {
-                    SpleefGame game = getPlayedSpleefGame(p);
-                    if(game == null) return;
+                try {
+                    for(Player p : GameRegister.getIngamePlayers()) {
 
-                    Location loc = p.getLocation();
+                        SpleefGame game = getPlayedSpleefGame(p);
+                        if(game == null) return;
 
-                    Location arenaLoc1 = game.getArena().getLocation1();
-                    Location arenaLoc2 = game.getArena().getLocation2();
+                        Location loc = p.getLocation();
 
-                    //Players out, which are on the lowest layer
-                    if(loc.getY() < arenaLoc2.getY()+0.5) {
-                        game.playerRemove(p);
-                    }
+                        Location arenaLoc1 = game.getArena().getLocation1();
+                        Location arenaLoc2 = game.getArena().getLocation2();
 
-                    //Out of bounds
-                    if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
-                        if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
-                            if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
-                                game.playerRemove(p);
+                        //Players out, which are on the lowest layer
+                        if(loc.getY() < arenaLoc2.getY()+0.5) {
+                            game.playerRemove(p);
+                        }
+
+                        //Out of bounds
+                        if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
+                            if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
+                                if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
+                                    game.playerRemove(p);
+                                }
                             }
                         }
                     }
+                } catch (Exception ignored) {
+
                 }
             }
-        }.runTaskTimer(Bukkit.getPluginManager().getPlugin("MinigameBox"), 0L, 10L);
+        }.runTaskTimer(Bukkit.getPluginManager().getPlugin("MinigameBox"), 0L, 1L);
     }
 
     //Returns SpleefGame, if player is in one and is activly playing

@@ -242,7 +242,7 @@ public class MinigameCommand implements CommandExecutor {
                 }
             }
             //This logic has the consequence, that players without permission don't get a "no permission", but a "command not found" message
-            sender.sendMessage(MessagesConfig.get().getString("general.subcommand-not-found"));
+            sender.sendMessage(MessagesConfig.get().getString("general.error-subcommand-not-found"));
 
         }
         else {
