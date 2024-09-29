@@ -5,6 +5,8 @@ minigames on your server. It lets you create and edit game arenas in your world,
 spleef and similar games. The focus is to maintain and expand a high level of customizablity and constantly expand the set
 of minigames. I tried to design the plugin to be as self-explanatory and intuitive as possible, but I plan to
 create a guide someday. If questions arise or you want to give some feedback, contact me on GitHub or Discord @upscairs.
+Note: This plugin doesn't protect the arena outside if minigames, control pvp (but that might change), or create a huge 
+build for the arena. The plugin just creates the barebones functionality.
 
 ### Status Quo
 
