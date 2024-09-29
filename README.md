@@ -12,8 +12,7 @@ build for the arena. The plugin just creates the barebones functionality.
 
 The number of the minigames you can play at the moment is, well, one - Spleef. My plans are to increase that number
 obviously, but I want to build a solid foundation first. A foundation that allows me and everyone else who wants to 
-work with it to have it as easy as possible. 
-
+work with it to have it as easy as possible.
 
 ### The future
 
