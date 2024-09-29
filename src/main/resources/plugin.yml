@@ -1,7 +1,7 @@
 name: MinigameBox
 version: '1.0'
 main: dev.upscairs.minigameBox.MinigameBox
-api-version: '1.20'
+api-version: '1.21.1'
 commands:
   minigame:
     ussage: /<command>
