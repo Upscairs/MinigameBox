@@ -10,7 +10,7 @@ build for the arena. The plugin just creates the barebones functionality.
 
 ### Status Quo
 
-The number of the minigames you can play at the moment is, well, one - Spleef. My plans are to increase that number
+The number of the minigames you can play at the moment is, well, two - Spleef and TntRun. My plans are to increase that number
 obviously, but I want to build a solid foundation first. A foundation that allows me and everyone else who wants to 
 work with it to have it as easy as possible.
 
@@ -20,12 +20,10 @@ I started this plugin as a hobby, because I like to work on it and I will keep w
 anymore (that's quite unlikely) or I don't have any fun or time in doing it anymore. I don't see a reason why that
 would happen in the near future, but I thought it would be fair to let you know ;)
 
-But let's talk about features:
+But let's talk about features I have planned:
 
-For upcoming minigames I have planned:
-- TntRun
-
-And new features are:
 - More options in the edit and queue gui
 - More customizability in guis
+- A pvp toggle
+- Leaderboards
 - The guide mentioned in the introduction

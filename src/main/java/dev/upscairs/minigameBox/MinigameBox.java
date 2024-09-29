@@ -9,6 +9,7 @@ import dev.upscairs.minigameBox.base_functionality.managing.config.SettingsFile;
 import dev.upscairs.minigameBox.base_functionality.event_handlers.GuiInteractionHandler;
 import dev.upscairs.minigameBox.base_functionality.event_handlers.PlayerDisconnectHandler;
 import dev.upscairs.minigameBox.minigames.spleef.SpleefMonitoring;
+import dev.upscairs.minigameBox.minigames.tntrun.TntRunMonitoring;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MinigameBox extends JavaPlugin {
@@ -55,11 +56,16 @@ public final class MinigameBox extends JavaPlugin {
     }
 
     public void registerEvents() {
-        getServer().getPluginManager().registerEvents(new SpleefMonitoring(), this);
+
         getServer().getPluginManager().registerEvents(new PlayerDisconnectHandler(), this);
         getServer().getPluginManager().registerEvents(new GuiInteractionHandler(), this);
 
+        getServer().getPluginManager().registerEvents(new SpleefMonitoring(), this);
+        getServer().getPluginManager().registerEvents(new TntRunMonitoring(), this);
+
         SpleefMonitoring.boundsCheckTask();
+        TntRunMonitoring.boundsCheckTask();
+        TntRunMonitoring.blockBreakTask();
     }
 
 }

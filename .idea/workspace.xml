@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69eb65ae-3bbe-4443-8b8f-8ff1674b2855" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/tntrun/TntRunArena.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/tntrun/TntRunArenaEditGui.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/tntrun/TntRunGame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/tntrun/TntRunMonitoring.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/MinigameBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/MinigameBox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/arenas_and_games/storing/GameTypes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/arenas_and_games/storing/GameTypes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/spleef/SpleefMonitoring.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/spleef/SpleefMonitoring.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,6 +59,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/versions-compiled" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dev.upscairs.minigameBox.minigames.tntrun" />
     </key>
   </component>
   <component name="RunManager">
@@ -110,7 +119,7 @@
       <workItem from="1727603126446" duration="4302000" />
       <workItem from="1727611899170" duration="21000" />
       <workItem from="1727611938372" duration="14947000" />
-      <workItem from="1727634755137" duration="767000" />
+      <workItem from="1727634755137" duration="9689000" />
     </task>
     <servers />
   </component>

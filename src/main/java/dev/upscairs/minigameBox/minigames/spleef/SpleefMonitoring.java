@@ -12,8 +12,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class SpleefMonitoring implements Listener {
@@ -86,12 +84,15 @@ public class SpleefMonitoring implements Listener {
 
                         //Out of bounds
                         if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
-                            if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
-                                if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
-                                    game.playerRemove(p);
-                                }
-                            }
+                            game.playerRemove(p);
                         }
+                        if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
+                            game.playerRemove(p);
+                        }
+                        if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
+                            game.playerRemove(p);
+                        }
+
                     }
                 } catch (Exception ignored) {
 
