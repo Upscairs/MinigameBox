@@ -1,6 +1,7 @@
 package dev.upscairs.minigameBox.minigames.spleef;
 
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
+import dev.upscairs.minigameBox.minigames.tntrun.TntRunGame;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -35,14 +36,14 @@ public class SpleefMonitoring implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         Player p = event.getPlayer();
 
-        if(event.getAction() != Action.LEFT_CLICK_BLOCK) {
-            return;
-        }
-
         SpleefGame game = getPlayedSpleefGame(p);
         if(game == null) return;
 
         event.setCancelled(true);
+
+        if(event.getAction() != Action.LEFT_CLICK_BLOCK) {
+            return;
+        }
 
         Block clickedBlock = event.getClickedBlock();
 
