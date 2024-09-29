@@ -29,7 +29,8 @@ public class MinigameTabCompleter implements TabCompleter {
                 || args[0].equalsIgnoreCase("start")
                 || args[0].equalsIgnoreCase("stop")
                 || args[0].equalsIgnoreCase("join")
-                || args[0].equalsIgnoreCase("leave")) {
+                || args[0].equalsIgnoreCase("leave")
+                || args[0].equalsIgnoreCase("queue")) {
                     completions.addAll(getVisibleGames(commandSender));
                 }
                 else if(args[0].equalsIgnoreCase("create")) {
@@ -48,6 +49,7 @@ public class MinigameTabCompleter implements TabCompleter {
         keywords.add("join");
         keywords.add("leave");
         keywords.add("list");
+        keywords.add("queue");
 
         return keywords;
     }

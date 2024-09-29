@@ -58,6 +58,20 @@ public class MinigameCommand implements CommandExecutor {
 
                 return true;
             }
+            if(args[0].equalsIgnoreCase("queue")) {
+
+                String gameName = combineArgsFrom(1, args);
+
+                //Checking if game exists
+                if(!GameRegister.gameExists(gameName)) {
+                    p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                    return true;
+                }
+                if(args.length >= 2) {
+                    p.openInventory(new QueueListGui(new String[]{p.getUniqueId().toString(), "0"}, GameRegister.getGame(gameName).getArena().getQueuedPlayers().stream().toList()).getInventory());
+                }
+                return true;
+            }
 
             if(p.hasPermission("minigamebox.manage")) {
 

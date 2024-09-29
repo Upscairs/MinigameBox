@@ -24,7 +24,7 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
     private String clickedMode = "";
 
     public ArenaListGui(String[] args, List<MinigameArena> arenas) {
-        super(args, new ArrayList<Object>(arenas));
+        super(args, new ArrayList<>(arenas));
         this.arenas = arenas;
 
         clickedMode = SettingsFile.get().getString("listClickAction");
