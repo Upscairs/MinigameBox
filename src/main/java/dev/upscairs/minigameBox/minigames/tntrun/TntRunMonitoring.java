@@ -85,13 +85,13 @@ public class TntRunMonitoring implements Listener {
                         }
 
                         //Out of bounds
-                        if(loc.getX() > arenaLoc1.getX() || loc.getX() < arenaLoc2.getX()) {
+                        if(loc.getX() > arenaLoc1.getX()+1 || loc.getX() < arenaLoc2.getX()-1) {
                             game.playerRemove(p);
                         }
-                        if(loc.getY() > arenaLoc1.getY() || loc.getY() < arenaLoc2.getY()) {
+                        if(loc.getY() > arenaLoc1.getY()+1 || loc.getY() < arenaLoc2.getY()-1) {
                             game.playerRemove(p);
                         }
-                        if(loc.getZ() > arenaLoc1.getZ() || loc.getZ() < arenaLoc2.getZ()) {
+                        if(loc.getZ() > arenaLoc1.getZ()+1 || loc.getZ() < arenaLoc2.getZ()-1) {
                             game.playerRemove(p);
                         }
 
