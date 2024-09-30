@@ -16,21 +16,4 @@ public class SpleefGame extends MiniGame {
         super.startGameFinal(force);
     }
 
-    
-
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

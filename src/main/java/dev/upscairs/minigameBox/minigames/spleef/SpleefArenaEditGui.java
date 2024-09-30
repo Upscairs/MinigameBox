@@ -55,7 +55,7 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Layers", "#C91F58"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Layers", "#C91F58"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(getArena().getLayerCount() + " Layers").build());
@@ -71,7 +71,7 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Spleef Block", "#8D989D"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Spleef Block", "#8D989D"));
 
         stack.setItemMeta(meta);
 

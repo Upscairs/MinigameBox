@@ -63,7 +63,7 @@ public class ScrollableGui extends InteractableGui implements InventoryHolder {
     public ItemStack generateScrollLeftItem() {
         ItemStack stack = InvGuiUtils.generateCustomUrlHeadStack("http://textures.minecraft.net/texture/e35e42fc7060c223acc965f7c5996f272644af40a4723a372f5903f8e9f188e7");
         ItemMeta meta = stack.getItemMeta();
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Previous Page", "#B1B1B1"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Previous Page", "#B1B1B1"));
         stack.setItemMeta(meta);
         return stack;
     }
@@ -71,7 +71,7 @@ public class ScrollableGui extends InteractableGui implements InventoryHolder {
     public ItemStack generateScrollRightItem() {
         ItemStack stack = InvGuiUtils.generateCustomUrlHeadStack("http://textures.minecraft.net/texture/aee0f82fb33f6cfa5169b9f5eafe4dc1c73618c9783b131adada411d8f605505");
         ItemMeta meta = stack.getItemMeta();
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Next Page", "#B1B1B1"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Next Page", "#B1B1B1"));
         stack.setItemMeta(meta);
         return stack;
     }

@@ -65,7 +65,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Min required Players", "#BCB8B8"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Min required Players", "#BCB8B8"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.getMinPlayers() + " Players required").build());
@@ -82,7 +82,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Max Players", "#F5C85A"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Max Players", "#F5C85A"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.getMaxPlayers() + " Players maximum").build());
@@ -98,7 +98,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Waiting time for more players", "#929292"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Waiting time for more players", "#929292"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.getFillupWaitingTimeSec() + " Seconds").build());
@@ -114,7 +114,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Setup time in arena", "#4FC3F7"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Setup time in arena", "#4FC3F7"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.getSetupTimeSec() + " Seconds").build());
@@ -130,7 +130,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Queue Open", "#70828B"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Queue Open", "#70828B"));
         meta.setEnchantmentGlintOverride(arena.isQueueOpen());
 
         ArrayList<Component> lore = new ArrayList<>();
@@ -147,7 +147,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Auto-start next game", "#DE771C"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Auto-start next game", "#DE771C"));
         meta.setEnchantmentGlintOverride(arena.isContinuous());
 
         ArrayList<Component> lore = new ArrayList<>();
@@ -164,7 +164,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Visible in list", "#992CAB"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Visible in list", "#992CAB"));
         meta.setEnchantmentGlintOverride(arena.isVisible());
 
         ArrayList<Component> lore = new ArrayList<>();
@@ -181,7 +181,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Representing item in list", "#67B16B"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Representing item in list", "#67B16B"));
 
         stack.setItemMeta(meta);
 
@@ -193,7 +193,7 @@ public class ArenaEditGui extends InteractableGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Description", "#008B99"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Description", "#008B99"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(arena.getDescription()).build());
@@ -209,7 +209,7 @@ public class ArenaEditGui extends InteractableGui {
         if(GameRegister.getGame(arena.getName()).isGameRunning()) {
             stack = new ItemStack(Material.GREEN_WOOL, 1);
             ItemMeta meta = stack.getItemMeta();
-            meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Game running...", "#00DD00"));
+            meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Game running...", "#00DD00"));
             ArrayList<Component> lore = new ArrayList<>();
             lore.add(Component.text().content("Click to force stop!").build());
             meta.lore(lore);
@@ -218,7 +218,7 @@ public class ArenaEditGui extends InteractableGui {
         else {
             stack = new ItemStack(Material.RED_WOOL, 1);
             ItemMeta meta = stack.getItemMeta();
-            meta.displayName(InvGuiUtils.getDefaultHeaderComponent("No game running", "#DD0000"));
+            meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("No game running", "#DD0000"));
             ArrayList<Component> lore = new ArrayList<>();
             lore.add(Component.text().content("Click to force start! (ignores player numbers)").build());
             meta.lore(lore);

@@ -61,7 +61,7 @@ public abstract class GameRegister {
             }
 
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            throw new RuntimeException(e);
+            Bukkit.getLogger().severe("Error reloading game " + gameName);
         }
 
     }

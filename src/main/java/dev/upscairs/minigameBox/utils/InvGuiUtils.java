@@ -17,7 +17,16 @@ import java.util.UUID;
 
 public abstract class InvGuiUtils {
 
-    public static TextComponent getDefaultHeaderComponent(String text, String colorHex) {
+    public static TextComponent generateDefaultTextComponent(String text, String colorHex) {
+
+        return Component.text()
+                .content(text)
+                .color(TextColor.fromHexString(colorHex))
+                .decoration(TextDecoration.ITALIC, false)
+                .build();
+    }
+
+    public static TextComponent generateDefaultHeaderComponent(String text, String colorHex) {
         return Component.text()
                 .content(text)
                 .color(TextColor.fromHexString(colorHex))

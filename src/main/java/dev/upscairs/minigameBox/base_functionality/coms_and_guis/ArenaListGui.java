@@ -1,5 +1,6 @@
 package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
+import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import dev.upscairs.minigameBox.base_functionality.managing.config.SettingsFile;
@@ -7,6 +8,8 @@ import dev.upscairs.minigameBox.superclasses.MiniGame;
 import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.superclasses.guis.ScrollableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -52,32 +55,38 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
     private ItemStack generateArenaItem(MinigameArena arena) {
         ItemStack stack = new ItemStack(arena.getRepresentingItem(), 1);
         ItemMeta meta = stack.getItemMeta();
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent(arena.getName(), "#29B6F6"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent(arena.getName(), "#00AA00"));
 
-        List<String> lore = new ArrayList<>();
         MiniGame game = GameRegister.getGame(arena.getName());
 
-        //TODO customize, coloring
+        List<Component> lore = new ArrayList<>();
+
+        lore.add(InvGuiUtils.generateDefaultTextComponent(GameTypes.getFromArenaClass(arena.getClass()).getName(), "#55FF55"));
+
+        lore.add(InvGuiUtils.generateDefaultTextComponent(arena.getDescription(), "#AAAAAA").decoration(TextDecoration.ITALIC, true));
+
+        lore.add(InvGuiUtils.generateDefaultTextComponent("", "#000000"));
+
         if(game.isGameRunning()) {
-            lore.add("Game running..");
+            lore.add(InvGuiUtils.generateDefaultTextComponent("Game running...", "#55FF55").decoration(TextDecoration.BOLD, true));
         }
         else if(!game.isGameRunning() && arena.isContinuous()) {
-            lore.add("Waiting for players.");
+            lore.add(InvGuiUtils.generateDefaultTextComponent("Waiting for players...", "#FF5555").decoration(TextDecoration.BOLD, true));
         }
         else {
-            lore.add("No game running.");
+            lore.add(InvGuiUtils.generateDefaultTextComponent("No game running.", "#AAAAAA").decoration(TextDecoration.BOLD, true));
         }
 
-        lore.add("Players in queue: " + arena.getQueueLength());
+        lore.add(InvGuiUtils.generateDefaultTextComponent("Players in queue: ", "#FFAA00").append(InvGuiUtils.generateDefaultTextComponent(arena.getQueueLength() + "", "#FF5555")));
 
         if(clickedMode.equalsIgnoreCase("tp")) {
-            lore.add("Click to teleport!");
+            lore.add(InvGuiUtils.generateDefaultTextComponent("Click to teleport!", "#55FF55").decoration(TextDecoration.ITALIC, true));
         }
         else if(clickedMode.equalsIgnoreCase("queue")) {
-            lore.add("Click to join queue!");
+            lore.add(InvGuiUtils.generateDefaultTextComponent("Click to join queue!", "#55FF55").decoration(TextDecoration.ITALIC, true));
         }
 
-        meta.setLore(lore);
+        meta.lore(lore);
 
         stack.setItemMeta(meta);
         return stack;

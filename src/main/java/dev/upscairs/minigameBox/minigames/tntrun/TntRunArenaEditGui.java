@@ -2,7 +2,6 @@ package dev.upscairs.minigameBox.minigames.tntrun;
 
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
-import dev.upscairs.minigameBox.minigames.spleef.SpleefArena;
 import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
 import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
@@ -57,7 +56,7 @@ public class TntRunArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Layers", "#C91F58"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Layers", "#C91F58"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(getArena().getLayerCount() + " Layers").build());
@@ -73,7 +72,7 @@ public class TntRunArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Spleef Block", "#8D989D"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Spleef Block", "#8D989D"));
 
         stack.setItemMeta(meta);
 
@@ -85,7 +84,7 @@ public class TntRunArenaEditGui extends ArenaEditGui {
 
         ItemMeta meta = stack.getItemMeta();
 
-        meta.displayName(InvGuiUtils.getDefaultHeaderComponent("Block Break Delay Ticks", "#E7BA33"));
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Block Break Delay Ticks", "#E7BA33"));
 
         ArrayList<Component> lore = new ArrayList<>();
         lore.add(Component.text().content(getArena().getBreakDelayTicks() + " Ticks").build());

@@ -48,8 +48,8 @@ public class QueueListGui extends ScrollableGui implements InventoryHolder {
 
         meta.setOwner(player.getName());
 
-        TextComponent header = InvGuiUtils.getDefaultHeaderComponent("#" + (++position) + " ", "#D6AE35");
-        header = header.append(InvGuiUtils.getDefaultHeaderComponent(player.getName(), "#2F98C6"));
+        TextComponent header = InvGuiUtils.generateDefaultHeaderComponent("#" + (++position) + " ", "#D6AE35");
+        header = header.append(InvGuiUtils.generateDefaultHeaderComponent(player.getName(), "#2F98C6"));
 
         meta.displayName(header);
 
