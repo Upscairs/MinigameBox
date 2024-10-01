@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MinigameCommand implements CommandExecutor {
 
@@ -245,6 +246,31 @@ public class MinigameCommand implements CommandExecutor {
                             return true;
                         }
                         GameRegister.getGame(gameName).endGame(true);
+                    }
+                    else {
+                        p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
+                    }
+                    return true;
+                }
+                else if(args[0].equalsIgnoreCase("flush")) {
+                    if(args.length >= 2) {
+
+                        String gameName = combineArgsFrom(1, args);
+
+                        //Checking if game exists
+                        if(!GameRegister.gameExists(gameName)) {
+                            p.sendMessage(MessagesConfig.get().getString("managing.error-game-not-found"));
+                            return true;
+                        }
+
+                        Iterator<Player> queuedPlayers = GameRegister.getGame(gameName).getArena().getQueuedPlayers().iterator();
+                        while(queuedPlayers.hasNext()) {
+                            Player player = queuedPlayers.next();
+                            GameRegister.removePlayerFromGame(player);
+                            queuedPlayers.remove();
+                        }
+
+                        p.sendMessage(MessagesConfig.get().getString("managing.success-queue-flushed"));
                     }
                     else {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
