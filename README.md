@@ -25,7 +25,7 @@ would happen in the near future, but I thought it would be fair to let you know 
 
 But let's talk about features I have planned:
 
-- More options in the edit and queue gui
+- More gamemodes
 - More customizability in guis
 - A pvp toggle
 - Leaderboards
@@ -52,6 +52,8 @@ Can be accessed by Ops and everyone with the permission ``minigamebox.manage``.
 - A force-stop aborts the current game on the spot, doesn't reward players and changes the setting ``Autostart next game`` to ``false``.
 ### Refresh
 - ``/minigame refresh <Name>`` reloads the arenas contents (not possible during games).
+### Flush
+- ``/minigame flush <Name>`` flushes the queue from given game.
 ### Delete
 - ``/minigame delete <Name>`` deletes an arena and all their contents.
 ## Player Features
