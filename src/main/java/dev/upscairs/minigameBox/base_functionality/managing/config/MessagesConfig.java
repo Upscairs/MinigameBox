@@ -80,6 +80,7 @@ public class MessagesConfig {
         get().addDefault("game.error-queue-closed", "§l§aM§bB§r§c You cant join this game. The queue is closed.");
         get().addDefault("game.error-not-in-game", "§l§aM§bB§r§c Youre not in a game.");
         get().addDefault("game.info-out-of-game", "§l§aM§bB§r§7 Youre out of the game.");
+        get().addDefault("game.info-removed-from-queue", "§l§aM§bB§r§7 You got removed from the queue.");
 
         get().addDefault("general.error-send-from-console", "§l§aM§bB§r§c Use this command as a player.");
         get().addDefault("general.error-subcommand-not-found", "§l§aM§bB§r§c Subcommand not found.");

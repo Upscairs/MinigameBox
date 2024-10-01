@@ -234,15 +234,15 @@ public class ArenaEditGui extends InteractableGui {
     public InteractableGui handleInvClick(int clickedSlot) {
 
         switch (clickedSlot) {
-            case 11: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 0); return null;
-            case 20: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 1); return null;
-            case 12: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 2); return null;
-            case 21: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 3); return null;
+            case 11: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 0); return null;
+            case 20: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 1); return null;
+            case 12: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 2); return null;
+            case 21: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 3); return null;
             case 13: arena.editArgs(5, arena.isQueueOpen() ? "false" : "true"); return getNewGui();
             case 22: arena.editArgs(4, arena.isContinuous() ? "false" : "true"); return getNewGui();
             case 14: arena.editArgs(6, arena.isVisible() ? "false" : "true"); return getNewGui();
-            case 23: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 7); return null;
-            case 15: PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 8); return null;
+            case 23: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 7); return null;
+            case 15: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 8); return null;
             case 53: {
                 MiniGame game = GameRegister.getGame(arena.getName());
                 if(game.isGameRunning()) {

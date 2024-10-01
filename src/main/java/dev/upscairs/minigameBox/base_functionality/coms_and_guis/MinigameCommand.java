@@ -69,7 +69,7 @@ public class MinigameCommand implements CommandExecutor {
                     return true;
                 }
                 if(args.length >= 2) {
-                    p.openInventory(new QueueListGui(new String[]{p.getUniqueId().toString(), "0"}, GameRegister.getGame(gameName).getArena().getQueuedPlayers().stream().toList()).getInventory());
+                    p.openInventory(new QueueListGui(new String[]{p.getUniqueId().toString(), "0", gameName}, GameRegister.getGame(gameName).getArena().getQueuedPlayers().stream().toList()).getInventory());
                 }
                 return true;
             }
@@ -267,6 +267,7 @@ public class MinigameCommand implements CommandExecutor {
                         while(queuedPlayers.hasNext()) {
                             Player player = queuedPlayers.next();
                             GameRegister.removePlayerFromGame(player);
+                            player.sendMessage(MessagesConfig.get().getString("game.info-removed-from-queue"));
                             queuedPlayers.remove();
                         }
 
