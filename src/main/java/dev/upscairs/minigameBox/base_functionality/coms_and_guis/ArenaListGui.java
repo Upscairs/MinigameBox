@@ -1,21 +1,15 @@
 package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
-import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import dev.upscairs.minigameBox.base_functionality.managing.config.SettingsFile;
-import dev.upscairs.minigameBox.superclasses.MiniGame;
 import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.superclasses.guis.ScrollableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,49 +41,9 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
 
         //Fetches arenas from list for requested page, as long as page is or arena list has items
         for(int i = getPage()*45; i < (getPage()+1)*45 && i < arenas.size(); i++) {
-            inv.setItem((i%45), generateArenaItem(arenas.get(i)));
+            inv.setItem((i%45), InvGuiUtils.generateArenaItem(clickedMode, arenas.get(i)));
         }
         setInventory(inv);
-    }
-
-    private ItemStack generateArenaItem(MinigameArena arena) {
-        ItemStack stack = new ItemStack(arena.getRepresentingItem(), 1);
-        ItemMeta meta = stack.getItemMeta();
-        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent(arena.getName(), "#00AA00"));
-
-        MiniGame game = GameRegister.getGame(arena.getName());
-
-        List<Component> lore = new ArrayList<>();
-
-        lore.add(InvGuiUtils.generateDefaultTextComponent(GameTypes.getFromArenaClass(arena.getClass()).getName(), "#55FF55"));
-
-        lore.add(InvGuiUtils.generateDefaultTextComponent(arena.getDescription(), "#AAAAAA").decoration(TextDecoration.ITALIC, true));
-
-        lore.add(InvGuiUtils.generateDefaultTextComponent("", "#000000"));
-
-        if(game.isGameRunning()) {
-            lore.add(InvGuiUtils.generateDefaultTextComponent("Game running...", "#55FF55").decoration(TextDecoration.BOLD, true));
-        }
-        else if(!game.isGameRunning() && arena.isContinuous()) {
-            lore.add(InvGuiUtils.generateDefaultTextComponent("Waiting for players...", "#FF5555").decoration(TextDecoration.BOLD, true));
-        }
-        else {
-            lore.add(InvGuiUtils.generateDefaultTextComponent("No game running.", "#AAAAAA").decoration(TextDecoration.BOLD, true));
-        }
-
-        lore.add(InvGuiUtils.generateDefaultTextComponent("Players in queue: ", "#FFAA00").append(InvGuiUtils.generateDefaultTextComponent(arena.getQueueLength() + "", "#FF5555")));
-
-        if(clickedMode.equalsIgnoreCase("tp")) {
-            lore.add(InvGuiUtils.generateDefaultTextComponent("Click to teleport!", "#55FF55").decoration(TextDecoration.ITALIC, true));
-        }
-        else if(clickedMode.equalsIgnoreCase("queue")) {
-            lore.add(InvGuiUtils.generateDefaultTextComponent("Click to join queue!", "#55FF55").decoration(TextDecoration.ITALIC, true));
-        }
-
-        meta.lore(lore);
-
-        stack.setItemMeta(meta);
-        return stack;
     }
 
     //Handle click on arena item

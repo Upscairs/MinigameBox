@@ -1,10 +1,11 @@
-package dev.upscairs.minigameBox.superclasses.guis;
+package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameTypes;
 import dev.upscairs.minigameBox.superclasses.MiniGame;
+import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -16,7 +17,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class ArenaEditGui extends InteractableGui {
 
@@ -43,20 +43,21 @@ public class ArenaEditGui extends InteractableGui {
     }
 
     public void placeItemsInGui() {
-        Inventory currentInventory = getInventory();
+        Inventory inv = getInventory();
 
-        currentInventory.setItem(11, generateMinPlayerItem());
-        currentInventory.setItem(20, generateMaxPlayerItem());
-        currentInventory.setItem(12, generateFillupItem());
-        currentInventory.setItem(21, generatePreparetimeItem());
-        currentInventory.setItem(13, generateQueueItem());
-        currentInventory.setItem(22, generateContinousItem());
-        currentInventory.setItem(14, generateVisibilityItem());
-        currentInventory.setItem(23, generateRepresentingItem());
-        currentInventory.setItem(15, generateDescriptionItem());
-        currentInventory.setItem(53, generateRunningItem());
+        inv.setItem(11, generateMinPlayerItem());
+        inv.setItem(20, generateMaxPlayerItem());
+        inv.setItem(12, generateFillupItem());
+        inv.setItem(21, generatePreparetimeItem());
+        inv.setItem(13, generateQueueItem());
+        inv.setItem(22, generateContinousItem());
+        inv.setItem(14, generateVisibilityItem());
+        inv.setItem(23, generateRepresentingItem());
+        inv.setItem(15, generateDescriptionItem());
+        inv.setItem(53, generateRunningItem());
+        inv.setItem(45, generateDeleteItem());
 
-        setInventory(currentInventory);
+        setInventory(inv);
     }
 
 
@@ -228,6 +229,18 @@ public class ArenaEditGui extends InteractableGui {
         return stack;
     }
 
+    private ItemStack generateDeleteItem() {
+        ItemStack stack = new ItemStack(Material.BARRIER);
+
+        ItemMeta meta = stack.getItemMeta();
+
+        meta.displayName(InvGuiUtils.generateDefaultHeaderComponent("Delete arena", "#FF5555"));
+
+        stack.setItemMeta(meta);
+
+        return stack;
+    }
+
 
 
     @Override
@@ -243,13 +256,16 @@ public class ArenaEditGui extends InteractableGui {
             case 14: arena.editArgs(6, arena.isVisible() ? "false" : "true"); return getNewGui();
             case 23: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 7); return null;
             case 15: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 8); return null;
+            case 45: {
+                return new ArenaDeleteConfirmGui(getArgs(), this);
+            }
             case 53: {
                 MiniGame game = GameRegister.getGame(arena.getName());
                 if(game.isGameRunning()) {
-                    game.endGame(true);
+                    getPlayer().performCommand("minigame stop " + arena.getName());
                 }
                 else {
-                    game.startGameFinal(true);
+                    getPlayer().performCommand("minigame start " + arena.getName());
                 }
                 return getNewGui();
             }

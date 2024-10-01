@@ -7,7 +7,6 @@ import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.sto
 import dev.upscairs.minigameBox.base_functionality.managing.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
-import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

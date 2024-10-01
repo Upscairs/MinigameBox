@@ -6,7 +6,7 @@ import dev.upscairs.minigameBox.minigames.tntrun.TntRunGame;
 import dev.upscairs.minigameBox.superclasses.MiniGame;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
 import dev.upscairs.minigameBox.minigames.spleef.SpleefArena;
-import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
+import dev.upscairs.minigameBox.base_functionality.coms_and_guis.ArenaEditGui;
 import dev.upscairs.minigameBox.minigames.spleef.SpleefArenaEditGui;
 import dev.upscairs.minigameBox.minigames.spleef.SpleefGame;
 

@@ -1,6 +1,6 @@
 package dev.upscairs.minigameBox.minigames.spleef;
 
-import dev.upscairs.minigameBox.superclasses.guis.ArenaEditGui;
+import dev.upscairs.minigameBox.base_functionality.coms_and_guis.ArenaEditGui;
 import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.changing.PendingArenaEdits;
