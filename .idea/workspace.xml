@@ -5,9 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69eb65ae-3bbe-4443-8b8f-8ff1674b2855" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/pvp/PvpArena.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/pvp/PvpGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,7 +41,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/user/ProgrammingLocal/IdeaProjects/Plugins/MinigameBox/versions-compiled",
+    "last_opened_file_path": "/home/user/ProgrammingLocal/IdeaProjects/Plugins/BedrockFlatter",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -120,7 +117,10 @@
       <workItem from="1727634755137" duration="13920000" />
       <workItem from="1727684197129" duration="7337000" />
       <workItem from="1727704897862" duration="5272000" />
-      <workItem from="1727767238500" duration="6951000" />
+      <workItem from="1727767238500" duration="7827000" />
+      <workItem from="1727808089590" duration="29000" />
+      <workItem from="1727810890564" duration="21000" />
+      <workItem from="1727811373949" duration="19000" />
     </task>
     <servers />
   </component>

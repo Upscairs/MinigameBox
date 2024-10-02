@@ -1,7 +1,6 @@
 package dev.upscairs.minigameBox.base_functionality.coms_and_guis;
 
 import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.storing.GameRegister;
-import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.superclasses.guis.ScrollableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
@@ -16,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class QueueListGui extends ScrollableGui implements InventoryHolder {
@@ -70,7 +68,10 @@ public class QueueListGui extends ScrollableGui implements InventoryHolder {
         Inventory inv = super.getInventory();
 
         inv.setItem(49, generateJoinLeaveItem());
-        inv.setItem(50, generateFlushItem());
+        if(getPlayer().hasPermission("minigamebox.manage")) {
+            inv.setItem(50, generateFlushItem());
+        }
+
 
         setInventory(inv);
     }
