@@ -101,17 +101,17 @@ public class TntRunArenaEditGui extends ArenaEditGui {
 
         switch (clickedSlot) {
             case 38: {
-                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 9);
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), "layers");
 
                 return null;
             }
             case 39: {
-                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 10);
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), "layer_material");
 
                 return null;
             }
             case 40: {
-                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 11);
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), "breakdelay_ticks");
 
                 return null;
             }

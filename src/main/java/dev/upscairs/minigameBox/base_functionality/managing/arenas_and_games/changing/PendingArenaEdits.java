@@ -12,10 +12,10 @@ import java.util.HashMap;
 public abstract class PendingArenaEdits {
 
     //Maps player to arena they are editing and the index of the arg that is going to be changed
-    private static final HashMap<Player, Tuple<MinigameArena, Integer>> pendingEdits = new HashMap<>();
+    private static final HashMap<Player, Tuple<MinigameArena, String>> pendingEdits = new HashMap<>();
 
 
-    public static void newEditInstance(Player player, MinigameArena arena, int argIndex) {
+    public static void newEditInstance(Player player, MinigameArena arena, String argKey) {
 
         //Check if player is already editing something
         if (pendingEdits.containsKey(player)) {
@@ -23,7 +23,7 @@ public abstract class PendingArenaEdits {
             return;
         }
 
-        pendingEdits.put(player, new Tuple<>(arena, argIndex));
+        pendingEdits.put(player, new Tuple<>(arena, argKey));
         player.sendMessage(MessagesConfig.get().getString("managing.success-editing-started"));
 
     }

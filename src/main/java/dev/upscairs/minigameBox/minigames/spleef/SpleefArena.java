@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class SpleefArena extends MinigameArena {
 
@@ -16,7 +17,7 @@ public class SpleefArena extends MinigameArena {
     private int layerDistance;
     private Material spleefMaterial;
 
-    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
+    public SpleefArena(String name, Location location1, Location location2, Location outsideLocation, Map<String, String> args) {
 
         super(name, location1, location2, outsideLocation, args);
 
@@ -98,7 +99,7 @@ public class SpleefArena extends MinigameArena {
 
     @Override
     public void reloadSettings() throws NumberFormatException, IllegalArgumentException {
-        int number = Integer.parseInt(getRawArgs()[9]);
+        int number = Integer.parseInt(getRawArgs().get("layers"));
         if(number < 1) {
             throw new IllegalArgumentException("There must be at least one layer.");
         }
@@ -108,7 +109,7 @@ public class SpleefArena extends MinigameArena {
         }
         this.layerCount = number;
 
-        Material material = Material.getMaterial(getRawArgs()[10].toUpperCase());
+        Material material = Material.getMaterial(getRawArgs().get("layer_material").toUpperCase());
         if(material == null || material == Material.AIR || material.isLegacy()) {
             throw new IllegalArgumentException("Not a valid material.");
         }

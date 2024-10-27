@@ -8,6 +8,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class TntRunArena extends MinigameArena {
 
@@ -17,7 +18,7 @@ public class TntRunArena extends MinigameArena {
     private Material layerMaterial;
     private int breakDelayTicks;
 
-    public TntRunArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
+    public TntRunArena(String name, Location location1, Location location2, Location outsideLocation, Map<String, String> args) {
 
         super(name, location1, location2, outsideLocation, args);
 
@@ -103,7 +104,7 @@ public class TntRunArena extends MinigameArena {
 
     @Override
     public void reloadSettings() throws NumberFormatException, IllegalArgumentException {
-        int number = Integer.parseInt(getRawArgs()[9]);
+        int number = Integer.parseInt(getRawArgs().get("layers"));
         if(number < 1) {
             throw new IllegalArgumentException("There must be at least one layer.");
         }
@@ -113,13 +114,13 @@ public class TntRunArena extends MinigameArena {
         }
         this.layerCount = number;
 
-        Material material = Material.getMaterial(getRawArgs()[10].toUpperCase());
+        Material material = Material.getMaterial(getRawArgs().get("layer_material").toUpperCase());
         if(material == null || material == Material.AIR || material.isLegacy()) {
             throw new IllegalArgumentException("Not a valid material.");
         }
         this.layerMaterial = material;
 
-        number = Integer.parseInt(getRawArgs()[11]);
+        number = Integer.parseInt(getRawArgs().get("breakdelay_ticks"));
         if(number < 0) {
             throw new IllegalArgumentException("Break delay must be a positive time.");
         }

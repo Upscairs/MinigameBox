@@ -247,15 +247,15 @@ public class ArenaEditGui extends InteractableGui {
     public InteractableGui handleInvClick(int clickedSlot) {
 
         switch (clickedSlot) {
-            case 11: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 0); return null;
-            case 20: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 1); return null;
-            case 12: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 2); return null;
-            case 21: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 3); return null;
-            case 13: arena.editArgs(5, arena.isQueueOpen() ? "false" : "true"); return getNewGui();
-            case 22: arena.editArgs(4, arena.isContinuous() ? "false" : "true"); return getNewGui();
-            case 14: arena.editArgs(6, arena.isVisible() ? "false" : "true"); return getNewGui();
-            case 23: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 7); return null;
-            case 15: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), 8); return null;
+            case 11: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "min_players"); return null;
+            case 20: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "max_players"); return null;
+            case 12: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "fillup_time"); return null;
+            case 21: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "setup_time"); return null;
+            case 13: arena.editArgs("queue_open", arena.isQueueOpen() ? "false" : "true"); return getNewGui();
+            case 22: arena.editArgs("continuous", arena.isContinuous() ? "false" : "true"); return getNewGui();
+            case 14: arena.editArgs("list_visible", arena.isVisible() ? "false" : "true"); return getNewGui();
+            case 23: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "list_item"); return null;
+            case 15: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "description"); return null;
             case 45: {
                 return new ArenaDeleteConfirmGui(getArgs(), this);
             }

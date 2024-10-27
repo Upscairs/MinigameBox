@@ -10,10 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public abstract class GameRegister {
 
@@ -31,14 +28,14 @@ public abstract class GameRegister {
         Location location1;
         Location location2;
         Location outsideLocation;
-        String[] args;
+        Map<String, String> args;
 
         //Ignoring arena if values are unparsable
         try {
             location1 = config.getLocation(path + ".location1");
             location2 = config.getLocation(path + ".location2");
             outsideLocation = config.getLocation(path + ".outside-location");
-            args = config.getStringList(path + ".args").toArray(new String[0]);
+            args = (Map<String, String>) config.get(path + ".args");
         } catch (Exception e) {
             games.remove(gameName);
             return;
@@ -48,7 +45,7 @@ public abstract class GameRegister {
 
         //Writing games map entry
         try {
-            MinigameArena arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(gameName, location1, location2, outsideLocation, args);
+            MinigameArena arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(gameName, location1, location2, outsideLocation, args);
             MiniGame game = gameType.getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
             games.put(gameName, game);
 
@@ -62,6 +59,7 @@ public abstract class GameRegister {
 
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             Bukkit.getLogger().severe("Error reloading game " + gameName);
+            e.printStackTrace();
         }
 
     }
@@ -88,16 +86,62 @@ public abstract class GameRegister {
                 Location location1 = arenas.getLocation(arenaName + ".location1");
                 Location location2 = arenas.getLocation(arenaName + ".location2");
                 Location outsideLocation = arenas.getLocation(arenaName + ".outside-location");
-                String[] args = arenas.getStringList(arenaName + ".args").toArray(new String[0]);
 
-                try {
+                Object args = arenas.get(arenaName + ".args");
 
-                    MinigameArena arena = GameTypes.getFromName(gameType).getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(arenaName, location1, location2, outsideLocation, args);
-                    MiniGame game = GameTypes.getFromName(gameType).getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
-                    games.put(arenaName, game);
+                //Conversion from String-Array save-standard (remove later)
+                if(args instanceof List) {
 
-                } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                    Bukkit.getLogger().warning("Loading of arena \"" + arenaName + "\" failed. Did you edit the arena register file?");
+                    Bukkit.getLogger().info("The arena \"" + arenaName + "\" has a legacy format standard. Converting...");
+
+                    Map<String, String> convertedArgs = new HashMap<>();
+                    List<String> argsList = (List<String>) args;
+
+                    for(int i = 0; i < argsList.size(); i++) {
+                        switch(i) {
+                            case 0: convertedArgs.put("min_players", argsList.get(i)); break;
+                            case 1: convertedArgs.put("max_players", argsList.get(i)); break;
+                            case 2: convertedArgs.put("fillup_time", argsList.get(i)); break;
+                            case 3: convertedArgs.put("setup_time", argsList.get(i)); break;
+                            case 4: convertedArgs.put("continuous", argsList.get(i)); break;
+                            case 5: convertedArgs.put("queue_open", argsList.get(i)); break;
+                            case 6: convertedArgs.put("list_visible", argsList.get(i)); break;
+                            case 7: convertedArgs.put("list_item", argsList.get(i)); break;
+                            case 8: convertedArgs.put("description", argsList.get(i)); break;
+                            case 9: convertedArgs.put("layers", argsList.get(i)); break;
+                            case 10: convertedArgs.put("layer_material", argsList.get(i)); break;
+                            case 11: convertedArgs.put("breakdelay_ticks", argsList.get(i)); break;
+                            default: break;
+                        }
+                    }
+
+                    try {
+
+                        MinigameArena arena = GameTypes.getFromName(gameType).getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(arenaName, location1, location2, outsideLocation, convertedArgs);
+                        MiniGame game = GameTypes.getFromName(gameType).getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
+                        games.put(arenaName, game);
+
+                        //Writing back in correct format
+                        saveArenaSettings(arena);
+
+                    } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                        //Bukkit.getLogger().warning("Conversion failed. You might need to check the integrity of your arena.");
+                        e.printStackTrace();
+                    }
+
+                }
+                else if(args instanceof Map) {
+
+                    try {
+
+                        MinigameArena arena = GameTypes.getFromName(gameType).getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(arenaName, location1, location2, outsideLocation, args);
+                        MiniGame game = GameTypes.getFromName(gameType).getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
+                        games.put(arenaName, game);
+
+                    } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                        Bukkit.getLogger().warning("Loading of arena \"" + arenaName + "\" failed. Did you edit the arena register file?");
+                    }
+
                 }
 
             });

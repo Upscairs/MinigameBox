@@ -84,12 +84,12 @@ public class SpleefArenaEditGui extends ArenaEditGui {
 
         switch (clickedSlot) {
             case 38: {
-                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 9);
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), "layers");
 
                 return null;
             }
             case 39: {
-                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), 10);
+                PendingArenaEdits.newEditInstance(Bukkit.getPlayer(UUID.fromString(getArg(0))), getArena(), "layer_material");
 
                 return null;
             }

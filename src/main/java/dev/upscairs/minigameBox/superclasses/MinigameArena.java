@@ -5,10 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
+import java.util.*;
 
 public class MinigameArena {
 
@@ -17,7 +14,7 @@ public class MinigameArena {
     private Location location1;
     private Location location2;
     private Location outsideLocation;
-    private String[] rawArgs;
+    private Map<String, String> args;
 
     private int minPlayers;
     private int maxPlayers;
@@ -34,7 +31,7 @@ public class MinigameArena {
 
     private boolean setupMode;
 
-    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, String[] args) {
+    public MinigameArena(String name, Location location1, Location location2, Location outsideLocation, Map<String, String> args) {
 
         this.name = name;
         this.location1 = location1;
@@ -173,8 +170,8 @@ public class MinigameArena {
         Settings Getter
      */
 
-    public String[] getRawArgs() {
-        return rawArgs;
+    public Map<String, String> getRawArgs() {
+        return args;
     }
 
 
@@ -235,15 +232,15 @@ public class MinigameArena {
         Settings Setter
      */
 
-    public void setRawArgs(String[] rawArgs) {
-        this.rawArgs = rawArgs;
+    public void setRawArgs(Map<String, String> args) {
+        this.args = args;
     }
 
-    public void editArgs(int index, String newString) throws IllegalArgumentException {
+    public void editArgs(String key, String value) throws IllegalArgumentException {
 
-        String[] oldSettings = getRawArgs();
-        String[] settings = getRawArgs();
-        settings[index] = newString;
+        Map<String, String> oldSettings = getRawArgs();
+        Map<String, String> settings = getRawArgs();
+        settings.put(key, value);
         setRawArgs(settings);
 
         //Testing settings, if faulty -> rollback
@@ -275,51 +272,51 @@ public class MinigameArena {
 
         testSettings();
 
-        int number = Integer.parseInt(rawArgs[0]);
+        int number = Integer.parseInt(args.get("min_players"));
         if(number < 1) {
             throw new IllegalArgumentException("Number must be greater than 0");
         }
         this.minPlayers = number;
 
 
-        number = Integer.parseInt(rawArgs[1]);
+        number = Integer.parseInt(args.get("max_players"));
         this.maxPlayers = number;
 
-        number = Integer.parseInt(rawArgs[2]);
+        number = Integer.parseInt(args.get("fillup_time"));
         this.fillupWaitingTimeSec = number;
 
-        number = Integer.parseInt(rawArgs[3]);
+        number = Integer.parseInt(args.get("setup_time"));
         this.setupTimeSec = number;
 
-        this.continuous = Boolean.parseBoolean(rawArgs[4]);
-        this.queueOpen = Boolean.parseBoolean(rawArgs[5]);
-        this.visible = Boolean.parseBoolean(rawArgs[6]);
+        this.continuous = Boolean.parseBoolean(args.get("continuous"));
+        this.queueOpen = Boolean.parseBoolean(args.get("queue_open"));
+        this.visible = Boolean.parseBoolean(args.get("list_visible"));
 
-        Material material = Material.valueOf(rawArgs[7].toUpperCase());
+        Material material = Material.valueOf(args.get("list_item").toUpperCase());
         this.representingItem = material;
 
-        this.description = rawArgs[8];
+        this.description = args.get("description");
     }
 
     public void testSettings() throws NumberFormatException, IllegalArgumentException {
 
-        if(Integer.parseInt(rawArgs[0]) < 1) {
+        if(Integer.parseInt(args.get("min_players")) < 1) {
             throw new IllegalArgumentException("Number must be greater than 0");
         }
 
-        if(Integer.parseInt(rawArgs[1]) < minPlayers) {
+        if(Integer.parseInt(args.get("max_players")) < minPlayers) {
             throw new IllegalArgumentException("Number must be greater than min Players");
         }
 
-        if(Integer.parseInt(rawArgs[2]) < 0) {
+        if(Integer.parseInt(args.get("fillup_time")) < 0) {
             throw new IllegalArgumentException("Number must be at least 0");
         }
 
-        if(Integer.parseInt(rawArgs[3]) < 0) {
+        if(Integer.parseInt(args.get("setup_time")) < 0) {
             throw new IllegalArgumentException("Number must be at least 0");
         }
 
-        Material material = Material.valueOf(rawArgs[7].toUpperCase());
+        Material material = Material.valueOf(args.get("list_item").toUpperCase());
         if(material == null || material.isAir() || material.isLegacy()) {
             throw new IllegalArgumentException("Not a valid material");
         }

@@ -162,7 +162,7 @@ public class MiniGame {
         }
 
         if(force) {
-            arena.editArgs(4, "false");
+            arena.editArgs("continuous", "false");
             GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.issue-game-end-force"));
             return;
         }

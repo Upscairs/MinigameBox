@@ -10,18 +10,47 @@ import dev.upscairs.minigameBox.base_functionality.coms_and_guis.ArenaEditGui;
 import dev.upscairs.minigameBox.minigames.spleef.SpleefArenaEditGui;
 import dev.upscairs.minigameBox.minigames.spleef.SpleefGame;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum GameTypes {
     /*UNDEFINED("Undefined", MinigameArena.class, MiniGame.class, ArenaEditGui.class, new String[]{"8", "10", "20", "10", "false", "false", "true", "STONE", "A default arena."}),*/
-    SPLEEF("Spleef", SpleefArena.class, SpleefGame.class, SpleefArenaEditGui.class, new String[]{"2", "2", "0", "10", "true", "true", "true", "SHEARS", "A Spleef arena.", "1", "WHITE_WOOL"}),
-    TNTRUN("TntRun",TntRunArena.class, TntRunGame.class, TntRunArenaEditGui.class, new String[]{"10", "20", "0", "10", "true", "true", "true", "TNT", "A TntRun arena.", "1", "TNT", "8"});
+    SPLEEF("Spleef", SpleefArena.class, SpleefGame.class, SpleefArenaEditGui.class, new HashMap<>() {{
+        put("min_players", "2");
+        put("max_players", "2");
+        put("fillup_time", "0");
+        put("setup_time", "10");
+        put("continuous", "true");
+        put("queue_open", "true");
+        put("list_visible", "true");
+        put("list_item", "SHEARS");
+        put("description", "A spleef arena.");
+        put("layers", "1");
+        put("layer_material", "WHITE_WOOL");
+    }}),
+    TNTRUN("TntRun",TntRunArena.class, TntRunGame.class, TntRunArenaEditGui.class, new HashMap<>() {{
+        put("min_players", "10");
+        put("max_players", "20");
+        put("fillup_time", "15");
+        put("setup_time", "10");
+        put("continuous", "true");
+        put("queue_open", "true");
+        put("list_visible", "true");
+        put("list_item", "TNT");
+        put("description", "A TntRun arena.");
+        put("layers", "1");
+        put("layer_material", "TNT");
+        put("breakdelay_ticks", "8");
+    }});
 
     private final String name;
     private final Class<? extends MinigameArena> arenaClass;
     private final Class<? extends MiniGame> gameClass;
     private final Class<? extends ArenaEditGui> editGuiClass;
-    private final String[] defaultArgs;
+    private final Map<String, String> defaultArgs;
+    //private final String[] defaultArgs;
 
-    GameTypes(String name, Class<? extends MinigameArena> arenaClass, Class<? extends MiniGame> gameClass, Class<? extends ArenaEditGui> editGuiClass, String[] defaultArgs) {
+    GameTypes(String name, Class<? extends MinigameArena> arenaClass, Class<? extends MiniGame> gameClass, Class<? extends ArenaEditGui> editGuiClass, Map<String, String> defaultArgs) {
         this.name = name;
         this.arenaClass = arenaClass;
         this.gameClass = gameClass;
@@ -45,7 +74,7 @@ public enum GameTypes {
         return editGuiClass;
     }
 
-    public String[] getDefaultArgs() {
+    public Map<String, String> getDefaultArgs() {
         return defaultArgs;
     }
 

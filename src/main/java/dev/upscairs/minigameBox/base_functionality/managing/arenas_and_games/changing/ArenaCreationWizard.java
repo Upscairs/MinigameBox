@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 
 public class ArenaCreationWizard {
 
@@ -61,7 +62,7 @@ public class ArenaCreationWizard {
 
         //Fetching arena class from gametype enum and parsing variables
         try {
-            arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, String[].class).newInstance(arenaName, location1, location2, outsideLocation, gameType.getDefaultArgs());
+            arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(arenaName, location1, location2, outsideLocation, gameType.getDefaultArgs());
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             throw new RuntimeException(e);
         }
