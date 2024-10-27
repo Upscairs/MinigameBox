@@ -51,7 +51,9 @@ public abstract class GameUtils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
         String formattedTime = LocalDateTime.now().format(formatter);
 
-        for (Player winner : winners) {
+
+        winners.forEach(winner -> {
+
             ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
             BookMeta bookMeta = (BookMeta) book.getItemMeta();
 
@@ -77,25 +79,39 @@ public abstract class GameUtils {
             replacements.put('t', formattedTime);
             replacements.put('n', "\n");
 
+            System.out.println("Hallo: "+interpolateString(bookTitle, replacements));
+            System.out.println(interpolateString(bookAuthor, replacements));
+            System.out.println(interpolateString(bookText, replacements));
+
             bookMeta.setTitle(interpolateString(bookTitle, replacements));
             bookMeta.setAuthor(interpolateString(bookAuthor, replacements));
             bookMeta.addPage(interpolateString(bookText, replacements));
+
+
+
             book.setItemMeta(bookMeta);
             winner.getInventory().addItem(book);
-        }
+        });
 
     }
 
     public static String interpolateString(String replaceString, Map<Character, String> replacements) {
-
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < replaceString.length(); i++) {
-            if(replaceString.charAt(i) == '%') {
-                if(replacements.containsKey(replaceString.charAt(i + 1))) {
-                    result.replace(i, i+1, replacements.get(replaceString.charAt(i + 1)));
+        for (int i = 0; i < replaceString.length(); i++) {
+            if (replaceString.charAt(i) == '%' && i + 1 < replaceString.length()) {
+                char key = replaceString.charAt(i + 1);
+                if (replacements.containsKey(key)) {
+                    result.append(replacements.get(key));
+                    i++;
                 }
-                i = replaceString.indexOf("%");
+                else {
+                    result.append('%').append(key);
+                    i++;
+                }
+            }
+            else {
+                result.append(replaceString.charAt(i));
             }
         }
 

@@ -149,17 +149,15 @@ public class MiniGame {
     public void endGame(boolean force) {
 
         HashSet<Player> winners = new HashSet<>();
-        arena.getIngamePlayers().forEach(player -> winners.add(player));
+        arena.getIngamePlayers().forEach(player -> {
+            winners.add(player);
+        });
         HashSet<Player> losers = new HashSet<>();
         droppedOutPlayers.forEach(player -> losers.add(player));
 
         arena.flushIngamePlayers();
 
         gameRunning = false;
-
-        if(reloadFlag) {
-            arena.reloadSettings();
-        }
 
         if(force) {
             arena.editArgs("continuous", "false");
@@ -181,6 +179,11 @@ public class MiniGame {
         GameUtils.grantWinnersReward(winners, losers, this);
 
         droppedOutPlayers.clear();
+
+        if(reloadFlag) {
+            arena.reloadSettings();
+        }
+
         startGameAttempt();
 
     }
