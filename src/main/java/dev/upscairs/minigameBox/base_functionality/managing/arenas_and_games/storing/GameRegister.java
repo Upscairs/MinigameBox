@@ -28,14 +28,21 @@ public abstract class GameRegister {
         Location location1;
         Location location2;
         Location outsideLocation;
-        Map<String, String> args;
+        Map<String, String> argMap;
 
         //Ignoring arena if values are unparsable
         try {
             location1 = config.getLocation(path + ".location1");
             location2 = config.getLocation(path + ".location2");
             outsideLocation = config.getLocation(path + ".outside-location");
-            args = (Map<String, String>) config.get(path + ".args");
+
+            argMap = new HashMap<>();
+            ConfigurationSection argsSection = config.getConfigurationSection(path + ".args");
+
+            for(String key : argsSection.getKeys(false)) {
+                argMap.put(key, argsSection.getString(key));
+            }
+
         } catch (Exception e) {
             games.remove(gameName);
             return;
@@ -45,7 +52,7 @@ public abstract class GameRegister {
 
         //Writing games map entry
         try {
-            MinigameArena arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(gameName, location1, location2, outsideLocation, args);
+            MinigameArena arena = gameType.getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(gameName, location1, location2, outsideLocation, argMap);
             MiniGame game = gameType.getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
             games.put(gameName, game);
 
@@ -130,16 +137,25 @@ public abstract class GameRegister {
                     }
 
                 }
-                else if(args instanceof Map) {
+                else {
+
+                    Map<String, String> argMap = new HashMap<>();
+                    ConfigurationSection argsSection = arenas.getConfigurationSection(arenaName + ".args");
+
+                    for(String key : argsSection.getKeys(false)) {
+                        argMap.put(key, argsSection.getString(key));
+                    }
 
                     try {
 
-                        MinigameArena arena = GameTypes.getFromName(gameType).getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(arenaName, location1, location2, outsideLocation, args);
+                        MinigameArena arena = GameTypes.getFromName(gameType).getArenaClass().getDeclaredConstructor(String.class, Location.class, Location.class, Location.class, Map.class).newInstance(arenaName, location1, location2, outsideLocation, argMap);
                         MiniGame game = GameTypes.getFromName(gameType).getGameClass().getDeclaredConstructor(MinigameArena.class).newInstance(arena);
                         games.put(arenaName, game);
 
-                    } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                    } catch (NoSuchMethodException | SecurityException | InstantiationException |
+                             IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                         Bukkit.getLogger().warning("Loading of arena \"" + arenaName + "\" failed. Did you edit the arena register file?");
+                        e.printStackTrace();
                     }
 
                 }
