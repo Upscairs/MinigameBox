@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="69eb65ae-3bbe-4443-8b8f-8ff1674b2855" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/superclasses/MiniGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/superclasses/MiniGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/utils/GameUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +45,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/user/ProgrammingLocal/IdeaProjects/Plugins/BedrockFlatter",
+    "last_opened_file_path": "/home/user/ProgrammingLocal/IdeaProjects/Plugins/MinigameBox/versions-compiled",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",

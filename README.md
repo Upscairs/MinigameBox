@@ -68,3 +68,11 @@ Can be accessed by Ops and everyone with the permission ``minigamebox.manage``.
 - Settings for arena broadcast and gui interactions can be edited in the file ``/plugins/MinigameBox/settings.yml``.
 - ``listClickAction`` can have the values: ``tp``, ``queue`` or ``none`` (future possibilities will be "info" and "leaderboard").
 - Chat messages (and Gui texts) can be edited in the file ``/plugins/MinigameBox/messages-config.yml``.
+- The book reward for winners of a game can be edited in ``/plugins/MinigameBox/messages-config.yml``. You can enhance your text with format patters. Use the follwong to get:
+  - %a - Arena Name
+  - %m - Gamemode
+  - %p - Rewarded player
+  - %g - Game Name
+  - %l - Loser List
+  - %t - Current Time
+  - %n - Line Break

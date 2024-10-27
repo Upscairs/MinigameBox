@@ -61,15 +61,6 @@ public abstract class GameUtils {
             String bookAuthor = MessagesConfig.get().getString("rewards.book-author");
             String bookText = MessagesConfig.get().getString("rewards.book-text");
 
-            /*
-            %a - Arena Name
-            %m - Gamemode
-            %p - Rewarded player
-            %g - Game Name
-            %l - Loser List
-            %t - Time
-            %n - Line Break
-             */
             Map<Character, String> replacements = new HashMap<>();
             replacements.put('a', game.getArena().getName());
             replacements.put('m', GameTypes.getFromGameClass(game.getClass()).getName());
