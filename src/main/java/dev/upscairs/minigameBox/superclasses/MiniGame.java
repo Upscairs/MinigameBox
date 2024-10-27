@@ -55,8 +55,9 @@ public class MiniGame {
         return false;
     }
 
-    //Removes player from queue or game, if success -> return true
+    //Removes player from queue or game
     public void playerRemove(Player player) {
+        GameRegister.removePlayerFromGame(player);
         if(arena.isPlayerInQueue(player)) {
             arena.removePlayerFromQueue(player);
             player.sendMessage(MessagesConfig.get().getString("game.success-queue-left"));
@@ -73,7 +74,6 @@ public class MiniGame {
         else {
             player.sendMessage(MessagesConfig.get().getString("game.error-not-in-game"));
         }
-        GameRegister.removePlayerFromGame(player);
 
     }
 
@@ -178,41 +178,10 @@ public class MiniGame {
 
         GameUtils.broadcastMessage(arena.getOutsideLocation(), MessagesConfig.get().getString("broadcast.info-game-end-winner-announce") + winnersString.toString());
 
-        grantWinnersReward(winners, losers);
+        GameUtils.grantWinnersReward(winners, losers, this);
 
         droppedOutPlayers.clear();
         startGameAttempt();
-
-    }
-
-    public void grantWinnersReward(Set<Player> winners, Set<Player> losers) {
-
-        //TODO customizable content
-
-        StringBuilder losersString = new StringBuilder();
-
-        for(Player loser : losers) {
-            losersString.append(loser.getName() + ", ");
-        }
-        if(losersString.length() > 2) {
-            losersString.delete(losersString.length() - 2, losersString.length());
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-        String formattedTime = LocalDateTime.now().format(formatter);
-
-        for(Player winner : winners) {
-            ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
-            BookMeta bookMeta = (BookMeta) book.getItemMeta();
-
-            bookMeta.setTitle("Winner of " + GameTypes.getFromGameClass(this.getClass()).getName());
-            bookMeta.setAuthor(arena.getName());
-            bookMeta.addPage("Congratulations!\n\nYou, " + winner.getName() + ", won a game of "
-                    + GameTypes.getFromGameClass(this.getClass()).getName() + " against " + losersString.toString() + ".\n\n" +
-                    "Time: " + formattedTime);
-            book.setItemMeta(bookMeta);
-            winner.getInventory().addItem(book);
-        }
 
     }
 

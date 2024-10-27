@@ -92,6 +92,10 @@ public class MessagesConfig {
         get().addDefault("broadcast.issue-start-aborted-playercount", "§l§aM§bB§r§c The game start got aborted due to players leaving the queue.");
         get().addDefault("broadcast.issue-game-end-force", "§l§aM§bB§r§c The game was canceled by a Game Manager.");
 
+        get().addDefault("rewards.book-title", "Winner of %m");
+        get().addDefault("rewards.book-author", "%a");
+        get().addDefault("rewards.book-text", "Congratulations!%n%nYou, %p, won a game of %m against %l.%n%nTime: %t");
+
         get().options().copyDefaults(true);
         save();
     }

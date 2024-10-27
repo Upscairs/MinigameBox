@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="69eb65ae-3bbe-4443-8b8f-8ff1674b2855" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/arenas_and_games/storing/GameRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/arenas_and_games/storing/GameRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/config/MessagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/config/MessagesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/superclasses/MiniGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/superclasses/MiniGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/utils/GameUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +42,7 @@
     "Maven.Default Package.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "arena__args__save__conversion",
+    "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/user/ProgrammingLocal/IdeaProjects/Plugins/BedrockFlatter",
     "node.js.detected.package.eslint": "true",
