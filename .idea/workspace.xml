@@ -6,10 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="69eb65ae-3bbe-4443-8b8f-8ff1674b2855" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/utils/GameUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/utils/GameUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/ArenaDeleteConfirmGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/ArenaDeleteConfirmGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/ArenaEditGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/ArenaEditGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/ArenaListGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/ArenaListGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/MinigameCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/MinigameCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/MinigameTabCompleter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/MinigameTabCompleter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/QueueListGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/coms_and_guis/QueueListGui.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/arenas_and_games/storing/GameRegister.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/arenas_and_games/storing/GameRegister.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/config/MessagesConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/base_functionality/managing/config/MessagesConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/spleef/SpleefMonitoring.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/spleef/SpleefMonitoring.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/tntrun/TntRunMonitoring.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/minigames/tntrun/TntRunMonitoring.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/superclasses/guis/InteractableGui.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/upscairs/minigameBox/superclasses/guis/InteractableGui.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,22 +45,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.Default Package.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/user/ProgrammingLocal/IdeaProjects/Plugins/MinigameBox/versions-compiled",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.Default Package.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/user/ProgrammingLocal/IdeaProjects/Plugins/MinigameBox/versions-compiled&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/versions-compiled" />
@@ -126,6 +133,9 @@
       <workItem from="1727810890564" duration="21000" />
       <workItem from="1727811373949" duration="19000" />
       <workItem from="1730039922787" duration="10307000" />
+      <workItem from="1730098403582" duration="836000" />
+      <workItem from="1730113132632" duration="600000" />
+      <workItem from="1730134717646" duration="3386000" />
     </task>
     <servers />
   </component>

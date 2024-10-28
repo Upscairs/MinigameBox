@@ -60,6 +60,8 @@ public class MessagesConfig {
         get().addDefault("managing.success-arena-deleted", "§l§aM§bB§r§7 The arena got deleted.");
         get().addDefault("managing.success-arena-reloaded", "§l§aM§bB§r§7 Reloading arena...");
         get().addDefault("managing.success-queue-flushed", "§l§aM§bB§r§7 Queue flushed.");
+        get().addDefault("managing.success-player-dequeued", "§l§aM§bB§r§7 Player dequeued.");
+        get().addDefault("managing.info-you-dequeued", "§l§aM§bB§r§c You got manually dequeued.");
         get().addDefault("managing.error-outpos-in-bounds", "§l§aM§bB§r§c Error. Please place the outside block outside of the arena.");
         get().addDefault("managing.error-already-creating", "§l§aM§bB§r§c You cant create a new arena, because the previous setup is still pending. Finish the setup or use /minigame setup-cancel");
         get().addDefault("managing.error-unknown-gametype", "§l§aM§bB§r§c The gamemode you specified is unknown.");
@@ -73,6 +75,7 @@ public class MessagesConfig {
         get().addDefault("managing.error-already-editing", "§l§aM§bB§r§c You are already editing an arena.");
         get().addDefault("managing.error-not-editing", "§l§aM§bB§r§c You arent editing anything at the moment.");
         get().addDefault("managing.error-edit-illegal-value-input", "§l§aM§bB§r§c Error while parsing input: ");
+        get().addDefault("managing.error-player-not-queued", "§l§aM§bB§r§c This player is not queued.");
 
         get().addDefault("game.success-queue-joined", "§l§aM§bB§r§7 You are queued. Your position is: ");
         get().addDefault("game.success-queue-left", "§l§aM§bB§r§7 You left the queue.");

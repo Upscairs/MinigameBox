@@ -5,14 +5,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.TNTPrimeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -69,7 +66,7 @@ public class TntRunMonitoring implements Listener {
             @Override
             public void run() {
                 try {
-                    for(Player p : GameRegister.getIngamePlayers()) {
+                    for(Player p : GameRegister.getQueuedIngamePlayers()) {
 
                         TntRunGame game = getPlayedTntRunGame(p);
                         if(game == null) return;
@@ -109,7 +106,7 @@ public class TntRunMonitoring implements Listener {
             @Override
             public void run() {
                 try {
-                    for(Player p : GameRegister.getIngamePlayers()) {
+                    for(Player p : GameRegister.getQueuedIngamePlayers()) {
                         TntRunGame game = getPlayedTntRunGame(p);
                         if(game == null) return;
 

@@ -36,6 +36,11 @@ public class MinigameTabCompleter implements TabCompleter {
                 else if(args[0].equalsIgnoreCase("create")) {
                     completions.addAll(getGameTypes());
                 }
+                else if(args[0].equalsIgnoreCase("dequeue")) {
+                    GameRegister.getQueuedIngamePlayers().stream()
+                            .filter(player -> GameRegister.getPlayersGame(player).getArena().getQueuedPlayers().contains(player))
+                            .forEach(player -> completions.add(player.getName()));
+                }
             }
         }
 
@@ -67,8 +72,8 @@ public class MinigameTabCompleter implements TabCompleter {
         keywords.add("refresh");
         keywords.add("stop");
         keywords.add("start");
+        keywords.add("dequeue");
         keywords.add("flush");
-        keywords.add("debug");
 
         return keywords;
     }

@@ -4,7 +4,9 @@ import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.sto
 import dev.upscairs.minigameBox.superclasses.guis.InteractableGui;
 import dev.upscairs.minigameBox.superclasses.guis.ScrollableGui;
 import dev.upscairs.minigameBox.utils.InvGuiUtils;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -58,6 +60,12 @@ public class QueueListGui extends ScrollableGui implements InventoryHolder {
 
         meta.displayName(header);
 
+        if(getViewingPlayer().hasPermission("minigamebox.manage")) {
+            ArrayList<Component> lore = new ArrayList<>();
+            lore.add(Component.text().content("Click to remove player").color(TextColor.fromHexString("#FF5555")).build());
+            meta.lore(lore);
+        }
+
         stack.setItemMeta(meta);
 
         return stack;
@@ -68,7 +76,7 @@ public class QueueListGui extends ScrollableGui implements InventoryHolder {
         Inventory inv = super.getInventory();
 
         inv.setItem(49, generateJoinLeaveItem());
-        if(getPlayer().hasPermission("minigamebox.manage")) {
+        if(getViewingPlayer().hasPermission("minigamebox.manage")) {
             inv.setItem(50, generateFlushItem());
         }
 
@@ -77,7 +85,7 @@ public class QueueListGui extends ScrollableGui implements InventoryHolder {
     }
 
     private ItemStack generateJoinLeaveItem() {
-        boolean playerIngame = GameRegister.isPlayerInGame(getPlayer());
+        boolean playerIngame = GameRegister.isPlayerInGame(getViewingPlayer());
         ItemStack stack = new ItemStack(playerIngame ? Material.SOUL_CAMPFIRE : Material.CAMPFIRE);
 
         ItemMeta meta = stack.getItemMeta();
@@ -104,28 +112,40 @@ public class QueueListGui extends ScrollableGui implements InventoryHolder {
 
     @Override
     public InteractableGui handleInvClick(int clickedSlot) {
-        switch (clickedSlot) {
-            case 49: {
-                if(GameRegister.isPlayerInGame(getPlayer())) {
-                    getPlayer().performCommand("minigame leave");
+
+        if(clickedSlot < 45 && getViewingPlayer().hasPermission("minigamebox.manage")) {
+
+            if(clickedSlot+getPage()*45 >= players.size() ) {
+                return this;
+            }
+
+            Player correspondingPlayer = players.get(clickedSlot+getPage()*45);
+
+            getViewingPlayer().performCommand("minigame dequeue " + correspondingPlayer.getName());
+            return new QueueListGui(getArgs(), GameRegister.getGame(gameName).getArena().getQueuedPlayers().stream().toList());
+
+        }
+        else if(clickedSlot == 49) {
+                if(GameRegister.isPlayerInGame(getViewingPlayer())) {
+                    getViewingPlayer().performCommand("minigame leave");
                 }
                 else {
-                    getPlayer().performCommand("minigame join " + gameName);
+                    getViewingPlayer().performCommand("minigame join " + gameName);
                 }
                 return new QueueListGui(getArgs(), GameRegister.getGame(gameName).getArena().getQueuedPlayers().stream().toList());
-            }
-            case 50: {
-                if(getPlayer().hasPermission("minigamebox.manange")) {
+        }
+        else if(clickedSlot == 50) {
+                if(getViewingPlayer().hasPermission("minigamebox.manange")) {
 
-                    getPlayer().performCommand("minigame flush " + gameName);
+                    getViewingPlayer().performCommand("minigame flush " + gameName);
 
                     return new QueueListGui(getArgs(), GameRegister.getGame(gameName).getArena().getQueuedPlayers().stream().toList());
                 }
-            }
-            default: {
-                return super.handleInvClick(clickedSlot);
-            }
         }
+        else {
+            return super.handleInvClick(clickedSlot);
+        }
+        return this;
 
     }
 

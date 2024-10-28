@@ -7,6 +7,7 @@ import dev.upscairs.minigameBox.base_functionality.managing.arenas_and_games.sto
 import dev.upscairs.minigameBox.base_functionality.managing.config.ArenaRegisterFile;
 import dev.upscairs.minigameBox.base_functionality.managing.config.MessagesConfig;
 import dev.upscairs.minigameBox.superclasses.MinigameArena;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -245,6 +246,26 @@ public class MinigameCommand implements CommandExecutor {
                             return true;
                         }
                         GameRegister.getGame(gameName).endGame(true);
+                    }
+                    else {
+                        p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));
+                    }
+                    return true;
+                }
+                else if(args[0].equalsIgnoreCase("dequeue")) {
+                    if(args.length >= 2) {
+
+                        Player issuedPlayer = Bukkit.getPlayer(args[1]);
+
+                        if(issuedPlayer == null || !GameRegister.isPlayerInGame(issuedPlayer) || !GameRegister.getPlayersGame(issuedPlayer).getArena().getQueuedPlayers().contains(issuedPlayer)) {
+                            p.sendMessage(MessagesConfig.get().getString("managing.error-player-not-queued"));
+                            return true;
+                        }
+
+                        GameRegister.getPlayersGame(issuedPlayer).playerRemove(issuedPlayer);
+                        p.sendMessage(MessagesConfig.get().getString("managing.success-player-dequeued"));
+                        issuedPlayer.sendMessage(MessagesConfig.get().getString("managing.info-you-dequeued"));
+
                     }
                     else {
                         p.sendMessage(MessagesConfig.get().getString("managing.error-edit-wrong-syntax"));

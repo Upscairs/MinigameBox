@@ -247,25 +247,25 @@ public class ArenaEditGui extends InteractableGui {
     public InteractableGui handleInvClick(int clickedSlot) {
 
         switch (clickedSlot) {
-            case 11: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "min_players"); return null;
-            case 20: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "max_players"); return null;
-            case 12: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "fillup_time"); return null;
-            case 21: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "setup_time"); return null;
+            case 11: PendingArenaEdits.newEditInstance(getViewingPlayer(), getArena(), "min_players"); return null;
+            case 20: PendingArenaEdits.newEditInstance(getViewingPlayer(), getArena(), "max_players"); return null;
+            case 12: PendingArenaEdits.newEditInstance(getViewingPlayer(), getArena(), "fillup_time"); return null;
+            case 21: PendingArenaEdits.newEditInstance(getViewingPlayer(), getArena(), "setup_time"); return null;
             case 13: arena.editArgs("queue_open", arena.isQueueOpen() ? "false" : "true"); return getNewGui();
             case 22: arena.editArgs("continuous", arena.isContinuous() ? "false" : "true"); return getNewGui();
             case 14: arena.editArgs("list_visible", arena.isVisible() ? "false" : "true"); return getNewGui();
-            case 23: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "list_item"); return null;
-            case 15: PendingArenaEdits.newEditInstance(getPlayer(), getArena(), "description"); return null;
+            case 23: PendingArenaEdits.newEditInstance(getViewingPlayer(), getArena(), "list_item"); return null;
+            case 15: PendingArenaEdits.newEditInstance(getViewingPlayer(), getArena(), "description"); return null;
             case 45: {
                 return new ArenaDeleteConfirmGui(getArgs(), this);
             }
             case 53: {
                 MiniGame game = GameRegister.getGame(arena.getName());
                 if(game.isGameRunning()) {
-                    getPlayer().performCommand("minigame stop " + arena.getName());
+                    getViewingPlayer().performCommand("minigame stop " + arena.getName());
                 }
                 else {
-                    getPlayer().performCommand("minigame start " + arena.getName());
+                    getViewingPlayer().performCommand("minigame start " + arena.getName());
                 }
                 return getNewGui();
             }

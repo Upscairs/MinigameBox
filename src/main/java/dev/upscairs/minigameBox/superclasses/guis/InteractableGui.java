@@ -51,7 +51,7 @@ public abstract class InteractableGui implements InventoryHolder {
         return this;
     }
 
-    public Player getPlayer() {
+    public Player getViewingPlayer() {
         return player;
     }
 

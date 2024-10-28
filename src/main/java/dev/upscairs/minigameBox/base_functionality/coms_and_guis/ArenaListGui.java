@@ -13,7 +13,6 @@ import org.bukkit.inventory.InventoryHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class ArenaListGui extends ScrollableGui implements InventoryHolder {
 
@@ -57,14 +56,14 @@ public class ArenaListGui extends ScrollableGui implements InventoryHolder {
             }
 
             MinigameArena correspondingArena = arenas.get(clickedSlot+getPage()*45);
-            Player p = Bukkit.getPlayer(UUID.fromString(getArg(0)));
+            Player guiViewer = getViewingPlayer();
 
             if(clickedMode.equalsIgnoreCase("tp")) {
-                p.teleport(correspondingArena.getOutsideLocation());
+                guiViewer.teleport(correspondingArena.getOutsideLocation());
                 return null;
             }
             else if(clickedMode.equalsIgnoreCase("queue")) {
-                GameRegister.getGame(correspondingArena.getName()).playerJoinQueue(p);
+                GameRegister.getGame(correspondingArena.getName()).playerJoinQueue(guiViewer);
 
                 return null;
             }

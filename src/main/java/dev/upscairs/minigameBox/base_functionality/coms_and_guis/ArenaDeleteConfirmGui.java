@@ -72,7 +72,7 @@ public class ArenaDeleteConfirmGui extends InteractableGui {
     public InteractableGui handleInvClick(int clickedSlot) {
         switch (clickedSlot) {
             case 10: {
-                getPlayer().performCommand("minigame delete " + arena.getName());
+                getViewingPlayer().performCommand("minigame delete " + arena.getName());
                 return null;
             }
             case 16: {

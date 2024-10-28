@@ -67,7 +67,7 @@ public class SpleefMonitoring implements Listener {
             @Override
             public void run() {
                 try {
-                    for(Player p : GameRegister.getIngamePlayers()) {
+                    for(Player p : GameRegister.getQueuedIngamePlayers()) {
 
                         SpleefGame game = getPlayedSpleefGame(p);
                         if(game == null) return;

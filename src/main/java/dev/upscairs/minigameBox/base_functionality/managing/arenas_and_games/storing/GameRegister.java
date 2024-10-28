@@ -66,7 +66,6 @@ public abstract class GameRegister {
 
         } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
             Bukkit.getLogger().severe("Error reloading game " + gameName);
-            e.printStackTrace();
         }
 
     }
@@ -132,8 +131,7 @@ public abstract class GameRegister {
                         saveArenaSettings(arena);
 
                     } catch(NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                        //Bukkit.getLogger().warning("Conversion failed. You might need to check the integrity of your arena.");
-                        e.printStackTrace();
+                        Bukkit.getLogger().warning("Conversion failed. You might need to check the integrity of your arena.");
                     }
 
                 }
@@ -155,7 +153,6 @@ public abstract class GameRegister {
                     } catch (NoSuchMethodException | SecurityException | InstantiationException |
                              IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
                         Bukkit.getLogger().warning("Loading of arena \"" + arenaName + "\" failed. Did you edit the arena register file?");
-                        e.printStackTrace();
                     }
 
                 }
@@ -220,7 +217,7 @@ public abstract class GameRegister {
         playersQueuedAndIngame.remove(player);
     }
 
-    public static Set<Player> getIngamePlayers() {
+    public static Set<Player> getQueuedIngamePlayers() {
         return playersQueuedAndIngame.keySet();
     }
 
